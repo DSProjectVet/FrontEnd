@@ -1,0 +1,12 @@
+C:\Users\LabInfo\Desktop\Projeto_Vet\DSProjectVet\obj\Debug\DSProjectVet.csproj.AssemblyReference.cache
+C:\Users\LabInfo\Desktop\Projeto_Vet\DSProjectVet\obj\Debug\DSProjectVet.Forms.frm_Login.resources
+C:\Users\LabInfo\Desktop\Projeto_Vet\DSProjectVet\obj\Debug\DSProjectVet.Forms.MDI_Menu.resources
+C:\Users\LabInfo\Desktop\Projeto_Vet\DSProjectVet\obj\Debug\DSProjectVet.Properties.Resources.resources
+C:\Users\LabInfo\Desktop\Projeto_Vet\DSProjectVet\obj\Debug\DSProjectVet.csproj.GenerateResource.cache
+C:\Users\LabInfo\Desktop\Projeto_Vet\DSProjectVet\obj\Debug\DSProjectVet.csproj.CoreCompileInputs.cache
+C:\Users\LabInfo\Desktop\Projeto_Vet\DSProjectVet\bin\Debug\DSProjectVet.exe.config
+C:\Users\LabInfo\Desktop\Projeto_Vet\DSProjectVet\bin\Debug\DSProjectVet.exe
+C:\Users\LabInfo\Desktop\Projeto_Vet\DSProjectVet\bin\Debug\DSProjectVet.pdb
+C:\Users\LabInfo\Desktop\Projeto_Vet\DSProjectVet\obj\Debug\DSProjectVet.exe
+C:\Users\LabInfo\Desktop\Projeto_Vet\DSProjectVet\obj\Debug\DSProjectVet.pdb
+C:\Users\LabInfo\Desktop\Projeto_Vet\DSProjectVet\obj\Debug\DSProjectVet.exe.config
