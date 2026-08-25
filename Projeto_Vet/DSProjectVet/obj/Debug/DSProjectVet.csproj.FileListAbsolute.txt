@@ -22,3 +22,16 @@ C:\Users\jhuni\source\repos\DSProjectVet\FrontEnd\Projeto_Vet\DSProjectVet\obj\D
 C:\Users\jhuni\source\repos\DSProjectVet\FrontEnd\Projeto_Vet\DSProjectVet\obj\Debug\DSProjectVet.exe
 C:\Users\jhuni\source\repos\DSProjectVet\FrontEnd\Projeto_Vet\DSProjectVet\obj\Debug\DSProjectVet.pdb
 C:\Users\jhuni\source\repos\DSProjectVet\FrontEnd\Projeto_Vet\DSProjectVet\obj\Debug\DSProjectVet.Forms.frm_SplashScreen.resources
+C:\Users\EtecFP\source\repos\DSProjectVet\FrontEnd\Projeto_Vet\DSProjectVet\bin\Debug\DSProjectVet.exe.config
+C:\Users\EtecFP\source\repos\DSProjectVet\FrontEnd\Projeto_Vet\DSProjectVet\bin\Debug\DSProjectVet.exe
+C:\Users\EtecFP\source\repos\DSProjectVet\FrontEnd\Projeto_Vet\DSProjectVet\bin\Debug\DSProjectVet.pdb
+C:\Users\EtecFP\source\repos\DSProjectVet\FrontEnd\Projeto_Vet\DSProjectVet\obj\Debug\DSProjectVet.csproj.AssemblyReference.cache
+C:\Users\EtecFP\source\repos\DSProjectVet\FrontEnd\Projeto_Vet\DSProjectVet\obj\Debug\DSProjectVet.exe.config
+C:\Users\EtecFP\source\repos\DSProjectVet\FrontEnd\Projeto_Vet\DSProjectVet\obj\Debug\DSProjectVet.Forms.frm_Login.resources
+C:\Users\EtecFP\source\repos\DSProjectVet\FrontEnd\Projeto_Vet\DSProjectVet\obj\Debug\DSProjectVet.Forms.frm_SplashScreen.resources
+C:\Users\EtecFP\source\repos\DSProjectVet\FrontEnd\Projeto_Vet\DSProjectVet\obj\Debug\DSProjectVet.Forms.MDI_Menu.resources
+C:\Users\EtecFP\source\repos\DSProjectVet\FrontEnd\Projeto_Vet\DSProjectVet\obj\Debug\DSProjectVet.Properties.Resources.resources
+C:\Users\EtecFP\source\repos\DSProjectVet\FrontEnd\Projeto_Vet\DSProjectVet\obj\Debug\DSProjectVet.csproj.GenerateResource.cache
+C:\Users\EtecFP\source\repos\DSProjectVet\FrontEnd\Projeto_Vet\DSProjectVet\obj\Debug\DSProjectVet.csproj.CoreCompileInputs.cache
+C:\Users\EtecFP\source\repos\DSProjectVet\FrontEnd\Projeto_Vet\DSProjectVet\obj\Debug\DSProjectVet.exe
+C:\Users\EtecFP\source\repos\DSProjectVet\FrontEnd\Projeto_Vet\DSProjectVet\obj\Debug\DSProjectVet.pdb

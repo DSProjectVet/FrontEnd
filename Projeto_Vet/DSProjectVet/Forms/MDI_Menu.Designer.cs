@@ -28,118 +28,112 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.menu_MDI = new System.Windows.Forms.Panel();
-            this.btnCadastrar = new System.Windows.Forms.Button();
-            this.btnRelatorio = new System.Windows.Forms.Button();
-            this.btnConsultas = new System.Windows.Forms.Button();
-            this.btnLogout = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.menu_MDI.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MDI_Menu));
+            this.menuDashBoard = new System.Windows.Forms.MenuStrip();
+            this.cadastrosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.relatóriosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.estoqueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.movimentaçõesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.entradasFinanceirasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saídasFinanceirasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fluxoFinanceiroToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.consultasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.animaisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuDashBoard.SuspendLayout();
             this.SuspendLayout();
             // 
-            // contextMenuStrip1
+            // menuDashBoard
             // 
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            this.menuDashBoard.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.menuDashBoard.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cadastrosToolStripMenuItem,
+            this.relatóriosToolStripMenuItem,
+            this.consultasToolStripMenuItem});
+            this.menuDashBoard.Location = new System.Drawing.Point(0, 0);
+            this.menuDashBoard.Name = "menuDashBoard";
+            this.menuDashBoard.Size = new System.Drawing.Size(1127, 29);
+            this.menuDashBoard.TabIndex = 0;
+            this.menuDashBoard.Text = "menuStrip1";
             // 
-            // menu_MDI
+            // cadastrosToolStripMenuItem
             // 
-            this.menu_MDI.AccessibleRole = System.Windows.Forms.AccessibleRole.MenuBar;
-            this.menu_MDI.BackColor = System.Drawing.SystemColors.Control;
-            this.menu_MDI.Controls.Add(this.pictureBox3);
-            this.menu_MDI.Controls.Add(this.pictureBox2);
-            this.menu_MDI.Controls.Add(this.pictureBox1);
-            this.menu_MDI.Controls.Add(this.btnLogout);
-            this.menu_MDI.Controls.Add(this.btnConsultas);
-            this.menu_MDI.Controls.Add(this.btnRelatorio);
-            this.menu_MDI.Controls.Add(this.btnCadastrar);
-            this.menu_MDI.Dock = System.Windows.Forms.DockStyle.Left;
-            this.menu_MDI.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.menu_MDI.Location = new System.Drawing.Point(0, 0);
-            this.menu_MDI.Name = "menu_MDI";
-            this.menu_MDI.Size = new System.Drawing.Size(280, 634);
-            this.menu_MDI.TabIndex = 1;
+            this.cadastrosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.clientesToolStripMenuItem,
+            this.animaisToolStripMenuItem});
+            this.cadastrosToolStripMenuItem.ForeColor = System.Drawing.SystemColors.MenuText;
+            this.cadastrosToolStripMenuItem.Name = "cadastrosToolStripMenuItem";
+            this.cadastrosToolStripMenuItem.Size = new System.Drawing.Size(96, 25);
+            this.cadastrosToolStripMenuItem.Text = "Cadastros";
             // 
-            // btnCadastrar
+            // relatóriosToolStripMenuItem
             // 
-            this.btnCadastrar.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnCadastrar.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnCadastrar.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.btnCadastrar.Location = new System.Drawing.Point(0, 0);
-            this.btnCadastrar.Name = "btnCadastrar";
-            this.btnCadastrar.Size = new System.Drawing.Size(280, 40);
-            this.btnCadastrar.TabIndex = 0;
-            this.btnCadastrar.Text = "Cadastros";
-            this.btnCadastrar.UseVisualStyleBackColor = true;
+            this.relatóriosToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.estoqueToolStripMenuItem,
+            this.movimentaçõesToolStripMenuItem,
+            this.entradasFinanceirasToolStripMenuItem,
+            this.saídasFinanceirasToolStripMenuItem,
+            this.fluxoFinanceiroToolStripMenuItem});
+            this.relatóriosToolStripMenuItem.ForeColor = System.Drawing.SystemColors.MenuText;
+            this.relatóriosToolStripMenuItem.Name = "relatóriosToolStripMenuItem";
+            this.relatóriosToolStripMenuItem.Size = new System.Drawing.Size(99, 25);
+            this.relatóriosToolStripMenuItem.Text = "Relatórios";
             // 
-            // btnRelatorio
+            // estoqueToolStripMenuItem
             // 
-            this.btnRelatorio.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnRelatorio.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnRelatorio.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.btnRelatorio.Location = new System.Drawing.Point(0, 40);
-            this.btnRelatorio.Name = "btnRelatorio";
-            this.btnRelatorio.Size = new System.Drawing.Size(280, 40);
-            this.btnRelatorio.TabIndex = 1;
-            this.btnRelatorio.Text = "Relatorios";
-            this.btnRelatorio.UseVisualStyleBackColor = true;
+            this.estoqueToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("estoqueToolStripMenuItem.Image")));
+            this.estoqueToolStripMenuItem.Name = "estoqueToolStripMenuItem";
+            this.estoqueToolStripMenuItem.Size = new System.Drawing.Size(236, 26);
+            this.estoqueToolStripMenuItem.Text = "Estoque";
             // 
-            // btnConsultas
+            // movimentaçõesToolStripMenuItem
             // 
-            this.btnConsultas.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnConsultas.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnConsultas.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.btnConsultas.Location = new System.Drawing.Point(0, 80);
-            this.btnConsultas.Name = "btnConsultas";
-            this.btnConsultas.Size = new System.Drawing.Size(280, 40);
-            this.btnConsultas.TabIndex = 2;
-            this.btnConsultas.Text = "Consultas";
-            this.btnConsultas.UseVisualStyleBackColor = true;
+            this.movimentaçõesToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("movimentaçõesToolStripMenuItem.Image")));
+            this.movimentaçõesToolStripMenuItem.Name = "movimentaçõesToolStripMenuItem";
+            this.movimentaçõesToolStripMenuItem.Size = new System.Drawing.Size(236, 26);
+            this.movimentaçõesToolStripMenuItem.Text = "Movimentações";
             // 
-            // btnLogout
+            // entradasFinanceirasToolStripMenuItem
             // 
-            this.btnLogout.BackColor = System.Drawing.SystemColors.Control;
-            this.btnLogout.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.btnLogout.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btnLogout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLogout.ForeColor = System.Drawing.SystemColors.InfoText;
-            this.btnLogout.Location = new System.Drawing.Point(0, 599);
-            this.btnLogout.Name = "btnLogout";
-            this.btnLogout.Size = new System.Drawing.Size(280, 35);
-            this.btnLogout.TabIndex = 4;
-            this.btnLogout.Text = "Sair";
-            this.btnLogout.UseVisualStyleBackColor = false;
+            this.entradasFinanceirasToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("entradasFinanceirasToolStripMenuItem.Image")));
+            this.entradasFinanceirasToolStripMenuItem.Name = "entradasFinanceirasToolStripMenuItem";
+            this.entradasFinanceirasToolStripMenuItem.Size = new System.Drawing.Size(236, 26);
+            this.entradasFinanceirasToolStripMenuItem.Text = "Entradas Financeiras";
             // 
-            // pictureBox1
+            // saídasFinanceirasToolStripMenuItem
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(12, 7);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(24, 24);
-            this.pictureBox1.TabIndex = 5;
-            this.pictureBox1.TabStop = false;
+            this.saídasFinanceirasToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("saídasFinanceirasToolStripMenuItem.Image")));
+            this.saídasFinanceirasToolStripMenuItem.Name = "saídasFinanceirasToolStripMenuItem";
+            this.saídasFinanceirasToolStripMenuItem.Size = new System.Drawing.Size(236, 26);
+            this.saídasFinanceirasToolStripMenuItem.Text = "Saídas Financeiras";
             // 
-            // pictureBox2
+            // fluxoFinanceiroToolStripMenuItem
             // 
-            this.pictureBox2.Location = new System.Drawing.Point(12, 46);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(24, 24);
-            this.pictureBox2.TabIndex = 6;
-            this.pictureBox2.TabStop = false;
+            this.fluxoFinanceiroToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("fluxoFinanceiroToolStripMenuItem.Image")));
+            this.fluxoFinanceiroToolStripMenuItem.Name = "fluxoFinanceiroToolStripMenuItem";
+            this.fluxoFinanceiroToolStripMenuItem.Size = new System.Drawing.Size(236, 26);
+            this.fluxoFinanceiroToolStripMenuItem.Text = "Fluxo Financeiro";
             // 
-            // pictureBox3
+            // consultasToolStripMenuItem
             // 
-            this.pictureBox3.Location = new System.Drawing.Point(12, 86);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(24, 24);
-            this.pictureBox3.TabIndex = 7;
-            this.pictureBox3.TabStop = false;
+            this.consultasToolStripMenuItem.ForeColor = System.Drawing.SystemColors.MenuText;
+            this.consultasToolStripMenuItem.Name = "consultasToolStripMenuItem";
+            this.consultasToolStripMenuItem.Size = new System.Drawing.Size(96, 25);
+            this.consultasToolStripMenuItem.Text = "Consultas";
+            // 
+            // clientesToolStripMenuItem
+            // 
+            this.clientesToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("clientesToolStripMenuItem.Image")));
+            this.clientesToolStripMenuItem.Name = "clientesToolStripMenuItem";
+            this.clientesToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
+            this.clientesToolStripMenuItem.Text = "Clientes";
+            // 
+            // animaisToolStripMenuItem
+            // 
+            this.animaisToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("animaisToolStripMenuItem.Image")));
+            this.animaisToolStripMenuItem.Name = "animaisToolStripMenuItem";
+            this.animaisToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
+            this.animaisToolStripMenuItem.Text = "Animais";
             // 
             // MDI_Menu
             // 
@@ -147,31 +141,32 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.HighlightText;
             this.ClientSize = new System.Drawing.Size(1127, 634);
-            this.Controls.Add(this.menu_MDI);
+            this.Controls.Add(this.menuDashBoard);
             this.ForeColor = System.Drawing.SystemColors.Window;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MDI_Menu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MDI_Menu";
-            this.menu_MDI.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            this.menuDashBoard.ResumeLayout(false);
+            this.menuDashBoard.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-        private System.Windows.Forms.Panel menu_MDI;
-        private System.Windows.Forms.Button btnConsultas;
-        private System.Windows.Forms.Button btnRelatorio;
-        private System.Windows.Forms.Button btnCadastrar;
-        private System.Windows.Forms.Button btnLogout;
-        private System.Windows.Forms.PictureBox pictureBox3;
-        private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.MenuStrip menuDashBoard;
+        private System.Windows.Forms.ToolStripMenuItem cadastrosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem clientesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem animaisToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem relatóriosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem estoqueToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem movimentaçõesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem entradasFinanceirasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saídasFinanceirasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fluxoFinanceiroToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem consultasToolStripMenuItem;
     }
 }

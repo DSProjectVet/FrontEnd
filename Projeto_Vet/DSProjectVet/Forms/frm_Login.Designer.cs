@@ -45,7 +45,7 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(8, 8);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(321, 274);
             this.pictureBox1.TabIndex = 0;
@@ -78,20 +78,22 @@
             // 
             this.txtUser.BackColor = System.Drawing.SystemColors.Window;
             this.txtUser.Location = new System.Drawing.Point(366, 116);
-            this.txtUser.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtUser.Margin = new System.Windows.Forms.Padding(2);
             this.txtUser.Name = "txtUser";
             this.txtUser.Size = new System.Drawing.Size(187, 20);
             this.txtUser.TabIndex = 3;
+            this.txtUser.TextChanged += new System.EventHandler(this.txtUser_TextChanged);
             // 
             // txtPass
             // 
             this.txtPass.BackColor = System.Drawing.SystemColors.Window;
             this.txtPass.Location = new System.Drawing.Point(366, 176);
-            this.txtPass.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtPass.Margin = new System.Windows.Forms.Padding(2);
             this.txtPass.Name = "txtPass";
             this.txtPass.Size = new System.Drawing.Size(187, 20);
             this.txtPass.TabIndex = 4;
             this.txtPass.UseSystemPasswordChar = true;
+            this.txtPass.TextChanged += new System.EventHandler(this.txtPass_TextChanged);
             // 
             // lbl_title1
             // 
@@ -138,7 +140,7 @@
             this.ForeColor = System.Drawing.SystemColors.Desktop;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.Name = "frm_Login";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

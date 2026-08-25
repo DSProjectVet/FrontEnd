@@ -16,5 +16,10 @@ namespace DSProjectVet.Forms
         {
             InitializeComponent();
         }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
