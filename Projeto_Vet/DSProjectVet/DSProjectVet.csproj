@@ -60,6 +60,15 @@
     <Compile Include="Forms\frm_SplashScreen.Designer.cs">
       <DependentUpon>frm_SplashScreen.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\GradientPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Forms\loginTextbox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\loginTextbox.Designer.cs">
+      <DependentUpon>loginTextbox.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\MDI_Menu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -73,6 +82,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frm_SplashScreen.resx">
       <DependentUpon>frm_SplashScreen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\loginTextbox.resx">
+      <DependentUpon>loginTextbox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MDI_Menu.resx">
       <DependentUpon>MDI_Menu.cs</DependentUpon>

@@ -35,3 +35,4 @@ C:\Users\EtecFP\source\repos\DSProjectVet\FrontEnd\Projeto_Vet\DSProjectVet\obj\
 C:\Users\EtecFP\source\repos\DSProjectVet\FrontEnd\Projeto_Vet\DSProjectVet\obj\Debug\DSProjectVet.csproj.CoreCompileInputs.cache
 C:\Users\EtecFP\source\repos\DSProjectVet\FrontEnd\Projeto_Vet\DSProjectVet\obj\Debug\DSProjectVet.exe
 C:\Users\EtecFP\source\repos\DSProjectVet\FrontEnd\Projeto_Vet\DSProjectVet\obj\Debug\DSProjectVet.pdb
+C:\Users\jhuni\source\repos\DSProjectVet\FrontEnd\Projeto_Vet\DSProjectVet\obj\Debug\DSProjectVet.Forms.loginTextbox.resources
