@@ -17,9 +17,49 @@ namespace DSProjectVet.Forms
             InitializeComponent();
         }
 
+        void MDI_Warning_Message()
+        {
+            MessageBox.Show("Uma janela já foi aberta. Feche-a para abrir uma nova!",
+                "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+        }
+
+        private bool FormAberto(Type tipoForm)
+        {
+            foreach (Form form in MdiChildren)
+            {
+                if (form.GetType() == tipoForm) //tipoForm retorna qual instância atual
+                {
+                    
+                    form.Focus(); // traz para frente
+                    return true; // retorna true caso já exita um form do mesmo type aberto. 
+                }
+            }
+            return false;
+        }
+
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void perfilToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!FormAberto(typeof(Perfil))) // executa apenas se MdiChildren estiver vazio.
+            {
+                Perfil frmCalculos = new Perfil();
+                frmCalculos.MdiParent = this; // indica se essa nova instancia é parente de MDI
+                                              //this indica o form MDI atual
+
+                // new frmPerfilUsuario() cria/instância uma nova janela da calculadora
+
+
+                frmCalculos.Show();
+                // ShowDialog() impede de clicar na tela de fundo enquando frmPerfilUsuario estiver aberto
+            }
+            else
+            {
+                MDI_Warning_Message();
+            }
         }
     }
 }

@@ -31,6 +31,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MDI_Menu));
             this.menuDashBoard = new System.Windows.Forms.MenuStrip();
             this.cadastrosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.animaisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.relatóriosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.estoqueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.movimentaçõesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -38,8 +40,7 @@
             this.saídasFinanceirasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fluxoFinanceiroToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.consultasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.clientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.animaisToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.perfilToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuDashBoard.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -49,10 +50,11 @@
             this.menuDashBoard.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cadastrosToolStripMenuItem,
             this.relatóriosToolStripMenuItem,
-            this.consultasToolStripMenuItem});
+            this.consultasToolStripMenuItem,
+            this.perfilToolStripMenuItem});
             this.menuDashBoard.Location = new System.Drawing.Point(0, 0);
             this.menuDashBoard.Name = "menuDashBoard";
-            this.menuDashBoard.Size = new System.Drawing.Size(1127, 29);
+            this.menuDashBoard.Size = new System.Drawing.Size(1238, 29);
             this.menuDashBoard.TabIndex = 0;
             this.menuDashBoard.Text = "menuStrip1";
             // 
@@ -65,6 +67,20 @@
             this.cadastrosToolStripMenuItem.Name = "cadastrosToolStripMenuItem";
             this.cadastrosToolStripMenuItem.Size = new System.Drawing.Size(96, 25);
             this.cadastrosToolStripMenuItem.Text = "Cadastros";
+            // 
+            // clientesToolStripMenuItem
+            // 
+            this.clientesToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("clientesToolStripMenuItem.Image")));
+            this.clientesToolStripMenuItem.Name = "clientesToolStripMenuItem";
+            this.clientesToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
+            this.clientesToolStripMenuItem.Text = "Clientes";
+            // 
+            // animaisToolStripMenuItem
+            // 
+            this.animaisToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("animaisToolStripMenuItem.Image")));
+            this.animaisToolStripMenuItem.Name = "animaisToolStripMenuItem";
+            this.animaisToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
+            this.animaisToolStripMenuItem.Text = "Animais";
             // 
             // relatóriosToolStripMenuItem
             // 
@@ -121,29 +137,24 @@
             this.consultasToolStripMenuItem.Size = new System.Drawing.Size(96, 25);
             this.consultasToolStripMenuItem.Text = "Consultas";
             // 
-            // clientesToolStripMenuItem
+            // perfilToolStripMenuItem
             // 
-            this.clientesToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("clientesToolStripMenuItem.Image")));
-            this.clientesToolStripMenuItem.Name = "clientesToolStripMenuItem";
-            this.clientesToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
-            this.clientesToolStripMenuItem.Text = "Clientes";
-            // 
-            // animaisToolStripMenuItem
-            // 
-            this.animaisToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("animaisToolStripMenuItem.Image")));
-            this.animaisToolStripMenuItem.Name = "animaisToolStripMenuItem";
-            this.animaisToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
-            this.animaisToolStripMenuItem.Text = "Animais";
+            this.perfilToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.perfilToolStripMenuItem.Name = "perfilToolStripMenuItem";
+            this.perfilToolStripMenuItem.Size = new System.Drawing.Size(63, 25);
+            this.perfilToolStripMenuItem.Text = "Perfil";
+            this.perfilToolStripMenuItem.Click += new System.EventHandler(this.perfilToolStripMenuItem_Click);
             // 
             // MDI_Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.HighlightText;
-            this.ClientSize = new System.Drawing.Size(1127, 634);
+            this.BackColor = System.Drawing.SystemColors.Control;
+            this.ClientSize = new System.Drawing.Size(1238, 743);
             this.Controls.Add(this.menuDashBoard);
             this.ForeColor = System.Drawing.SystemColors.Window;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.IsMdiContainer = true;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MDI_Menu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -168,5 +179,6 @@
         private System.Windows.Forms.ToolStripMenuItem saídasFinanceirasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fluxoFinanceiroToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem consultasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem perfilToolStripMenuItem;
     }
 }
