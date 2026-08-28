@@ -48,22 +48,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Forms\frmClientes.cs">
+    <Compile Include="Forms\SCREENS\frmClientes.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmClientes.Designer.cs">
+    <Compile Include="Forms\SCREENS\frmClientes.Designer.cs">
       <DependentUpon>frmClientes.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmPerfilUsuario.cs">
+    <Compile Include="Forms\SCREENS\frmPerfilUsuario.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmPerfilUsuario.Designer.cs">
+    <Compile Include="Forms\SCREENS\frmPerfilUsuario.Designer.cs">
       <DependentUpon>frmPerfilUsuario.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frm_Login.cs">
+    <Compile Include="Forms\CRUD\frm_Login.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frm_Login.Designer.cs">
+    <Compile Include="Forms\CRUD\frm_Login.Designer.cs">
       <DependentUpon>frm_Login.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\frm_SplashScreen.cs">
@@ -72,13 +72,13 @@
     <Compile Include="Forms\frm_SplashScreen.Designer.cs">
       <DependentUpon>frm_SplashScreen.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\GradientPanel.cs">
+    <Compile Include="Forms\CLASSES\GradientPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Forms\loginTextbox.cs">
+    <Compile Include="Forms\CLASSES\loginTextbox.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Forms\loginTextbox.Designer.cs">
+    <Compile Include="Forms\CLASSES\loginTextbox.Designer.cs">
       <DependentUpon>loginTextbox.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\MDI_Menu.cs">
@@ -87,18 +87,26 @@
     <Compile Include="Forms\MDI_Menu.Designer.cs">
       <DependentUpon>MDI_Menu.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\CLASSES\RoundedPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MedVet_testeDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MedVet_testeDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Forms\frmPerfilUsuario.resx">
+    <EmbeddedResource Include="Forms\SCREENS\frmPerfilUsuario.resx">
       <DependentUpon>frmPerfilUsuario.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\frm_Login.resx">
+    <EmbeddedResource Include="Forms\CRUD\frm_Login.resx">
       <DependentUpon>frm_Login.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frm_SplashScreen.resx">
       <DependentUpon>frm_SplashScreen.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\loginTextbox.resx">
+    <EmbeddedResource Include="Forms\CLASSES\loginTextbox.resx">
       <DependentUpon>loginTextbox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MDI_Menu.resx">
@@ -113,6 +121,17 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="MedVet_testeDataSet.xsc">
+      <DependentUpon>MedVet_testeDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="MedVet_testeDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>MedVet_testeDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="MedVet_testeDataSet.xss">
+      <DependentUpon>MedVet_testeDataSet.xsd</DependentUpon>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -125,6 +144,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DADOS\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

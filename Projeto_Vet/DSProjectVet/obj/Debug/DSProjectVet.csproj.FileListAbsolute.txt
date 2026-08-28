@@ -38,3 +38,4 @@ C:\Users\EtecFP\source\repos\DSProjectVet\FrontEnd\Projeto_Vet\DSProjectVet\obj\
 C:\Users\jhuni\source\repos\DSProjectVet\FrontEnd\Projeto_Vet\DSProjectVet\obj\Debug\DSProjectVet.Forms.loginTextbox.resources
 C:\Users\EtecFP\source\repos\DSProjectVet\FrontEnd\Projeto_Vet\DSProjectVet\obj\Debug\DSProjectVet.Forms.loginTextbox.resources
 C:\Users\EtecFP\source\repos\DSProjectVet\FrontEnd\Projeto_Vet\DSProjectVet\obj\Debug\DSProjectVet.Forms.Perfil.resources
+C:\Users\jhuni\source\repos\DSProjectVet\FrontEnd\Projeto_Vet\DSProjectVet\obj\Debug\DSProjectVet.Forms.Perfil.resources

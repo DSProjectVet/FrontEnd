@@ -3,36 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\jhuni\\source\\repos\\DSProjectVet\\FrontEnd\\Projeto_Vet\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{986F2276-B578-41F8-B783-D4D4D0177A84}|DSProjectVet\\DSProjectVet.csproj|C:\\Users\\jhuni\\source\\repos\\DSProjectVet\\FrontEnd\\Projeto_Vet\\dsprojectvet\\forms\\frm_splashscreen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{986F2276-B578-41F8-B783-D4D4D0177A84}|DSProjectVet\\DSProjectVet.csproj|solutionrelative:dsprojectvet\\forms\\frm_splashscreen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{986F2276-B578-41F8-B783-D4D4D0177A84}|DSProjectVet\\DSProjectVet.csproj|c:\\users\\jhuni\\source\\repos\\dsprojectvet\\frontend\\projeto_vet\\dsprojectvet\\forms\\screens\\frmperfilusuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{986F2276-B578-41F8-B783-D4D4D0177A84}|DSProjectVet\\DSProjectVet.csproj|solutionrelative:dsprojectvet\\forms\\screens\\frmperfilusuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{986F2276-B578-41F8-B783-D4D4D0177A84}|DSProjectVet\\DSProjectVet.csproj|C:\\Users\\jhuni\\source\\repos\\DSProjectVet\\FrontEnd\\Projeto_Vet\\dsprojectvet\\forms\\mdi_menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{986F2276-B578-41F8-B783-D4D4D0177A84}|DSProjectVet\\DSProjectVet.csproj|c:\\users\\jhuni\\source\\repos\\dsprojectvet\\frontend\\projeto_vet\\dsprojectvet\\forms\\screens\\frmperfilusuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{986F2276-B578-41F8-B783-D4D4D0177A84}|DSProjectVet\\DSProjectVet.csproj|solutionrelative:dsprojectvet\\forms\\screens\\frmperfilusuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{986F2276-B578-41F8-B783-D4D4D0177A84}|DSProjectVet\\DSProjectVet.csproj|c:\\users\\jhuni\\source\\repos\\dsprojectvet\\frontend\\projeto_vet\\dsprojectvet\\forms\\mdi_menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{986F2276-B578-41F8-B783-D4D4D0177A84}|DSProjectVet\\DSProjectVet.csproj|solutionrelative:dsprojectvet\\forms\\mdi_menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{986F2276-B578-41F8-B783-D4D4D0177A84}|DSProjectVet\\DSProjectVet.csproj|c:\\users\\jhuni\\source\\repos\\dsprojectvet\\frontend\\projeto_vet\\dsprojectvet\\forms\\frm_splashscreen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{986F2276-B578-41F8-B783-D4D4D0177A84}|DSProjectVet\\DSProjectVet.csproj|solutionrelative:dsprojectvet\\forms\\frm_splashscreen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{986F2276-B578-41F8-B783-D4D4D0177A84}|DSProjectVet\\DSProjectVet.csproj|C:\\Users\\jhuni\\source\\repos\\DSProjectVet\\FrontEnd\\Projeto_Vet\\dsprojectvet\\forms\\frm_login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{986F2276-B578-41F8-B783-D4D4D0177A84}|DSProjectVet\\DSProjectVet.csproj|solutionrelative:dsprojectvet\\forms\\frm_login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{986F2276-B578-41F8-B783-D4D4D0177A84}|DSProjectVet\\DSProjectVet.csproj|C:\\Users\\jhuni\\source\\repos\\DSProjectVet\\FrontEnd\\Projeto_Vet\\dsprojectvet\\forms\\frm_login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{986F2276-B578-41F8-B783-D4D4D0177A84}|DSProjectVet\\DSProjectVet.csproj|solutionrelative:dsprojectvet\\forms\\frm_login.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{986F2276-B578-41F8-B783-D4D4D0177A84}|DSProjectVet\\DSProjectVet.csproj|c:\\users\\jhuni\\source\\repos\\dsprojectvet\\frontend\\projeto_vet\\dsprojectvet\\forms\\gradientpanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{986F2276-B578-41F8-B783-D4D4D0177A84}|DSProjectVet\\DSProjectVet.csproj|solutionrelative:dsprojectvet\\forms\\gradientpanel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{986F2276-B578-41F8-B783-D4D4D0177A84}|DSProjectVet\\DSProjectVet.csproj|c:\\users\\jhuni\\source\\repos\\dsprojectvet\\frontend\\projeto_vet\\dsprojectvet\\forms\\logintextbox.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{986F2276-B578-41F8-B783-D4D4D0177A84}|DSProjectVet\\DSProjectVet.csproj|solutionrelative:dsprojectvet\\forms\\logintextbox.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{986F2276-B578-41F8-B783-D4D4D0177A84}|DSProjectVet\\DSProjectVet.csproj|C:\\Users\\jhuni\\source\\repos\\DSProjectVet\\FrontEnd\\Projeto_Vet\\dsprojectvet\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{986F2276-B578-41F8-B783-D4D4D0177A84}|DSProjectVet\\DSProjectVet.csproj|solutionrelative:dsprojectvet\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{986F2276-B578-41F8-B783-D4D4D0177A84}|DSProjectVet\\DSProjectVet.csproj|c:\\users\\jhuni\\source\\repos\\dsprojectvet\\frontend\\projeto_vet\\dsprojectvet\\forms\\mdi_menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{986F2276-B578-41F8-B783-D4D4D0177A84}|DSProjectVet\\DSProjectVet.csproj|solutionrelative:dsprojectvet\\forms\\mdi_menu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -42,24 +26,49 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 5,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "GradientPanel.cs",
-              "DocumentMoniker": "C:\\Users\\jhuni\\source\\repos\\DSProjectVet\\FrontEnd\\Projeto_Vet\\DSProjectVet\\Forms\\GradientPanel.cs",
-              "RelativeDocumentMoniker": "DSProjectVet\\Forms\\GradientPanel.cs",
-              "ToolTip": "C:\\Users\\jhuni\\source\\repos\\DSProjectVet\\FrontEnd\\Projeto_Vet\\DSProjectVet\\Forms\\GradientPanel.cs",
-              "RelativeToolTip": "DSProjectVet\\Forms\\GradientPanel.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAQwCoAAAA+AAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "frmPerfilUsuario.cs",
+              "DocumentMoniker": "C:\\Users\\jhuni\\source\\repos\\DSProjectVet\\FrontEnd\\Projeto_Vet\\DSProjectVet\\Forms\\SCREENS\\frmPerfilUsuario.cs",
+              "RelativeDocumentMoniker": "DSProjectVet\\Forms\\SCREENS\\frmPerfilUsuario.cs",
+              "ToolTip": "C:\\Users\\jhuni\\source\\repos\\DSProjectVet\\FrontEnd\\Projeto_Vet\\DSProjectVet\\Forms\\SCREENS\\frmPerfilUsuario.cs",
+              "RelativeToolTip": "DSProjectVet\\Forms\\SCREENS\\frmPerfilUsuario.cs",
+              "ViewState": "AgIAACIAAAAAAAAAAAAiwCoAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-25T22:51:26.863Z",
+              "WhenOpened": "2026-08-28T00:44:24.641Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "frmPerfilUsuario.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\jhuni\\source\\repos\\DSProjectVet\\FrontEnd\\Projeto_Vet\\DSProjectVet\\Forms\\SCREENS\\frmPerfilUsuario.cs",
+              "RelativeDocumentMoniker": "DSProjectVet\\Forms\\SCREENS\\frmPerfilUsuario.cs",
+              "ToolTip": "C:\\Users\\jhuni\\source\\repos\\DSProjectVet\\FrontEnd\\Projeto_Vet\\DSProjectVet\\Forms\\SCREENS\\frmPerfilUsuario.cs [Design]",
+              "RelativeToolTip": "DSProjectVet\\Forms\\SCREENS\\frmPerfilUsuario.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-28T00:44:17.544Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MDI_Menu.cs",
+              "DocumentMoniker": "C:\\Users\\jhuni\\source\\repos\\DSProjectVet\\FrontEnd\\Projeto_Vet\\DSProjectVet\\Forms\\MDI_Menu.cs",
+              "RelativeDocumentMoniker": "DSProjectVet\\Forms\\MDI_Menu.cs",
+              "ToolTip": "C:\\Users\\jhuni\\source\\repos\\DSProjectVet\\FrontEnd\\Projeto_Vet\\DSProjectVet\\Forms\\MDI_Menu.cs",
+              "RelativeToolTip": "DSProjectVet\\Forms\\MDI_Menu.cs",
+              "ViewState": "AgIAAC8AAAAAAAAAAAAAAEIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-08-28T00:54:39.149Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "MDI_Menu.cs [Design]",
               "DocumentMoniker": "C:\\Users\\jhuni\\source\\repos\\DSProjectVet\\FrontEnd\\Projeto_Vet\\DSProjectVet\\Forms\\MDI_Menu.cs",
               "RelativeDocumentMoniker": "DSProjectVet\\Forms\\MDI_Menu.cs",
@@ -68,81 +77,6 @@
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-08-24T20:03:01.518Z",
               "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "frm_SplashScreen.cs",
-              "DocumentMoniker": "C:\\Users\\jhuni\\source\\repos\\DSProjectVet\\FrontEnd\\Projeto_Vet\\DSProjectVet\\Forms\\frm_SplashScreen.cs",
-              "RelativeDocumentMoniker": "DSProjectVet\\Forms\\frm_SplashScreen.cs",
-              "ToolTip": "C:\\Users\\jhuni\\source\\repos\\DSProjectVet\\FrontEnd\\Projeto_Vet\\DSProjectVet\\Forms\\frm_SplashScreen.cs",
-              "RelativeToolTip": "DSProjectVet\\Forms\\frm_SplashScreen.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAAQwCcAAAAcAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-24T19:52:03.513Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "frm_Login.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\jhuni\\source\\repos\\DSProjectVet\\FrontEnd\\Projeto_Vet\\DSProjectVet\\Forms\\frm_Login.cs",
-              "RelativeDocumentMoniker": "DSProjectVet\\Forms\\frm_Login.cs",
-              "ToolTip": "C:\\Users\\jhuni\\source\\repos\\DSProjectVet\\FrontEnd\\Projeto_Vet\\DSProjectVet\\Forms\\frm_Login.cs [Design]",
-              "RelativeToolTip": "DSProjectVet\\Forms\\frm_Login.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-24T19:37:43.113Z",
-              "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "frm_Login.cs",
-              "DocumentMoniker": "C:\\Users\\jhuni\\source\\repos\\DSProjectVet\\FrontEnd\\Projeto_Vet\\DSProjectVet\\Forms\\frm_Login.cs",
-              "RelativeDocumentMoniker": "DSProjectVet\\Forms\\frm_Login.cs",
-              "ToolTip": "C:\\Users\\jhuni\\source\\repos\\DSProjectVet\\FrontEnd\\Projeto_Vet\\DSProjectVet\\Forms\\frm_Login.cs",
-              "RelativeToolTip": "DSProjectVet\\Forms\\frm_Login.cs",
-              "ViewState": "AgIAAEEAAAAAAAAAAAAywFIAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-24T19:37:39.9Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "frm_SplashScreen.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\jhuni\\source\\repos\\DSProjectVet\\FrontEnd\\Projeto_Vet\\DSProjectVet\\Forms\\frm_SplashScreen.cs",
-              "RelativeDocumentMoniker": "DSProjectVet\\Forms\\frm_SplashScreen.cs",
-              "ToolTip": "C:\\Users\\jhuni\\source\\repos\\DSProjectVet\\FrontEnd\\Projeto_Vet\\DSProjectVet\\Forms\\frm_SplashScreen.cs [Design]",
-              "RelativeToolTip": "DSProjectVet\\Forms\\frm_SplashScreen.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-24T19:49:08.29Z",
-              "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "loginTextbox.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\jhuni\\source\\repos\\DSProjectVet\\FrontEnd\\Projeto_Vet\\DSProjectVet\\Forms\\loginTextbox.cs",
-              "RelativeDocumentMoniker": "DSProjectVet\\Forms\\loginTextbox.cs",
-              "ToolTip": "C:\\Users\\jhuni\\source\\repos\\DSProjectVet\\FrontEnd\\Projeto_Vet\\DSProjectVet\\Forms\\loginTextbox.cs [Design]",
-              "RelativeToolTip": "DSProjectVet\\Forms\\loginTextbox.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-25T23:35:46.757Z",
-              "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\jhuni\\source\\repos\\DSProjectVet\\FrontEnd\\Projeto_Vet\\DSProjectVet\\Program.cs",
-              "RelativeDocumentMoniker": "DSProjectVet\\Program.cs",
-              "ToolTip": "C:\\Users\\jhuni\\source\\repos\\DSProjectVet\\FrontEnd\\Projeto_Vet\\DSProjectVet\\Program.cs",
-              "RelativeToolTip": "DSProjectVet\\Program.cs",
-              "ViewState": "AgIAAAoAAAAAAAAAAAAAABcAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-24T19:37:39.831Z",
-              "EditorCaption": ""
             }
           ]
         }

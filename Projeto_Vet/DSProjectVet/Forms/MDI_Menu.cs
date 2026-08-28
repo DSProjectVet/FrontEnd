@@ -61,5 +61,10 @@ namespace DSProjectVet.Forms
                 MDI_Warning_Message();
             }
         }
+
+        private void MDI_Menu_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

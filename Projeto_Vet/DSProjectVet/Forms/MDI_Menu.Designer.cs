@@ -72,14 +72,14 @@
             // 
             this.clientesToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("clientesToolStripMenuItem.Image")));
             this.clientesToolStripMenuItem.Name = "clientesToolStripMenuItem";
-            this.clientesToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
+            this.clientesToolStripMenuItem.Size = new System.Drawing.Size(142, 26);
             this.clientesToolStripMenuItem.Text = "Clientes";
             // 
             // animaisToolStripMenuItem
             // 
             this.animaisToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("animaisToolStripMenuItem.Image")));
             this.animaisToolStripMenuItem.Name = "animaisToolStripMenuItem";
-            this.animaisToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
+            this.animaisToolStripMenuItem.Size = new System.Drawing.Size(142, 26);
             this.animaisToolStripMenuItem.Text = "Animais";
             // 
             // relatóriosToolStripMenuItem
@@ -154,11 +154,13 @@
             this.Controls.Add(this.menuDashBoard);
             this.ForeColor = System.Drawing.SystemColors.Window;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MDI_Menu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "MDI_Menu";
+            this.Text = "Med Vet - Dashboard";
+            this.Load += new System.EventHandler(this.MDI_Menu_Load);
             this.menuDashBoard.ResumeLayout(false);
             this.menuDashBoard.PerformLayout();
             this.ResumeLayout(false);

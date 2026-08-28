@@ -18,7 +18,7 @@ namespace DSProjectVet.Forms
             InitializeComponent();
         }
 
-        private void frm_SplashScreen_Load(object sender, EventArgs e)
+        public void frm_SplashScreen_Load(object sender, EventArgs e)
         {
             timer = new Timer();
             timer.Interval = 1000; // tempo
