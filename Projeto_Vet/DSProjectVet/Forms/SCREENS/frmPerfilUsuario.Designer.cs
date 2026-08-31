@@ -45,7 +45,7 @@
             this.label10 = new System.Windows.Forms.Label();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.roundedPanel3 = new RoundedPanel();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnTrocaSenha = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
@@ -241,7 +241,7 @@
             // roundedPanel3
             // 
             this.roundedPanel3.BorderRadius = 20;
-            this.roundedPanel3.Controls.Add(this.button1);
+            this.roundedPanel3.Controls.Add(this.btnTrocaSenha);
             this.roundedPanel3.Controls.Add(this.label6);
             this.roundedPanel3.Controls.Add(this.label5);
             this.roundedPanel3.Controls.Add(this.pictureBox3);
@@ -250,17 +250,18 @@
             this.roundedPanel3.Size = new System.Drawing.Size(775, 64);
             this.roundedPanel3.TabIndex = 8;
             // 
-            // button1
+            // btnTrocaSenha
             // 
-            this.button1.BackColor = System.Drawing.Color.Transparent;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.button1.Location = new System.Drawing.Point(600, 13);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(160, 34);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Alterar senha🔒";
-            this.button1.UseVisualStyleBackColor = false;
+            this.btnTrocaSenha.BackColor = System.Drawing.Color.Transparent;
+            this.btnTrocaSenha.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTrocaSenha.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnTrocaSenha.Location = new System.Drawing.Point(600, 13);
+            this.btnTrocaSenha.Name = "btnTrocaSenha";
+            this.btnTrocaSenha.Size = new System.Drawing.Size(160, 34);
+            this.btnTrocaSenha.TabIndex = 3;
+            this.btnTrocaSenha.Text = "Alterar senha🔒";
+            this.btnTrocaSenha.UseVisualStyleBackColor = false;
+            this.btnTrocaSenha.Click += new System.EventHandler(this.btnTrocaSenha_Click);
             // 
             // label6
             // 
@@ -363,7 +364,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.PictureBox pictureBox3;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnTrocaSenha;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.PictureBox pictureBox4;

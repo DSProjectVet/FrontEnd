@@ -70,5 +70,25 @@ namespace DSProjectVet.Forms
                 MDI_Warning_Message();
             }
         }
+
+        private void clientesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!FormAberto(typeof(frmClientes))) // executa apenas se MdiChildren estiver vazio.
+            {
+                frmClientes frmClientes = new frmClientes();
+                frmClientes.MdiParent = this; // indica se essa nova instancia é parente de MDI
+                                              //this indica o form MDI atual
+
+                // new frmPerfilUsuario() cria/instância uma nova janela da calculadora
+
+
+                frmClientes.Show();
+                // ShowDialog() impede de clicar na tela de fundo enquando frmPerfilUsuario estiver aberto
+            }
+            else
+            {
+                MDI_Warning_Message();
+            }
+        }
     }
 }

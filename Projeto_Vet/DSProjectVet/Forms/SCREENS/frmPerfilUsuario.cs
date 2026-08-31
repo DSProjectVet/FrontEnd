@@ -77,9 +77,18 @@ namespace DSProjectVet.Forms
             Properties.Settings.Default.Save();
 
             lbl_desktop.Text = Environment.MachineName;
+
+            btnTrocaSenha.btnPrimary();
+
+
         }
 
         private void lbl_desktop_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnTrocaSenha_Click(object sender, EventArgs e)
         {
 
         }

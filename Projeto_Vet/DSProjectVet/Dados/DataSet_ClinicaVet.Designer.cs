@@ -6378,7 +6378,7 @@ SELECT ID, Nome, Raca, Sexo, Enfermidade, Descricao, Especie, fk_Clientes_ID FRO
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::DSProjectVet.Properties.Settings.Default.testeConnectionString_Murilo;
+            this._connection.ConnectionString = global::DSProjectVet.Properties.Settings.Default.MedVet_testeConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6929,7 +6929,7 @@ SELECT ID, Nome, Telefone, Endereco, CPF, Nivel, Senha, Usuario FROM Clientes WH
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::DSProjectVet.Properties.Settings.Default.testeConnectionString_Murilo;
+            this._connection.ConnectionString = global::DSProjectVet.Properties.Settings.Default.MedVet_testeConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7466,7 +7466,7 @@ SELECT Diagnostico, Preco, ID, DataHora, fk_Animais_ID, fk_Veterinarios_ID FROM 
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::DSProjectVet.Properties.Settings.Default.testeConnectionString_Murilo;
+            this._connection.ConnectionString = global::DSProjectVet.Properties.Settings.Default.MedVet_testeConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7926,7 +7926,7 @@ SELECT ID, Entrada, Saida, Saldo, fk_Fornecedores_ID FROM Estoque_Financeiro WHE
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::DSProjectVet.Properties.Settings.Default.testeConnectionString_Murilo;
+            this._connection.ConnectionString = global::DSProjectVet.Properties.Settings.Default.MedVet_testeConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -10549,7 +10549,7 @@ SELECT ID, Nome, Telefone, Nivel, Usuario, Senha FROM Veterinarios WHERE (ID = @
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::DSProjectVet.Properties.Settings.Default.testeConnectionString_Murilo;
+            this._connection.ConnectionString = global::DSProjectVet.Properties.Settings.Default.MedVet_testeConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
