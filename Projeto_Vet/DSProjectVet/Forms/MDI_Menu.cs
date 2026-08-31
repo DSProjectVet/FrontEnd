@@ -23,6 +23,15 @@ namespace DSProjectVet.Forms
                 "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
 
+        private void MDI_Menu_Load(object sender, EventArgs e)
+        {
+            if (DSProjectVet.Properties.Settings.Default.NivelUsuarioLogado == 2)
+            {
+                // caso o nivel de acesso seja "2", muda a visibilidade do botão de cadastrar cliente
+                clientesToolStripMenuItem.Visible = false;
+            }
+        }
+
         private bool FormAberto(Type tipoForm)
         {
             foreach (Form form in MdiChildren)
@@ -60,11 +69,6 @@ namespace DSProjectVet.Forms
             {
                 MDI_Warning_Message();
             }
-        }
-
-        private void MDI_Menu_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

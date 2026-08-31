@@ -1,0 +1,332 @@
+/* =========================================================
+   TABELA: CLIENTES
+   ========================================================= */
+
+CREATE TABLE Clientes (
+    ID INT PRIMARY KEY,
+    Nome NVARCHAR(100),
+    Telefone VARCHAR(20),
+    Endereco NVARCHAR(200),
+    CPF VARCHAR(14),
+    Nivel INT,
+    Senha VARCHAR(255),
+    Usuario NVARCHAR(50)
+);
+
+
+/* =========================================================
+   TABELA: ANIMAIS
+   ========================================================= */
+
+CREATE TABLE Animais (
+    ID INT PRIMARY KEY,
+    Nome NVARCHAR(80),
+    Raca NVARCHAR(60),
+    Sexo CHAR(1),
+    Enfermidade NVARCHAR(150),
+    Descricao NVARCHAR(500),
+    Especie NVARCHAR(30),
+    fk_Clientes_ID INT
+);
+
+
+/* =========================================================
+   TABELA: VETERINARIOS
+   ========================================================= */
+
+CREATE TABLE Veterinarios (
+    ID INT PRIMARY KEY,
+    Nome NVARCHAR(100),
+    Telefone VARCHAR(20),
+    Nivel INT,
+    Usuario NVARCHAR(50),
+    Senha VARCHAR(255)
+);
+
+
+/* =========================================================
+   TABELA: CONSULTAS
+   ========================================================= */
+
+CREATE TABLE Consultas (
+    Diagnostico NVARCHAR(500),
+    Preco MONEY,
+    ID INT PRIMARY KEY,
+    DataHora DATETIME,
+    fk_Animais_ID INT,
+    fk_Veterinarios_ID INT
+);
+
+
+/* =========================================================
+   TABELA: SERVICOS
+   ========================================================= */
+
+CREATE TABLE Servicos (
+    ID INT PRIMARY KEY,
+    Tipo INT
+);
+
+
+/* =========================================================
+   TABELA: MEDICAMENTOS
+   ========================================================= */
+
+CREATE TABLE Medicamentos (
+    ID INT PRIMARY KEY,
+    Nome NVARCHAR(100),
+    Descricao NVARCHAR(500),
+    Quantidade INT,
+    Preco MONEY,
+    fk_Estoque_Financeiro_ID INT
+);
+
+
+/* =========================================================
+   TABELA: PRODUTOS
+   ========================================================= */
+
+CREATE TABLE Produtos (
+    ID INT PRIMARY KEY,
+    Nome NVARCHAR(100),
+    Descricao VARCHAR(500),
+    Quantidade INT,
+    Preco MONEY,
+    fk_Estoque_Financeiro_ID INT
+);
+
+
+/* =========================================================
+   TABELA: FORNECEDORES
+   ========================================================= */
+
+CREATE TABLE Fornecedores (
+    ID INT PRIMARY KEY,
+    Nome NVARCHAR(100),
+    CPF_CNPJ VARCHAR(18),
+    Telefone VARCHAR(20),
+    Descricao NVARCHAR(300)
+);
+
+
+/* =========================================================
+   TABELA: ESTOQUE_FINANCEIRO
+   ========================================================= */
+
+CREATE TABLE Estoque_Financeiro (
+    ID INT PRIMARY KEY,
+    Entrada MONEY,
+    Saida MONEY,
+    Saldo MONEY,
+    fk_Fornecedores_ID INT
+);
+
+
+/* =========================================================
+   TABELA: SERVICO_CONSULTA_REALIZA
+   ========================================================= */
+
+CREATE TABLE Servico_Consulta_Realiza (
+    Preco_Cobrado MONEY,
+    Quantidade INT,
+    Observacoes NVARCHAR(300),
+    fk_Consultas_ID INT,
+    fk_Servicos_ID INT
+);
+
+
+/* =========================================================
+   TABELA: MEDICAMENTO_CONSULTA_UTILIZA
+   ========================================================= */
+
+CREATE TABLE Medicamento_Consulta_Utiliza (
+    fk_Medicamentos_ID INT,
+    fk_Consultas_ID INT
+);
+
+/* =========================================================
+   1. CLIENTES
+   ========================================================= */
+
+INSERT INTO Clientes (ID, Nome, Telefone, Endereco, CPF, Nivel, Senha, Usuario)
+VALUES
+(1, 'João da Silva', 15999990001, 'Rua das Flores, 120 - Sorocaba/SP', '12345678901', 1, '123456', 'joao.silva'),
+(2, 'Maria Oliveira', 15999990002, 'Av. São Paulo, 450 - Sorocaba/SP', '23456789012', 1, '123456', 'maria.oliveira'),
+(3, 'Carlos Santos', 15999990003, 'Rua Paraná, 80 - Sorocaba/SP', '34567890123', 1, '123456', 'carlos.santos'),
+(4, 'Ana Souza', 15999990004, 'Rua Bahia, 215 - Sorocaba/SP', '45678901234', 1, '123456', 'ana.souza'),
+(5, 'Pedro Almeida', 15999990005, 'Rua Goiás, 90 - Sorocaba/SP', '56789012345', 1, '123456', 'pedro.almeida');
+
+
+/* =========================================================
+   2. ANIMAIS
+   ========================================================= */
+
+INSERT INTO Animais 
+(ID, Nome, Raca, Sexo, Enfermidade, Descricao, Especie, fk_Clientes_ID)
+VALUES
+(1, 'Thor', 'Golden Retriever', 'M', NULL, 'Cão dócil e brincalhão', 'Cachorro', 1),
+(2, 'Mel', 'Shih-Tzu', 'F', 'Otite', 'Apresenta coceira frequente nas orelhas', 'Cachorro', 2),
+(3, 'Luna', 'Siamês', 'F', NULL, 'Gata tranquila e saudável', 'Gato', 3),
+(4, 'Max', 'Bulldog Francês', 'M', 'Alergia', 'Apresenta irritação na pele', 'Cachorro', 4),
+(5, 'Nina', 'Persa', 'F', NULL, 'Gata de porte pequeno', 'Gato', 5),
+(6, 'Bob', 'Labrador', 'M', 'Obesidade', 'Animal com sobrepeso', 'Cachorro', 1),
+(7, 'Mia', 'Poodle', 'F', NULL, 'Cão de pequeno porte', 'Cachorro', 2);
+
+
+/* =========================================================
+   3. VETERINÁRIOS
+   ========================================================= */
+
+INSERT INTO Veterinarios 
+(ID, Nome, Telefone, Nivel, Usuario, Senha)
+VALUES
+(1, 'Dr. Ricardo Mendes', 15988880001, 2, 'ricardo.mendes', '123456'),
+(2, 'Dra. Fernanda Lima', 15988880002, 2, 'fernanda.lima', '123456'),
+(3, 'Dr. Marcelo Costa', 15988880003, 2, 'marcelo.costa', '123456');
+
+
+/* =========================================================
+   4. FORNECEDORES
+   ========================================================= */
+
+INSERT INTO Fornecedores 
+(ID, Nome, CPF_CNPJ, Telefone, Descricao)
+VALUES
+(1, 'Pet Farma Distribuidora', '12345678000101', 11333310001, 'Fornecedor de medicamentos veterinários'),
+(2, 'Vet Produtos Ltda', '23456789000102', 11333310002, 'Fornecedor de produtos veterinários'),
+(3, 'AnimalMed Distribuidora', '34567890000103', 11333310003, 'Distribuidora de medicamentos'),
+(4, 'Pet Supply Brasil', '45678901000104', 11333310004, 'Fornecedor de produtos e acessórios');
+
+
+/* =========================================================
+   5. ESTOQUE_FINANCEIRO
+   ========================================================= */
+
+INSERT INTO Estoque_Financeiro 
+(ID, Entrada, Saida, Saldo, fk_Fornecedores_ID)
+VALUES
+(1, 5000.00, 1200.00, 3800.00, 1),
+(2, 3500.00, 800.00, 2700.00, 2),
+(3, 4200.00, 1500.00, 2700.00, 3),
+(4, 2800.00, 600.00, 2200.00, 4),
+(5, 6000.00, 2000.00, 4000.00, 1);
+
+
+/* =========================================================
+   6. MEDICAMENTOS
+   ========================================================= */
+
+INSERT INTO Medicamentos 
+(ID, Nome, Descricao, Quantidade, Preco, fk_Estoque_Financeiro_ID)
+VALUES
+(1, 'Amoxicilina', 'Antibiótico de uso veterinário', 50, 35.90, 1),
+(2, 'Otodine', 'Solução para limpeza de ouvido', 30, 42.50, 2),
+(3, 'Prednisolona', 'Anti-inflamatório e antialérgico', 40, 28.90, 3),
+(4, 'Simeticona', 'Medicamento para gases', 25, 18.50, 4),
+(5, 'Dipirona Veterinária', 'Analgésico e antitérmico', 60, 22.90, 5);
+
+
+/* =========================================================
+   7. PRODUTOS
+   ========================================================= */
+
+INSERT INTO Produtos 
+(ID, Nome, Descricao, Quantidade, Preco, fk_Estoque_Financeiro_ID)
+VALUES
+(1, 'Ração Premium Cães', 'Ração premium para cães adultos', 40, 149.90, 1),
+(2, 'Ração Premium Gatos', 'Ração premium para gatos adultos', 35, 129.90, 2),
+(3, 'Shampoo Veterinário', 'Shampoo para pele sensível', 25, 39.90, 3),
+(4, 'Coleira Antipulgas', 'Coleira para controle de pulgas e carrapatos', 20, 59.90, 4),
+(5, 'Brinquedo Mordedor', 'Brinquedo resistente para cães', 30, 29.90, 5);
+
+
+/* =========================================================
+   8. SERVIÇOS
+   ========================================================= */
+
+INSERT INTO Servicos (ID, Tipo)
+VALUES
+(1, 1), -- Consulta
+(2, 2), -- Vacinação
+(3, 3), -- Banho
+(4, 4), -- Tosa
+(5, 5), -- Limpeza dentária
+(6, 6), -- Exame de sangue
+(7, 7), -- Curativo
+(8, 8); -- Aplicação de medicamento
+
+
+/* =========================================================
+   9. CONSULTAS
+   ========================================================= */
+
+INSERT INTO Consultas 
+(Diagnostico, Preco, ID, DataHora, fk_Animais_ID, fk_Veterinarios_ID)
+VALUES
+('Otite externa', 120.00, 1, '2026-08-20 09:30:00', 2, 1),
+
+('Alergia dermatológica', 150.00, 2, '2026-08-20 10:30:00', 4, 2),
+
+('Avaliação clínica geral', 100.00, 3, '2026-08-21 14:00:00', 1, 3),
+
+('Controle de peso', 110.00, 4, '2026-08-22 09:00:00', 6, 1),
+
+('Avaliação preventiva', 100.00, 5, '2026-08-22 15:30:00', 3, 2),
+
+('Retorno pós-tratamento', 80.00, 6, '2026-08-23 10:00:00', 2, 1),
+
+('Consulta de rotina', 100.00, 7, '2026-08-24 11:00:00', 5, 3),
+
+('Avaliação dermatológica', 140.00, 8, '2026-08-25 16:00:00', 4, 2);
+
+
+/* =========================================================
+   10. SERVICO_CONSULTA_REALIZA
+   ========================================================= */
+
+INSERT INTO Servico_Consulta_Realiza 
+(Preco_Cobrado, Quantidade, Observacoes, fk_Consultas_ID, fk_Servicos_ID)
+VALUES
+(120.00, 1, 'Consulta veterinária completa', 1, 1),
+(45.00, 1, 'Limpeza do ouvido', 1, 7),
+
+(150.00, 1, 'Consulta dermatológica', 2, 1),
+(60.00, 1, 'Aplicação de medicamento', 2, 8),
+
+(100.00, 1, 'Avaliação clínica geral', 3, 1),
+(80.00, 1, 'Exame de sangue', 3, 6),
+
+(110.00, 1, 'Avaliação e acompanhamento do peso', 4, 1),
+
+(100.00, 1, 'Consulta preventiva', 5, 1),
+(90.00, 1, 'Vacinação', 5, 2),
+
+(80.00, 1, 'Consulta de retorno', 6, 1),
+
+(100.00, 1, 'Consulta de rotina', 7, 1),
+(50.00, 1, 'Vacinação', 7, 2),
+
+(140.00, 1, 'Avaliação dermatológica', 8, 1),
+(60.00, 1, 'Aplicação de medicamento', 8, 8);
+
+
+/* =========================================================
+   11. MEDICAMENTO_CONSULTA_UTILIZA
+   ========================================================= */
+
+INSERT INTO Medicamento_Consulta_Utiliza 
+(fk_Medicamentos_ID, fk_Consultas_ID)
+VALUES
+(2, 1), -- Otodine na consulta do Thor/Mel
+(1, 1), -- Amoxicilina
+
+(3, 2), -- Prednisolona
+(4, 2), -- Simeticona
+
+(5, 3), -- Dipirona
+
+(5, 4), -- Dipirona
+
+(2, 6), -- Otodine no retorno
+
+(3, 8); -- Prednisolona

@@ -29,19 +29,19 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_SplashScreen));
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.splashScreenBox = new System.Windows.Forms.PictureBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splashScreenBox)).BeginInit();
             this.SuspendLayout();
             // 
-            // pictureBox1
+            // splashScreenBox
             // 
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(-1, -1);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(802, 474);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
+            this.splashScreenBox.Image = ((System.Drawing.Image)(resources.GetObject("splashScreenBox.Image")));
+            this.splashScreenBox.Location = new System.Drawing.Point(-1, -1);
+            this.splashScreenBox.Name = "splashScreenBox";
+            this.splashScreenBox.Size = new System.Drawing.Size(802, 474);
+            this.splashScreenBox.TabIndex = 0;
+            this.splashScreenBox.TabStop = false;
             // 
             // progressBar1
             // 
@@ -56,21 +56,21 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 473);
             this.Controls.Add(this.progressBar1);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.splashScreenBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frm_SplashScreen";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frm_SplashScreen";
             this.TransparencyKey = System.Drawing.SystemColors.Control;
             this.Load += new System.EventHandler(this.frm_SplashScreen_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splashScreenBox)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox splashScreenBox;
         private System.Windows.Forms.ProgressBar progressBar1;
     }
 }

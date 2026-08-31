@@ -41,6 +41,27 @@ namespace DSProjectVet.Forms
         // Evento executado quando o programa COMPILA/ABRE
         private void Perfil_Load(object sender, EventArgs e)
         {
+            lbl_Username.Text = DSProjectVet.Properties.Settings.Default.
+                NomeUsuarioLogado;
+
+            switch(DSProjectVet.Properties.Settings.Default.NivelUsuarioLogado)
+            {
+                case 1:
+                    lbl_cargo.Text = "Administrador(a)";
+                    break;
+
+                case 2:
+                    lbl_cargo.Text = "Veterinário(a)";
+                    break;
+
+                case 3:
+                    lbl_cargo.Text = "Caixa";
+                    break;
+
+                default:
+                    lbl_cargo.Text = "Desconhecido";
+                    break;
+            }
 
 
             // Pega o último acesso salvo
@@ -56,8 +77,6 @@ namespace DSProjectVet.Forms
             Properties.Settings.Default.Save();
 
             lbl_desktop.Text = Environment.MachineName;
-
-
         }
 
         private void lbl_desktop_Click(object sender, EventArgs e)

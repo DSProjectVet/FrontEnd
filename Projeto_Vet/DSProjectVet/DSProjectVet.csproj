@@ -48,6 +48,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dados\DataSet_ClinicaVet.cs">
+      <DependentUpon>DataSet_ClinicaVet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Dados\DataSet_ClinicaVet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSet_ClinicaVet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Forms\SCREENS\frmClientes.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -90,11 +98,6 @@
     <Compile Include="Forms\CLASSES\RoundedPanel.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="MedVet_testeDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MedVet_testeDataSet.xsd</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Forms\SCREENS\frmPerfilUsuario.resx">
@@ -112,25 +115,34 @@
     <EmbeddedResource Include="Forms\MDI_Menu.resx">
       <DependentUpon>MDI_Menu.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\loadingForm.resx">
+      <DependentUpon>loadingForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <Compile Include="Properties\loadingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Properties\loadingForm.Designer.cs">
+      <DependentUpon>loadingForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="MedVet_testeDataSet.xsc">
-      <DependentUpon>MedVet_testeDataSet.xsd</DependentUpon>
+    <None Include="Dados\DataSet_ClinicaVet.xsc">
+      <DependentUpon>DataSet_ClinicaVet.xsd</DependentUpon>
     </None>
-    <None Include="MedVet_testeDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>MedVet_testeDataSet.Designer.cs</LastGenOutput>
+    <None Include="Dados\DataSet_ClinicaVet.xsd">
       <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSet_ClinicaVet.Designer.cs</LastGenOutput>
     </None>
-    <None Include="MedVet_testeDataSet.xss">
-      <DependentUpon>MedVet_testeDataSet.xsd</DependentUpon>
+    <None Include="Dados\DataSet_ClinicaVet.xss">
+      <DependentUpon>DataSet_ClinicaVet.xsd</DependentUpon>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -145,8 +157,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DADOS\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

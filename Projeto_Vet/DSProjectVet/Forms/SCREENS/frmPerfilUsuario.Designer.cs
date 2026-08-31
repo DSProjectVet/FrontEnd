@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Perfil));
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -52,19 +51,6 @@
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.medVet_testeDataSet = new DSProjectVet.MedVet_testeDataSet();
-            this.medVettesteDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.veterinariosBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.veterinariosTableAdapter = new DSProjectVet.MedVet_testeDataSetTableAdapters.VeterinariosTableAdapter();
-            this.veterinariosBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.veterinariosBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
-            this.iDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nomeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.telefoneDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nivelDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.usuarioDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.senhaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.roundedPanel1.SuspendLayout();
@@ -72,12 +58,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             this.roundedPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.medVet_testeDataSet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.medVettesteDataSetBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.veterinariosBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.veterinariosBindingSource1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.veterinariosBindingSource2)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -334,94 +314,11 @@
             this.label9.TabIndex = 10;
             this.label9.Text = "Aqui estão suas informações pessoais e de acesso";
             // 
-            // medVet_testeDataSet
-            // 
-            this.medVet_testeDataSet.DataSetName = "MedVet_testeDataSet";
-            this.medVet_testeDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // medVettesteDataSetBindingSource
-            // 
-            this.medVettesteDataSetBindingSource.DataSource = this.medVet_testeDataSet;
-            this.medVettesteDataSetBindingSource.Position = 0;
-            // 
-            // veterinariosBindingSource
-            // 
-            this.veterinariosBindingSource.DataMember = "Veterinarios";
-            this.veterinariosBindingSource.DataSource = this.medVettesteDataSetBindingSource;
-            // 
-            // veterinariosTableAdapter
-            // 
-            this.veterinariosTableAdapter.ClearBeforeFill = true;
-            // 
-            // veterinariosBindingSource1
-            // 
-            this.veterinariosBindingSource1.DataMember = "Veterinarios";
-            this.veterinariosBindingSource1.DataSource = this.medVettesteDataSetBindingSource;
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.AutoGenerateColumns = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.iDDataGridViewTextBoxColumn,
-            this.nomeDataGridViewTextBoxColumn,
-            this.telefoneDataGridViewTextBoxColumn,
-            this.nivelDataGridViewTextBoxColumn,
-            this.usuarioDataGridViewTextBoxColumn,
-            this.senhaDataGridViewTextBoxColumn});
-            this.dataGridView1.DataSource = this.veterinariosBindingSource2;
-            this.dataGridView1.Location = new System.Drawing.Point(31, 471);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(240, 150);
-            this.dataGridView1.TabIndex = 11;
-            // 
-            // veterinariosBindingSource2
-            // 
-            this.veterinariosBindingSource2.DataMember = "Veterinarios";
-            this.veterinariosBindingSource2.DataSource = this.medVet_testeDataSet;
-            // 
-            // iDDataGridViewTextBoxColumn
-            // 
-            this.iDDataGridViewTextBoxColumn.DataPropertyName = "ID";
-            this.iDDataGridViewTextBoxColumn.HeaderText = "ID";
-            this.iDDataGridViewTextBoxColumn.Name = "iDDataGridViewTextBoxColumn";
-            // 
-            // nomeDataGridViewTextBoxColumn
-            // 
-            this.nomeDataGridViewTextBoxColumn.DataPropertyName = "Nome";
-            this.nomeDataGridViewTextBoxColumn.HeaderText = "Nome";
-            this.nomeDataGridViewTextBoxColumn.Name = "nomeDataGridViewTextBoxColumn";
-            // 
-            // telefoneDataGridViewTextBoxColumn
-            // 
-            this.telefoneDataGridViewTextBoxColumn.DataPropertyName = "Telefone";
-            this.telefoneDataGridViewTextBoxColumn.HeaderText = "Telefone";
-            this.telefoneDataGridViewTextBoxColumn.Name = "telefoneDataGridViewTextBoxColumn";
-            // 
-            // nivelDataGridViewTextBoxColumn
-            // 
-            this.nivelDataGridViewTextBoxColumn.DataPropertyName = "Nivel";
-            this.nivelDataGridViewTextBoxColumn.HeaderText = "Nivel";
-            this.nivelDataGridViewTextBoxColumn.Name = "nivelDataGridViewTextBoxColumn";
-            // 
-            // usuarioDataGridViewTextBoxColumn
-            // 
-            this.usuarioDataGridViewTextBoxColumn.DataPropertyName = "Usuario";
-            this.usuarioDataGridViewTextBoxColumn.HeaderText = "Usuario";
-            this.usuarioDataGridViewTextBoxColumn.Name = "usuarioDataGridViewTextBoxColumn";
-            // 
-            // senhaDataGridViewTextBoxColumn
-            // 
-            this.senhaDataGridViewTextBoxColumn.DataPropertyName = "Senha";
-            this.senhaDataGridViewTextBoxColumn.HeaderText = "Senha";
-            this.senhaDataGridViewTextBoxColumn.Name = "senhaDataGridViewTextBoxColumn";
-            // 
             // Perfil
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1035, 821);
-            this.Controls.Add(this.dataGridView1);
+            this.ClientSize = new System.Drawing.Size(1035, 749);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.roundedPanel3);
@@ -447,12 +344,6 @@
             this.roundedPanel3.ResumeLayout(false);
             this.roundedPanel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.medVet_testeDataSet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.medVettesteDataSetBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.veterinariosBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.veterinariosBindingSource1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.veterinariosBindingSource2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -482,18 +373,11 @@
         private System.Windows.Forms.Label lbl_desktop;
         private System.Windows.Forms.Label lbl_lastAccess;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.BindingSource medVettesteDataSetBindingSource;
-        private MedVet_testeDataSet medVet_testeDataSet;
-        private System.Windows.Forms.BindingSource veterinariosBindingSource;
-        private MedVet_testeDataSetTableAdapters.VeterinariosTableAdapter veterinariosTableAdapter;
-        private System.Windows.Forms.BindingSource veterinariosBindingSource1;
-        private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridViewTextBoxColumn iDDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn nomeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn telefoneDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn nivelDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn usuarioDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn senhaDataGridViewTextBoxColumn;
-        private System.Windows.Forms.BindingSource veterinariosBindingSource2;
     }
 }

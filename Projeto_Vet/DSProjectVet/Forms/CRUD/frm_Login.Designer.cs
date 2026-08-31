@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_Login));
             this.lbl_user = new System.Windows.Forms.Label();
             this.lbl_pass = new System.Windows.Forms.Label();
@@ -36,7 +37,9 @@
             this.lbl_title1 = new System.Windows.Forms.Label();
             this.btn_ok = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // lbl_user
@@ -49,7 +52,6 @@
             this.lbl_user.Size = new System.Drawing.Size(63, 18);
             this.lbl_user.TabIndex = 1;
             this.lbl_user.Text = "Usuário:";
-            this.lbl_user.Click += new System.EventHandler(this.label1_Click);
             // 
             // lbl_pass
             // 
@@ -61,7 +63,6 @@
             this.lbl_pass.Size = new System.Drawing.Size(52, 18);
             this.lbl_pass.TabIndex = 2;
             this.lbl_pass.Text = "Senha:";
-            this.lbl_pass.Click += new System.EventHandler(this.lbl_pass_Click);
             // 
             // txtUser
             // 
@@ -74,7 +75,6 @@
             this.txtUser.Name = "txtUser";
             this.txtUser.Size = new System.Drawing.Size(292, 30);
             this.txtUser.TabIndex = 3;
-            this.txtUser.TextChanged += new System.EventHandler(this.txtUser_TextChanged);
             // 
             // txtPass
             // 
@@ -88,17 +88,16 @@
             this.txtPass.PasswordChar = '*';
             this.txtPass.Size = new System.Drawing.Size(292, 30);
             this.txtPass.TabIndex = 4;
-            this.txtPass.TextChanged += new System.EventHandler(this.txtPass_TextChanged);
             // 
             // lbl_title1
             // 
             this.lbl_title1.AutoSize = true;
-            this.lbl_title1.Font = new System.Drawing.Font("Helvetica", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_title1.Font = new System.Drawing.Font("Arial", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_title1.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.lbl_title1.Location = new System.Drawing.Point(517, 56);
             this.lbl_title1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lbl_title1.Name = "lbl_title1";
-            this.lbl_title1.Size = new System.Drawing.Size(207, 22);
+            this.lbl_title1.Size = new System.Drawing.Size(204, 22);
             this.lbl_title1.TabIndex = 5;
             this.lbl_title1.Text = "ACESSE SUA CONTA";
             // 
@@ -128,6 +127,10 @@
             this.pictureBox1.TabIndex = 7;
             this.pictureBox1.TabStop = false;
             // 
+            // errorProvider
+            // 
+            this.errorProvider.ContainerControl = this;
+            // 
             // frm_Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -150,6 +153,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login Vet";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -163,5 +167,6 @@
         private System.Windows.Forms.Label lbl_title1;
         private System.Windows.Forms.Button btn_ok;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.ErrorProvider errorProvider;
     }
 }

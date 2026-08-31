@@ -18,6 +18,20 @@ namespace DSProjectVet.Forms
             InitializeComponent();
         }
 
+        protected override void OnResize(EventArgs e)
+        {
+            base.OnResize(e);
+
+            splashScreenBox.Left = (this.ClientSize.Width - splashScreenBox.Width) / 2;
+            splashScreenBox.Top = (this.ClientSize.Height - splashScreenBox.Height) / 2;
+        } // centraliza os componentes
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            OnResize(EventArgs.Empty);
+        } // essa função faz o programa iniciar centralizado
+
         public void frm_SplashScreen_Load(object sender, EventArgs e)
         {
             timer = new Timer();
@@ -38,10 +52,6 @@ namespace DSProjectVet.Forms
                 this.Hide();
                 frm_Login menu = new frm_Login();
                 menu.Show();
-
-                this.Hide();
-
-
             }
         }
     }

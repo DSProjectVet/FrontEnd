@@ -12,7 +12,7 @@ namespace DSProjectVet.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "18.10.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "18.9.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -43,6 +43,41 @@ namespace DSProjectVet.Properties {
         public string MedVet_testeConnectionString {
             get {
                 return ((string)(this["MedVet_testeConnectionString"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=localhost\\SQLEXPRESS;Initial Catalog=teste;Integrated Security=True;E" +
+            "ncrypt=True;TrustServerCertificate=True")]
+        public string testeConnectionString_Murilo {
+            get {
+                return ((string)(this["testeConnectionString_Murilo"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string NomeUsuarioLogado {
+            get {
+                return ((string)(this["NomeUsuarioLogado"]));
+            }
+            set {
+                this["NomeUsuarioLogado"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int NivelUsuarioLogado {
+            get {
+                return ((int)(this["NivelUsuarioLogado"]));
+            }
+            set {
+                this["NivelUsuarioLogado"] = value;
             }
         }
     }
