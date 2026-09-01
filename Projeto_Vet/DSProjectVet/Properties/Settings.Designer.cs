@@ -38,22 +38,11 @@ namespace DSProjectVet.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=MedVet_teste;Integrated Securi" +
-            "ty=True;TrustServerCertificate=True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=localhost\\SQLEXPRESS;Initial Catalog=MedVet_teste;Integrated Security" +
+            "=True;TrustServerCertificate=True")]
         public string MedVet_testeConnectionString {
             get {
                 return ((string)(this["MedVet_testeConnectionString"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=localhost\\SQLEXPRESS;Initial Catalog=teste;Integrated Security=True;E" +
-            "ncrypt=True;TrustServerCertificate=True")]
-        public string testeConnectionString_Murilo {
-            get {
-                return ((string)(this["testeConnectionString_Murilo"]));
             }
         }
         

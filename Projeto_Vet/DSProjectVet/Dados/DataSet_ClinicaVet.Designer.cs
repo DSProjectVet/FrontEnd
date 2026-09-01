@@ -8356,7 +8356,7 @@ SELECT ID, Nome, CPF_CNPJ, Telefone, Descricao FROM Fornecedores WHERE (ID = @ID
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::DSProjectVet.Properties.Settings.Default.testeConnectionString_Murilo;
+            this._connection.ConnectionString = global::DSProjectVet.Properties.Settings.Default.MedVet_testeConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -8747,7 +8747,7 @@ SELECT ID, Nome, CPF_CNPJ, Telefone, Descricao FROM Fornecedores WHERE (ID = @ID
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::DSProjectVet.Properties.Settings.Default.testeConnectionString_Murilo;
+            this._connection.ConnectionString = global::DSProjectVet.Properties.Settings.Default.MedVet_testeConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -9029,7 +9029,7 @@ SELECT ID, Nome, Descricao, Quantidade, Preco, fk_Estoque_Financeiro_ID FROM Med
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::DSProjectVet.Properties.Settings.Default.testeConnectionString_Murilo;
+            this._connection.ConnectionString = global::DSProjectVet.Properties.Settings.Default.MedVet_testeConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -9494,7 +9494,7 @@ SELECT ID, Nome, Descricao, Quantidade, Preco, fk_Estoque_Financeiro_ID FROM Pro
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::DSProjectVet.Properties.Settings.Default.testeConnectionString_Murilo;
+            this._connection.ConnectionString = global::DSProjectVet.Properties.Settings.Default.MedVet_testeConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -9921,7 +9921,7 @@ SELECT ID, Nome, Descricao, Quantidade, Preco, fk_Estoque_Financeiro_ID FROM Pro
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::DSProjectVet.Properties.Settings.Default.testeConnectionString_Murilo;
+            this._connection.ConnectionString = global::DSProjectVet.Properties.Settings.Default.MedVet_testeConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -10196,7 +10196,7 @@ SELECT ID, Nome, Descricao, Quantidade, Preco, fk_Estoque_Financeiro_ID FROM Pro
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
         private void InitConnection() {
             this._connection = new global::System.Data.SqlClient.SqlConnection();
-            this._connection.ConnectionString = global::DSProjectVet.Properties.Settings.Default.testeConnectionString_Murilo;
+            this._connection.ConnectionString = global::DSProjectVet.Properties.Settings.Default.MedVet_testeConnectionString;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]

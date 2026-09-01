@@ -25,7 +25,7 @@ namespace DSProjectVet.Forms
 
         private void MDI_Menu_Load(object sender, EventArgs e)
         {
-            if (DSProjectVet.Properties.Settings.Default.NivelUsuarioLogado == 2)
+            if (DSProjectVet.Properties.Settings.Default.NivelUsuarioLogado != 2)
             {
                 // caso o nivel de acesso seja "2", muda a visibilidade do botão de cadastrar cliente
                 clientesToolStripMenuItem.Visible = false;

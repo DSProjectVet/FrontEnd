@@ -1,0 +1,9 @@
+CREATE PROCEDURE [dbo].SelectQuery
+(
+	@Usuario nvarchar(50),
+	@Senha varchar(255)
+)
+AS
+	SET NOCOUNT ON;
+SELECT ID, Nome, Telefone, Nivel, Usuario, Senha FROM dbo.Veterinarios WHERE Usuario = @Usuario AND 
+Senha = @Senha
