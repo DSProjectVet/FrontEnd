@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DSProjectVet.Forms.SCREENS;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -89,6 +90,35 @@ namespace DSProjectVet.Forms
             {
                 MDI_Warning_Message();
             }
+        }
+
+        private void menuDashBoard_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void animaisToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (!FormAberto(typeof(frmAnimais))) // executa apenas se MdiChildren estiver vazio.
+            {
+                frmAnimais frmAnimais = new frmAnimais();
+                frmAnimais.MdiParent = this; // indica se essa nova instancia é parente de MDI
+                                             //this indica o form MDI atual
+
+                // new frmPerfilUsuario() cria/instância uma nova janela da calculadora
+
+
+                frmAnimais.Show();
+                // ShowDialog() impede de clicar na tela de fundo enquando frmPerfilUsuario estiver aberto
+            }
+            else
+            {
+                MDI_Warning_Message();
+            }
+        }
+
+        private void estoqueToolStripMenuItem_Click(object sender, EventArgs e)
+        {
         }
     }
 }

@@ -57,6 +57,12 @@
       <DependentUpon>DataSet_ClinicaVet.xsd</DependentUpon>
     </Compile>
     <Compile Include="DesignerUtils.cs" />
+    <Compile Include="Forms\SCREENS\frmAnimais.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SCREENS\frmAnimais.Designer.cs">
+      <DependentUpon>frmAnimais.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\SCREENS\frmClientes.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -101,6 +107,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Forms\SCREENS\frmAnimais.resx">
+      <DependentUpon>frmAnimais.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\SCREENS\frmClientes.resx">
       <DependentUpon>frmClientes.cs</DependentUpon>
     </EmbeddedResource>

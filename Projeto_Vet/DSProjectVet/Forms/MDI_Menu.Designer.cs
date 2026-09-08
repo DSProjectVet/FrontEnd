@@ -57,6 +57,7 @@
             this.menuDashBoard.Size = new System.Drawing.Size(1238, 29);
             this.menuDashBoard.TabIndex = 0;
             this.menuDashBoard.Text = "menuStrip1";
+            this.menuDashBoard.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuDashBoard_ItemClicked);
             // 
             // cadastrosToolStripMenuItem
             // 
@@ -72,7 +73,7 @@
             // 
             this.clientesToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("clientesToolStripMenuItem.Image")));
             this.clientesToolStripMenuItem.Name = "clientesToolStripMenuItem";
-            this.clientesToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
+            this.clientesToolStripMenuItem.Size = new System.Drawing.Size(142, 26);
             this.clientesToolStripMenuItem.Text = "Clientes";
             this.clientesToolStripMenuItem.Click += new System.EventHandler(this.clientesToolStripMenuItem_Click);
             // 
@@ -80,8 +81,9 @@
             // 
             this.animaisToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("animaisToolStripMenuItem.Image")));
             this.animaisToolStripMenuItem.Name = "animaisToolStripMenuItem";
-            this.animaisToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
+            this.animaisToolStripMenuItem.Size = new System.Drawing.Size(142, 26);
             this.animaisToolStripMenuItem.Text = "Animais";
+            this.animaisToolStripMenuItem.Click += new System.EventHandler(this.animaisToolStripMenuItem_Click);
             // 
             // relatóriosToolStripMenuItem
             // 
@@ -102,6 +104,7 @@
             this.estoqueToolStripMenuItem.Name = "estoqueToolStripMenuItem";
             this.estoqueToolStripMenuItem.Size = new System.Drawing.Size(236, 26);
             this.estoqueToolStripMenuItem.Text = "Estoque";
+            this.estoqueToolStripMenuItem.Click += new System.EventHandler(this.estoqueToolStripMenuItem_Click);
             // 
             // movimentaçõesToolStripMenuItem
             // 

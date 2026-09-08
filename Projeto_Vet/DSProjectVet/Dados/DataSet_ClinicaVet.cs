@@ -13,3 +13,12 @@ namespace DSProjectVet.Dados.DataSet_ClinicaVetTableAdapters {
     public partial class VeterinariosTableAdapter {
     }
 }
+
+namespace DSProjectVet.Dados.DataSet_ClinicaVetTableAdapters
+{
+
+
+    public partial class AnimaisTableAdapter
+    {
+    }
+}

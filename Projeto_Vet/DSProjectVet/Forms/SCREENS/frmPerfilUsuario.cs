@@ -1,22 +1,181 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data.SqlClient;
 using System.Windows.Forms;
 
 namespace DSProjectVet.Forms
 {
     public partial class Perfil : Form
     {
+        // =========================
+        // CORES DO SISTEMA
+        // =========================
+
+        private readonly Color verdePrincipal =
+            Color.FromArgb(20, 192, 138);
+
+        private readonly Color verdeEscuro =
+            Color.FromArgb(14, 145, 104);
+
+        private readonly Color verdeClaro =
+            Color.FromArgb(225, 248, 240);
+
+        private readonly Color fundoTela =
+            Color.FromArgb(248, 250, 249);
+
+        private readonly Color textoPrincipal =
+            Color.FromArgb(45, 55, 52);
+
+        private readonly Color textoSecundario =
+            Color.FromArgb(110, 120, 116);
+
         public Perfil()
         {
             InitializeComponent();
         }
+
+        private void Perfil_Load(object sender, EventArgs e)
+        {
+            EstilizarTela();
+            CarregarDadosUsuario();
+            CarregarUltimoAcesso();
+            CarregarDispositivo();
+
+            btnTrocaSenha.btnPrimary();
+        }
+
+        // =========================================================
+        // CARREGAR DADOS DO USUÁRIO
+        // =========================================================
+
+        private void CarregarDadosUsuario()
+        {
+            lbl_Username.Text =
+                Properties.Settings.Default.NomeUsuarioLogado;
+
+            switch (Properties.Settings.Default.NivelUsuarioLogado)
+            {
+                case 1:
+                    lbl_cargo.Text = "Administrador(a)";
+                    break;
+
+                case 2:
+                    lbl_cargo.Text = "Veterinário(a)";
+                    break;
+
+                case 3:
+                    lbl_cargo.Text = "Caixa";
+                    break;
+
+                default:
+                    lbl_cargo.Text = "Usuário";
+                    break;
+            }
+        }
+
+        // =========================================================
+        // ÚLTIMO ACESSO
+        // =========================================================
+
+        private void CarregarUltimoAcesso()
+        {
+            DateTime ultimaExecucao =
+                Properties.Settings.Default.UltimaExecucao;
+
+            // Se nunca houve acesso anterior
+            if (ultimaExecucao.Year <= 2001)
+            {
+                lbl_lastAccess.Text = "Primeiro acesso";
+            }
+            else
+            {
+                lbl_lastAccess.Text =
+                    ultimaExecucao.ToString("dd/MM/yyyy 'às' HH:mm");
+            }
+
+            // Atualiza para o acesso atual
+            Properties.Settings.Default.UltimaExecucao =
+                DateTime.Now;
+
+            Properties.Settings.Default.Save();
+        }
+
+        // =========================================================
+        // DISPOSITIVO
+        // =========================================================
+
+        private void CarregarDispositivo()
+        {
+            lbl_desktop.Text = Environment.MachineName;
+        }
+
+        // =========================================================
+        // ESTILIZAÇÃO DA TELA
+        // =========================================================
+
+        private void EstilizarTela()
+        {
+            this.BackColor = fundoTela;
+
+            // =========================
+            // NOME DO USUÁRIO
+            // =========================
+
+            lbl_Username.Font =
+                new Font(
+                    "Segoe UI",
+                    22F,
+                    FontStyle.Bold
+                );
+
+            lbl_Username.ForeColor =
+                textoPrincipal;
+
+            // =========================
+            // CARGO
+            // =========================
+
+            lbl_cargo.Font =
+                new Font(
+                    "Segoe UI",
+                    11F,
+                    FontStyle.Bold
+                );
+
+            lbl_cargo.ForeColor =
+                verdePrincipal;
+
+            // =========================
+            // ÚLTIMO ACESSO
+            // =========================
+
+            lbl_lastAccess.Font =
+                new Font(
+                    "Segoe UI",
+                    10F,
+                    FontStyle.Regular
+                );
+
+            lbl_lastAccess.ForeColor =
+                textoSecundario;
+
+            // =========================
+            // DISPOSITIVO
+            // =========================
+
+            lbl_desktop.Font =
+                new Font(
+                    "Segoe UI",
+                    10F,
+                    FontStyle.Regular
+                );
+
+            lbl_desktop.ForeColor =
+                textoSecundario;
+        }
+
+        // =========================================================
+        // EVENTOS EXISTENTES
+        // =========================================================
 
         private void label1_Click(object sender, EventArgs e)
         {
@@ -35,51 +194,6 @@ namespace DSProjectVet.Forms
 
         private void lbl_lastAccess_Click(object sender, EventArgs e)
         {
-
-        }
-
-        // Evento executado quando o programa COMPILA/ABRE
-        private void Perfil_Load(object sender, EventArgs e)
-        {
-            lbl_Username.Text = DSProjectVet.Properties.Settings.Default.
-                NomeUsuarioLogado;
-
-            switch(DSProjectVet.Properties.Settings.Default.NivelUsuarioLogado)
-            {
-                case 1:
-                    lbl_cargo.Text = "Administrador(a)";
-                    break;
-
-                case 2:
-                    lbl_cargo.Text = "Veterinário(a)";
-                    break;
-
-                case 3:
-                    lbl_cargo.Text = "Caixa";
-                    break;
-
-                default:
-                    lbl_cargo.Text = "Desconhecido";
-                    break;
-            }
-
-
-            // Pega o último acesso salvo
-            DateTime UltimaExecucao = Properties.Settings.Default.UltimaExecucao;
-
-            // Exibe no Label
-            lbl_lastAccess.Text = UltimaExecucao.ToString("dd/MM/yyyy HH:mm");
-
-            // Atualiza para o acesso atual
-            Properties.Settings.Default.UltimaExecucao = DateTime.Now;
-
-            // Salva a alteração
-            Properties.Settings.Default.Save();
-
-            lbl_desktop.Text = Environment.MachineName;
-
-            btnTrocaSenha.btnPrimary();
-
 
         }
 
