@@ -141,5 +141,10 @@ namespace DSProjectVet.Forms
             erros++;
             return false;
         }
+
+        private void txtUser_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

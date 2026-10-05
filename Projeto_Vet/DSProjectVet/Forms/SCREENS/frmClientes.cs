@@ -449,5 +449,13 @@ namespace DSProjectVet.Forms
         {
 
         }
+
+        private void btnCadastrar_Click(object sender, EventArgs e)
+        {
+            frmNovoCliente TelaCadastro =
+             new frmNovoCliente();
+
+            TelaCadastro.ShowDialog();
+        }
     }
 }
