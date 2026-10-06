@@ -1,4 +1,5 @@
 ﻿using DSProjectVet.Forms;
+using DSProjectVet.Forms.SCREENS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace DSProjectVet
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frm_SplashScreen());
+            Application.Run(new testeCadastro_Func());
         }
     }
 }

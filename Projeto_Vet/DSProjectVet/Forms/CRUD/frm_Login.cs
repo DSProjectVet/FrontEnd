@@ -91,36 +91,6 @@ namespace DSProjectVet.Forms
                 btn_ok.Enabled = true;
                 //loadingForm.Close();
             }
-
-            //// Verificação do login
-            //if (usuarioDigitado == usuarioCorreto && senhaDigitada == senhaCorreta)
-            //{
-            //    MessageBox.Show(
-            //        "Login realizado com sucesso!",
-            //        "Login",
-            //        MessageBoxButtons.OK,
-            //        MessageBoxIcon.Information
-            //    );
-
-            //    // Abre o formulário MDI_Menu
-            //    MDI_Menu menu = new MDI_Menu();
-            //    menu.Show();
-
-            //    // Esconde a tela de login
-            //    this.Hide();
-            //}
-            //else
-            //{
-            //    MessageBox.Show(
-            //        "Usuário ou senha incorretos!",
-            //        "Erro de Login",
-            //        MessageBoxButtons.OK,
-            //        MessageBoxIcon.Error
-            //    );
-
-            //    txtPass.Clear();
-            //    txtPass.Focus();
-            //}
         }
 
         private async Task<bool> SingIn(string user, string password)
