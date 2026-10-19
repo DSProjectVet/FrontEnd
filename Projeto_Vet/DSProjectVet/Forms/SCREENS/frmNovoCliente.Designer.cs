@@ -61,6 +61,7 @@
             this.lblCpf.TabIndex = 2;
             this.lblCpf.Text = "CPF:";
             this.lblCpf.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.lblCpf.Click += new System.EventHandler(this.lblCpf_Click);
             // 
             // lblTelefone
             // 
@@ -72,6 +73,7 @@
             this.lblTelefone.TabIndex = 4;
             this.lblTelefone.Text = "Telefone:";
             this.lblTelefone.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.lblTelefone.Click += new System.EventHandler(this.lblTelefone_Click);
             // 
             // lblEnd
             // 
@@ -83,6 +85,7 @@
             this.lblEnd.TabIndex = 6;
             this.lblEnd.Text = "Endereço:";
             this.lblEnd.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.lblEnd.Click += new System.EventHandler(this.lblEnd_Click);
             // 
             // txtNome
             // 
@@ -94,6 +97,7 @@
             this.txtNome.Name = "txtNome";
             this.txtNome.Size = new System.Drawing.Size(382, 44);
             this.txtNome.TabIndex = 15;
+            this.txtNome.TextChanged += new System.EventHandler(this.txtNome_TextChanged);
             // 
             // txtCpf
             // 
@@ -105,6 +109,7 @@
             this.txtCpf.Name = "txtCpf";
             this.txtCpf.Size = new System.Drawing.Size(382, 44);
             this.txtCpf.TabIndex = 16;
+            this.txtCpf.TextChanged += new System.EventHandler(this.txtCpf_TextChanged);
             // 
             // txtTelefone
             // 
@@ -116,6 +121,7 @@
             this.txtTelefone.Name = "txtTelefone";
             this.txtTelefone.Size = new System.Drawing.Size(382, 44);
             this.txtTelefone.TabIndex = 17;
+            this.txtTelefone.TextChanged += new System.EventHandler(this.txtTelefone_TextChanged);
             // 
             // txtEnd
             // 
@@ -127,6 +133,7 @@
             this.txtEnd.Name = "txtEnd";
             this.txtEnd.Size = new System.Drawing.Size(382, 44);
             this.txtEnd.TabIndex = 18;
+            this.txtEnd.TextChanged += new System.EventHandler(this.txtEnd_TextChanged);
             // 
             // btnCadastrar
             // 
@@ -136,6 +143,7 @@
             this.btnCadastrar.TabIndex = 19;
             this.btnCadastrar.Text = "Cadastrar";
             this.btnCadastrar.UseVisualStyleBackColor = true;
+            this.btnCadastrar.Click += new System.EventHandler(this.btnCadastrar_Click);
             // 
             // frmNovoCliente
             // 

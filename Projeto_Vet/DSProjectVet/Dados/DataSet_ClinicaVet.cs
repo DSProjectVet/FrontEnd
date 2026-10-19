@@ -22,3 +22,12 @@ namespace DSProjectVet.Dados.DataSet_ClinicaVetTableAdapters
     {
     }
 }
+
+namespace DSProjectVet.Dados.DataSet_ClinicaVetTableAdapters
+{
+
+
+    public partial class VeterinariosTableAdapter
+    {
+    }
+}
