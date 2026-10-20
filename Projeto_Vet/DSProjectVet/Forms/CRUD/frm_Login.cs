@@ -6,12 +6,15 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DSProjectVet.Forms
 {
+    using BCrypt.Net;
+
     public partial class frm_Login : Form
     {
         public frm_Login()
@@ -20,6 +23,12 @@ namespace DSProjectVet.Forms
         }
 
         int erros;
+        string hash;
+
+        private bool VerificarSenha(string senhaDigitada)
+        {
+            return BCrypt.Verify(senhaDigitada, hash);
+        }
 
         private async void btn_ok_Click(object sender, EventArgs e)
         {
@@ -51,8 +60,7 @@ namespace DSProjectVet.Forms
             {
                 errorProvider.SetError(txtPass, "");
             }
-
-            try
+try
             {
                 //loadingForm.Show();
                 btn_ok.Enabled = false;
@@ -91,14 +99,15 @@ namespace DSProjectVet.Forms
                 btn_ok.Enabled = true;
                 //loadingForm.Close();
             }
+            
         }
 
         private async Task<bool> SingIn(string user, string password)
         {
             await Task.Delay(1000); // simula um tempo de espera para a conexão com o banco de 
-            VeterinariosTableAdapter taUsuario = new VeterinariosTableAdapter();
+            FuncionariosTableAdapter taFuncionarios = new FuncionariosTableAdapter();
 
-            DataTable dt = await Task.Run(() => taUsuario.Procurar_Usuario(user, password));
+            DataTable dt = await Task.Run(() => taFuncionarios.LoginUser(user, password));
             if (dt.Rows.Count > 0) // verifica se retornou alguma linha. Caso exista, user e pass estão corretos
             {
                 DSProjectVet.Properties.Settings.Default.NomeUsuarioLogado = dt.Rows[0]["Nome"].ToString(); // seta a var "NomeUsuarioLogado" com o nome do user caso esteja tudo correto
