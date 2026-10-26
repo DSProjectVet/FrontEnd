@@ -104,21 +104,34 @@ try
 
         private async Task<bool> SingIn(string user, string password)
         {
-            await Task.Delay(1000); // simula um tempo de espera para a conexão com o banco de 
-            FuncionariosTableAdapter taFuncionarios = new FuncionariosTableAdapter();
-
-            DataTable dt = await Task.Run(() => taFuncionarios.LoginUser(user, password));
-            if (dt.Rows.Count > 0) // verifica se retornou alguma linha. Caso exista, user e pass estão corretos
+            try
             {
-                DSProjectVet.Properties.Settings.Default.NomeUsuarioLogado = dt.Rows[0]["Nome"].ToString(); // seta a var "NomeUsuarioLogado" com o nome do user caso esteja tudo correto
-                DSProjectVet.Properties.Settings.Default.NivelUsuarioLogado = int.Parse(dt.Rows[0]["Nivel"].ToString());
-                MessageBox.Show(dt.Rows[0]["Nome"].ToString());
-                return true;
-                //dt.Rows[0]["NIVEL"] -> na linha zero, coluna NIVEL, pega o valor do nível do user
-            }
+                await Task.Delay(1000); // simula um tempo de espera para a conexão com o banco de 
+                FuncionariosTableAdapter taFuncionarios = new FuncionariosTableAdapter();
 
-            erros++;
-            return false;
+                DataTable dt = await Task.Run(() => taFuncionarios.LoginUser(user));
+                if (dt.Rows.Count > 0) // verifica se retornou alguma linha. Caso exista, user e pass estão corretos
+                {
+                    hash = dt.Rows[0]["SenhaHash"].ToString();
+
+                    if (VerificarSenha(password))
+                    {
+                        DSProjectVet.Properties.Settings.Default.NomeUsuarioLogado = dt.Rows[0]["Nome"].ToString(); // seta a var "NomeUsuarioLogado" com o nome do user caso esteja tudo correto
+                        DSProjectVet.Properties.Settings.Default.NivelUsuarioLogado = int.Parse(dt.Rows[0]["NivelAcesso"].ToString());
+                        MessageBox.Show(dt.Rows[0]["Nome"].ToString());
+                        return true;
+                        //dt.Rows[0]["NIVEL"] -> na linha zero, coluna NIVEL, pega o valor do nível do user
+                    }
+                }
+
+                erros++;
+                return false;
+            } catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao tentar se conectar com o banco de dados!\n {ex.Message}",
+                    "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
         }
 
         private void txtUser_TextChanged(object sender, EventArgs e)

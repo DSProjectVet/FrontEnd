@@ -18,7 +18,7 @@ namespace DSProjectVet
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmNovoUsuario());
+            Application.Run(new frm_Login());
         }
     }
 }

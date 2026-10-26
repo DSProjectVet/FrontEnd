@@ -33,8 +33,9 @@ namespace DSProjectVet.Forms.SCREENS
 
         private void btnCadastrar_Click(object sender, EventArgs e)
         {
-            lblHash.Text = $"Hash gerado: {GerarHash(txtSenha.Text)}";
             hash = GerarHash(txtSenha.Text);
+            lblHash.Text = $"Hash gerado: {hash}";
+            txtLogin.Text = hash;
         }
 
         private void btnTestar_Click(object sender, EventArgs e)
