@@ -152,7 +152,7 @@ namespace DSProjectVet.Forms.SCREENS
 
                 foreach (DataRow cliente in clientes.Rows)
                 {
-                    int id = Convert.ToInt32(cliente["ID"]);
+                    int id = Convert.ToInt32(cliente["ID_Cliente"]);
 
                     if (id == clienteId.Value)
                     {
@@ -347,10 +347,10 @@ namespace DSProjectVet.Forms.SCREENS
                 return;
 
             // ID
-            if (dataGridView1.Columns.Contains("ID"))
+            if (dataGridView1.Columns.Contains("ID_Animal"))
             {
-                dataGridView1.Columns["ID"].HeaderText = "ID";
-                dataGridView1.Columns["ID"].FillWeight = 35;
+                dataGridView1.Columns["ID_Animal"].HeaderText = "ID";
+                dataGridView1.Columns["ID_Animal"].FillWeight = 35;
             }
 
             // NOME
@@ -372,15 +372,6 @@ namespace DSProjectVet.Forms.SCREENS
             {
                 dataGridView1.Columns["Sexo"].HeaderText = "Sexo";
                 dataGridView1.Columns["Sexo"].FillWeight = 55;
-            }
-
-            // ENFERMIDADE
-            if (dataGridView1.Columns.Contains("Enfermidade"))
-            {
-                dataGridView1.Columns["Enfermidade"].HeaderText =
-                    "Enfermidade";
-
-                dataGridView1.Columns["Enfermidade"].FillWeight = 100;
             }
 
             // DESCRIÇÃO
@@ -448,7 +439,7 @@ namespace DSProjectVet.Forms.SCREENS
 
             DataRow animal = linhaSelecionada.Row;
 
-            int idAnimal = Convert.ToInt32(animal["ID"]);
+            int idAnimal = Convert.ToInt32(animal["ID_Animal"]);
 
             // JANELA DE EDIÇÃO
             using (Form telaEdicao = new Form())
@@ -493,9 +484,6 @@ namespace DSProjectVet.Forms.SCREENS
                 TextBox txtEspecie = CriarCampoEdicao(
                     painel, "Espécie", animal["Especie"]);
 
-                TextBox txtEnfermidade = CriarCampoEdicao(
-                    painel, "Enfermidade", animal["Enfermidade"]);
-
                 TextBox txtDescricao = CriarCampoEdicao(
                     painel, "Descrição", animal["Descricao"]);
 
@@ -538,7 +526,6 @@ namespace DSProjectVet.Forms.SCREENS
                         animal["Raca"] = txtRaca.Text.Trim();
                         animal["Sexo"] = txtSexo.Text.Trim();
                         animal["Especie"] = txtEspecie.Text.Trim();
-                        animal["Enfermidade"] = txtEnfermidade.Text.Trim();
                         animal["Descricao"] = txtDescricao.Text.Trim();
 
                         try

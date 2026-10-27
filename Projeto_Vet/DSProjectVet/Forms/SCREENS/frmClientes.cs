@@ -56,7 +56,7 @@ namespace DSProjectVet.Forms
         // CARREGAR CLIENTES
         // =========================================================
 
-        private void CarregarClientes()
+        public void CarregarClientes()
         {
             try
             {
@@ -138,53 +138,53 @@ namespace DSProjectVet.Forms
 
         private void EstilizarDataGridView()
         {
-            dataGridView1.EnableHeadersVisualStyles = false;
+            dataGridViewClientes.EnableHeadersVisualStyles = false;
 
             // FUNDO
-            dataGridView1.BackgroundColor = Color.White;
+            dataGridViewClientes.BackgroundColor = Color.White;
 
-            dataGridView1.BorderStyle =
+            dataGridViewClientes.BorderStyle =
                 BorderStyle.None;
 
             // GRID
-            dataGridView1.GridColor =
+            dataGridViewClientes.GridColor =
                 Color.FromArgb(232, 238, 235);
 
-            dataGridView1.CellBorderStyle =
+            dataGridViewClientes.CellBorderStyle =
                 DataGridViewCellBorderStyle.SingleHorizontal;
 
             // REMOVE CABEÇALHO LATERAL
-            dataGridView1.RowHeadersVisible = false;
+            dataGridViewClientes.RowHeadersVisible = false;
 
             // SELEÇÃO
-            dataGridView1.SelectionMode =
+            dataGridViewClientes.SelectionMode =
                 DataGridViewSelectionMode.FullRowSelect;
 
-            dataGridView1.MultiSelect = false;
+            dataGridViewClientes.MultiSelect = false;
 
             // EVITA ALTERAÇÃO DIRETA
-            dataGridView1.ReadOnly = true;
+            dataGridViewClientes.ReadOnly = true;
 
             // REMOVE LINHA EXTRA
-            dataGridView1.AllowUserToAddRows = false;
+            dataGridViewClientes.AllowUserToAddRows = false;
 
-            dataGridView1.AllowUserToDeleteRows = false;
+            dataGridViewClientes.AllowUserToDeleteRows = false;
 
-            dataGridView1.AllowUserToResizeRows = false;
+            dataGridViewClientes.AllowUserToResizeRows = false;
 
             // TAMANHO
-            dataGridView1.RowTemplate.Height = 42;
+            dataGridViewClientes.RowTemplate.Height = 42;
 
-            dataGridView1.ColumnHeadersHeight = 45;
+            dataGridViewClientes.ColumnHeadersHeight = 45;
 
             // RESPONSIVIDADE
-            dataGridView1.AutoSizeColumnsMode =
+            dataGridViewClientes.AutoSizeColumnsMode =
                 DataGridViewAutoSizeColumnsMode.Fill;
 
-            dataGridView1.AutoSizeRowsMode =
+            dataGridViewClientes.AutoSizeRowsMode =
                 DataGridViewAutoSizeRowsMode.None;
 
-            dataGridView1.Anchor =
+            dataGridViewClientes.Anchor =
                 AnchorStyles.Top |
                 AnchorStyles.Bottom |
                 AnchorStyles.Left |
@@ -194,59 +194,59 @@ namespace DSProjectVet.Forms
             // CABEÇALHO
             // =========================
 
-            dataGridView1.ColumnHeadersDefaultCellStyle.BackColor =
+            dataGridViewClientes.ColumnHeadersDefaultCellStyle.BackColor =
                 verdePrincipal;
 
-            dataGridView1.ColumnHeadersDefaultCellStyle.ForeColor =
+            dataGridViewClientes.ColumnHeadersDefaultCellStyle.ForeColor =
                 Color.White;
 
-            dataGridView1.ColumnHeadersDefaultCellStyle.Font =
+            dataGridViewClientes.ColumnHeadersDefaultCellStyle.Font =
                 new Font(
                     "Segoe UI",
                     10F,
                     FontStyle.Bold
                 );
 
-            dataGridView1.ColumnHeadersDefaultCellStyle.Alignment =
+            dataGridViewClientes.ColumnHeadersDefaultCellStyle.Alignment =
                 DataGridViewContentAlignment.MiddleLeft;
 
-            dataGridView1.ColumnHeadersDefaultCellStyle.Padding =
+            dataGridViewClientes.ColumnHeadersDefaultCellStyle.Padding =
                 new Padding(8, 0, 0, 0);
 
             // =========================
             // CÉLULAS
             // =========================
 
-            dataGridView1.DefaultCellStyle.BackColor =
+            dataGridViewClientes.DefaultCellStyle.BackColor =
                 Color.White;
 
-            dataGridView1.DefaultCellStyle.ForeColor =
+            dataGridViewClientes.DefaultCellStyle.ForeColor =
                 textoPrincipal;
 
-            dataGridView1.DefaultCellStyle.Font =
+            dataGridViewClientes.DefaultCellStyle.Font =
                 new Font(
                     "Segoe UI",
                     10F,
                     FontStyle.Regular
                 );
 
-            dataGridView1.DefaultCellStyle.SelectionBackColor =
+            dataGridViewClientes.DefaultCellStyle.SelectionBackColor =
                 verdeClaro;
 
-            dataGridView1.DefaultCellStyle.SelectionForeColor =
+            dataGridViewClientes.DefaultCellStyle.SelectionForeColor =
                 verdeEscuro;
 
-            dataGridView1.DefaultCellStyle.Padding =
+            dataGridViewClientes.DefaultCellStyle.Padding =
                 new Padding(8, 0, 8, 0);
 
-            dataGridView1.DefaultCellStyle.Alignment =
+            dataGridViewClientes.DefaultCellStyle.Alignment =
                 DataGridViewContentAlignment.MiddleLeft;
 
             // =========================
             // EFEITO ZEBRA
             // =========================
 
-            dataGridView1.AlternatingRowsDefaultCellStyle.BackColor =
+            dataGridViewClientes.AlternatingRowsDefaultCellStyle.BackColor =
                 Color.FromArgb(248, 252, 250);
         }
 
@@ -256,67 +256,49 @@ namespace DSProjectVet.Forms
 
         private void ConfigurarColunas()
         {
-            if (dataGridView1.Columns.Count == 0)
+            if (dataGridViewClientes.Columns.Count == 0)
                 return;
 
             // Esconde ID
-            if (dataGridView1.Columns.Contains("ID"))
+            if (dataGridViewClientes.Columns.Contains("ID_Cliente"))
             {
-                dataGridView1.Columns["ID"].Visible = false;
+                dataGridViewClientes.Columns["ID_Cliente"].Visible = false;
             }
 
             // Nome
-            if (dataGridView1.Columns.Contains("Nome"))
+            if (dataGridViewClientes.Columns.Contains("Nome"))
             {
-                dataGridView1.Columns["Nome"].HeaderText =
+                dataGridViewClientes.Columns["Nome"].HeaderText =
                     "Nome";
 
-                dataGridView1.Columns["Nome"].FillWeight = 100;
+                dataGridViewClientes.Columns["Nome"].FillWeight = 100;
             }
 
             // CPF
-            if (dataGridView1.Columns.Contains("CPF"))
+            if (dataGridViewClientes.Columns.Contains("CPF"))
             {
-                dataGridView1.Columns["CPF"].HeaderText =
+                dataGridViewClientes.Columns["CPF"].HeaderText =
                     "CPF";
 
-                dataGridView1.Columns["CPF"].FillWeight = 75;
+                dataGridViewClientes.Columns["CPF"].FillWeight = 75;
             }
 
             // Telefone
-            if (dataGridView1.Columns.Contains("Telefone"))
+            if (dataGridViewClientes.Columns.Contains("Telefone"))
             {
-                dataGridView1.Columns["Telefone"].HeaderText =
+                dataGridViewClientes.Columns["Telefone"].HeaderText =
                     "Telefone";
 
-                dataGridView1.Columns["Telefone"].FillWeight = 70;
+                dataGridViewClientes.Columns["Telefone"].FillWeight = 70;
             }
 
             // Endereço
-            if (dataGridView1.Columns.Contains("Endereco"))
+            if (dataGridViewClientes.Columns.Contains("Endereco"))
             {
-                dataGridView1.Columns["Endereco"].HeaderText =
+                dataGridViewClientes.Columns["Endereco"].HeaderText =
                     "Endereço";
 
-                dataGridView1.Columns["Endereco"].FillWeight = 120;
-            }
-
-            // Nível
-            if (dataGridView1.Columns.Contains("Nivel"))
-            {
-                dataGridView1.Columns["Nivel"].Visible = false;
-            }
-
-            // Senha
-            if (dataGridView1.Columns.Contains("Senha"))
-            {
-                dataGridView1.Columns["Senha"].Visible = false;
-            }
-
-            // Usuário
-            if (dataGridView1.Columns.Contains("Usuario"))
-            {
-                dataGridView1.Columns["Usuario"].Visible = false;
+                dataGridViewClientes.Columns["Endereco"].FillWeight = 120;
             }
         }
 
@@ -333,12 +315,12 @@ namespace DSProjectVet.Forms
                 return;
 
             DataGridViewRow linhaAtual =
-                dataGridView1.Rows[e.RowIndex];
+                dataGridViewClientes.Rows[e.RowIndex];
 
             if (linhaAtual.DataBoundItem is DataRowView dadosCliente)
             {
                 clienteSelecionadoId =
-                    Convert.ToInt32(dadosCliente["ID"]);
+                    Convert.ToInt32(dadosCliente["ID_Cliente"]);
 
                 lblNome.Text =
                     dadosCliente["Nome"]?.ToString();

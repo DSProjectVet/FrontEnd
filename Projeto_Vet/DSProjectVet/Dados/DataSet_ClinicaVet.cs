@@ -4,6 +4,9 @@
 
     partial class DataSet_ClinicaVet
     {
+        partial class CadastroClienteResultadoDataTable
+        {
+        }
     }
 }
 
