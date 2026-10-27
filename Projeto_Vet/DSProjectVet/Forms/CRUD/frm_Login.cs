@@ -60,7 +60,7 @@ namespace DSProjectVet.Forms
             {
                 errorProvider.SetError(txtPass, "");
             }
-try
+            try
             {
                 //loadingForm.Show();
                 btn_ok.Enabled = false;
@@ -71,6 +71,8 @@ try
                     MDI_Menu menu = new MDI_Menu();
                     menu.Show();
                     Hide();
+
+                    this.FormClosed += (s, args) => this.Close(); // Fecha o formulário de login quando o menu for fechado
                 }
                 else
                 {

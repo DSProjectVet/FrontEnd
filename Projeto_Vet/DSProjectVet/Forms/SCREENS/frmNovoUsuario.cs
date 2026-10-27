@@ -24,6 +24,7 @@ namespace DSProjectVet.Forms.SCREENS
         private void frmNovoUsuario_Load(object sender, EventArgs e)
         {
             btnCadastrar.btnPrimary();
+            this.Cursor = Cursors.Default;
         }
 
         private string GerarHash(string senha)
@@ -72,18 +73,20 @@ namespace DSProjectVet.Forms.SCREENS
             {
                 //loadingForm.Show();
                 btnCadastrar.Enabled = false;
-                string resultado = await Register(nomeDigitado, loginDigitado, senhaDigitada, 
-                                    "", "", crmvDigitado, "");
+                this.Cursor = Cursors.WaitCursor;
+                bool resultado = await Register(nomeDigitado, loginDigitado, senhaDigitada, 
+                                    "1", "13556789065", crmvDigitado, "1");
 
-                if (resultado.Trim() != "")
+                if (resultado)
                 {
-                    MessageBox.Show($"{resultado}", "Atenção",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Funcionário cadastrado com sucesso!", 
+                        "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erro ao tentar cadastrar novo Funcionário(a)!\n {ex.Message}",
+                MessageBox.Show($"Erro ao tentar se conectar com o banco de dados!\n {ex.Message}",
                     "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             finally
@@ -92,21 +95,38 @@ namespace DSProjectVet.Forms.SCREENS
                 txtLogin.Clear();
                 txtSenha.Clear();
                 btnCadastrar.Enabled = true;
+                this.Cursor = Cursors.Default;
                 //loadingForm.Close();
             }
         }
 
-        private async Task<string> Register(string nome, string login, string senha, string nivelAcesso,
-                                        string telefone, string crmv, string funcionario_tipo)
+        private async Task<bool> Register(string nome, string login, string senha, string nivelAcesso, 
+            string telefone, string crmv, string funcionario_tipo)
         {
             string senhaHash = GerarHash(senha);
 
-            await Task.Delay(1000); // simula um tempo de espera para a conexão com o banco de 
-            FuncionariosTableAdapter taFuncionarios = new FuncionariosTableAdapter();
+            await Task.Delay(600); // simula um tempo de espera para a conexão com o banco de 
+            CadastroFuncionarioResultadoTableAdapter taFuncionarios = new CadastroFuncionarioResultadoTableAdapter();
 
-            Object teste = await Task.Run(() => taFuncionarios.CadastrarFuncionario(nome, login, senhaHash, 
+            DataTable dt = await Task.Run(() => taFuncionarios.SP_CadastrarFuncionario(nome, login, senhaHash, 
                 nivelAcesso, telefone, crmv, funcionario_tipo));
-            return teste.ToString();
+            
+            if (dt.Rows.Count > 0)
+            {
+                if (dt.Columns.Contains("ERROR") && 
+                    dt.Rows[0]["ERROR"].ToString().Trim() != "")
+                {
+                    MessageBox.Show($"Erro ao tentar cadastrar novo Funcionário(a)!\n {dt.Rows[0]["ERROR"]}",
+                        "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+
+                return true;
+            }
+
+            MessageBox.Show("Não foi possível cadastrar Funcionário (a)!",
+                    "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            return false;
         }
     }
 }

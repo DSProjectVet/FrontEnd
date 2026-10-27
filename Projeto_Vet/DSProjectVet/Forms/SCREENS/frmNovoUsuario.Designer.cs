@@ -33,10 +33,10 @@
             this.btnCadastrar = new System.Windows.Forms.Button();
             this.txtSenha = new System.Windows.Forms.TextBox();
             this.txtLogin = new System.Windows.Forms.TextBox();
-            this.lblEnd = new System.Windows.Forms.Label();
-            this.lblTelefone = new System.Windows.Forms.Label();
-            this.lblCpf = new System.Windows.Forms.Label();
-            this.lblUser = new System.Windows.Forms.Label();
+            this.lblNivel = new System.Windows.Forms.Label();
+            this.lblSenha = new System.Windows.Forms.Label();
+            this.lblLogin = new System.Windows.Forms.Label();
+            this.lblNome = new System.Windows.Forms.Label();
             this.txtNome = new System.Windows.Forms.TextBox();
             this.CmbNivel = new System.Windows.Forms.ComboBox();
             this.txtCrmv = new System.Windows.Forms.TextBox();
@@ -84,57 +84,57 @@
             this.txtLogin.TabIndex = 25;
             this.txtLogin.UseWaitCursor = true;
             // 
-            // lblEnd
+            // lblNivel
             // 
-            this.lblEnd.AutoSize = true;
-            this.lblEnd.Font = new System.Drawing.Font("Microsoft Tai Le", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEnd.Location = new System.Drawing.Point(41, 322);
-            this.lblEnd.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblEnd.Name = "lblEnd";
-            this.lblEnd.Size = new System.Drawing.Size(47, 18);
-            this.lblEnd.TabIndex = 23;
-            this.lblEnd.Text = "Nível:";
-            this.lblEnd.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.lblEnd.UseWaitCursor = true;
+            this.lblNivel.AutoSize = true;
+            this.lblNivel.Font = new System.Drawing.Font("Microsoft Tai Le", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNivel.Location = new System.Drawing.Point(41, 322);
+            this.lblNivel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblNivel.Name = "lblNivel";
+            this.lblNivel.Size = new System.Drawing.Size(47, 18);
+            this.lblNivel.TabIndex = 23;
+            this.lblNivel.Text = "Nível:";
+            this.lblNivel.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.lblNivel.UseWaitCursor = true;
             // 
-            // lblTelefone
+            // lblSenha
             // 
-            this.lblTelefone.AutoSize = true;
-            this.lblTelefone.Font = new System.Drawing.Font("Microsoft Tai Le", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTelefone.Location = new System.Drawing.Point(37, 177);
-            this.lblTelefone.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblTelefone.Name = "lblTelefone";
-            this.lblTelefone.Size = new System.Drawing.Size(52, 18);
-            this.lblTelefone.TabIndex = 22;
-            this.lblTelefone.Text = "Senha:";
-            this.lblTelefone.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.lblTelefone.UseWaitCursor = true;
+            this.lblSenha.AutoSize = true;
+            this.lblSenha.Font = new System.Drawing.Font("Microsoft Tai Le", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSenha.Location = new System.Drawing.Point(37, 177);
+            this.lblSenha.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblSenha.Name = "lblSenha";
+            this.lblSenha.Size = new System.Drawing.Size(52, 18);
+            this.lblSenha.TabIndex = 22;
+            this.lblSenha.Text = "Senha:";
+            this.lblSenha.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.lblSenha.UseWaitCursor = true;
             // 
-            // lblCpf
+            // lblLogin
             // 
-            this.lblCpf.AutoSize = true;
-            this.lblCpf.Font = new System.Drawing.Font("Microsoft Tai Le", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCpf.Location = new System.Drawing.Point(34, 107);
-            this.lblCpf.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblCpf.Name = "lblCpf";
-            this.lblCpf.Size = new System.Drawing.Size(46, 18);
-            this.lblCpf.TabIndex = 21;
-            this.lblCpf.Text = "login:";
-            this.lblCpf.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.lblCpf.UseWaitCursor = true;
+            this.lblLogin.AutoSize = true;
+            this.lblLogin.Font = new System.Drawing.Font("Microsoft Tai Le", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblLogin.Location = new System.Drawing.Point(34, 107);
+            this.lblLogin.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblLogin.Name = "lblLogin";
+            this.lblLogin.Size = new System.Drawing.Size(46, 18);
+            this.lblLogin.TabIndex = 21;
+            this.lblLogin.Text = "login:";
+            this.lblLogin.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.lblLogin.UseWaitCursor = true;
             // 
-            // lblUser
+            // lblNome
             // 
-            this.lblUser.AutoSize = true;
-            this.lblUser.Font = new System.Drawing.Font("Microsoft Tai Le", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUser.Location = new System.Drawing.Point(34, 32);
-            this.lblUser.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblUser.Name = "lblUser";
-            this.lblUser.Size = new System.Drawing.Size(53, 18);
-            this.lblUser.TabIndex = 20;
-            this.lblUser.Text = "Nome:";
-            this.lblUser.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.lblUser.UseWaitCursor = true;
+            this.lblNome.AutoSize = true;
+            this.lblNome.Font = new System.Drawing.Font("Microsoft Tai Le", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNome.Location = new System.Drawing.Point(34, 32);
+            this.lblNome.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblNome.Name = "lblNome";
+            this.lblNome.Size = new System.Drawing.Size(53, 18);
+            this.lblNome.TabIndex = 20;
+            this.lblNome.Text = "Nome:";
+            this.lblNome.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.lblNome.UseWaitCursor = true;
             // 
             // txtNome
             // 
@@ -172,7 +172,6 @@
             this.txtCrmv.MaxLength = 15;
             this.txtCrmv.Multiline = true;
             this.txtCrmv.Name = "txtCrmv";
-            this.txtCrmv.PasswordChar = '*';
             this.txtCrmv.Size = new System.Drawing.Size(256, 30);
             this.txtCrmv.TabIndex = 30;
             this.txtCrmv.UseWaitCursor = true;
@@ -206,11 +205,12 @@
             this.Controls.Add(this.btnCadastrar);
             this.Controls.Add(this.txtSenha);
             this.Controls.Add(this.txtLogin);
-            this.Controls.Add(this.lblEnd);
-            this.Controls.Add(this.lblTelefone);
-            this.Controls.Add(this.lblCpf);
-            this.Controls.Add(this.lblUser);
+            this.Controls.Add(this.lblNivel);
+            this.Controls.Add(this.lblSenha);
+            this.Controls.Add(this.lblLogin);
+            this.Controls.Add(this.lblNome);
             this.Controls.Add(this.txtNome);
+            this.Cursor = System.Windows.Forms.Cursors.WaitCursor;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "frmNovoUsuario";
@@ -228,10 +228,10 @@
         private System.Windows.Forms.Button btnCadastrar;
         private System.Windows.Forms.TextBox txtSenha;
         private System.Windows.Forms.TextBox txtLogin;
-        private System.Windows.Forms.Label lblEnd;
-        private System.Windows.Forms.Label lblTelefone;
-        private System.Windows.Forms.Label lblCpf;
-        private System.Windows.Forms.Label lblUser;
+        private System.Windows.Forms.Label lblNivel;
+        private System.Windows.Forms.Label lblSenha;
+        private System.Windows.Forms.Label lblLogin;
+        private System.Windows.Forms.Label lblNome;
         private System.Windows.Forms.TextBox txtNome;
         private System.Windows.Forms.ComboBox CmbNivel;
         private System.Windows.Forms.TextBox txtCrmv;
