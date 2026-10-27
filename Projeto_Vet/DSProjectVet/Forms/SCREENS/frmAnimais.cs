@@ -18,6 +18,45 @@ namespace DSProjectVet.Forms.SCREENS
         private readonly Color textoPrincipal = Color.FromArgb(45, 55, 52);
         private readonly Color textoSecundario = Color.FromArgb(110, 120, 116);
 
+
+        private TextBox CriarCampoEdicao(
+            FlowLayoutPanel painel,
+            string titulo,
+            object valor)
+        {
+            Label label = new Label();
+
+            label.Text = titulo;
+            label.Font = new Font(
+                "Segoe UI", 9F, FontStyle.Bold);
+
+            label.ForeColor = textoPrincipal;
+            label.Width = 390;
+            label.Height = 22;
+            label.Margin = new Padding(0, 5, 0, 0);
+
+            painel.Controls.Add(label);
+
+            TextBox campo = new TextBox();
+
+            campo.Width = 390;
+            campo.Height = 32;
+            campo.Font = new Font("Segoe UI", 10F);
+            campo.ForeColor = textoPrincipal;
+            campo.BackColor = Color.White;
+
+            campo.Text = valor == null || valor == DBNull.Value
+                ? ""
+                : Convert.ToString(valor);
+
+            campo.Margin = new Padding(0, 0, 0, 8);
+
+            painel.Controls.Add(campo);
+
+            return campo;
+        }
+
+
         // Abre pelo MDI -> mostra todos
         public frmAnimais()
         {
@@ -37,6 +76,15 @@ namespace DSProjectVet.Forms.SCREENS
             EstilizarTela();
             CarregarAnimais();
             ConfigurarCabecalhoCliente();
+
+            // Configuração do botão editar
+            btnEditar.FlatStyle = FlatStyle.Flat;
+            btnEditar.FlatAppearance.BorderSize = 0;
+            btnEditar.BackColor = verdePrincipal;
+            btnEditar.ForeColor = Color.White;
+            btnEditar.Cursor = Cursors.Hand;
+
+            btnEditar.Click += btnEditar_Click;
         }
 
         // =========================================================
@@ -373,6 +421,169 @@ namespace DSProjectVet.Forms.SCREENS
         private void lblCpf_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnEditar_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.CurrentRow == null ||
+                dataGridView1.CurrentRow.IsNewRow)
+            {
+                MessageBox.Show(
+                    "Selecione um animal para editar.",
+                    "Atenção",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+                return;
+            }
+
+            DataRowView linhaSelecionada =
+                dataGridView1.CurrentRow.DataBoundItem as DataRowView;
+
+            if (linhaSelecionada == null)
+            {
+                MessageBox.Show("Não foi possível localizar o animal.");
+                return;
+            }
+
+            DataRow animal = linhaSelecionada.Row;
+
+            int idAnimal = Convert.ToInt32(animal["ID"]);
+
+            // JANELA DE EDIÇÃO
+            using (Form telaEdicao = new Form())
+            {
+                telaEdicao.Text = "Editar Animal #" + idAnimal;
+                telaEdicao.Size = new Size(480, 610);
+                telaEdicao.StartPosition = FormStartPosition.CenterParent;
+                telaEdicao.BackColor = fundoTela;
+                telaEdicao.FormBorderStyle = FormBorderStyle.FixedDialog;
+                telaEdicao.MaximizeBox = false;
+                telaEdicao.MinimizeBox = false;
+                telaEdicao.AutoScroll = true;
+
+                FlowLayoutPanel painel = new FlowLayoutPanel();
+                painel.Dock = DockStyle.Fill;
+                painel.FlowDirection = FlowDirection.TopDown;
+                painel.WrapContents = false;
+                painel.AutoScroll = true;
+                painel.Padding = new Padding(22);
+
+                telaEdicao.Controls.Add(painel);
+
+                Label titulo = new Label();
+                titulo.Text = "Editar dados do animal";
+                titulo.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
+                titulo.ForeColor = textoPrincipal;
+                titulo.Width = 400;
+                titulo.Height = 45;
+
+                painel.Controls.Add(titulo);
+
+                // CAMPOS PREENCHIDOS AUTOMATICAMENTE
+                TextBox txtNome = CriarCampoEdicao(
+                    painel, "Nome", animal["Nome"]);
+
+                TextBox txtRaca = CriarCampoEdicao(
+                    painel, "Raça", animal["Raca"]);
+
+                TextBox txtSexo = CriarCampoEdicao(
+                    painel, "Sexo", animal["Sexo"]);
+
+                TextBox txtEspecie = CriarCampoEdicao(
+                    painel, "Espécie", animal["Especie"]);
+
+                TextBox txtEnfermidade = CriarCampoEdicao(
+                    painel, "Enfermidade", animal["Enfermidade"]);
+
+                TextBox txtDescricao = CriarCampoEdicao(
+                    painel, "Descrição", animal["Descricao"]);
+
+                // BOTÃO SALVAR
+                Button btnSalvar = new Button();
+                btnSalvar.Text = "Salvar Alterações";
+                btnSalvar.Width = 390;
+                btnSalvar.Height = 45;
+                btnSalvar.BackColor = verdePrincipal;
+                btnSalvar.ForeColor = Color.White;
+                btnSalvar.FlatStyle = FlatStyle.Flat;
+                btnSalvar.FlatAppearance.BorderSize = 0;
+                btnSalvar.Font = new Font(
+                    "Segoe UI", 10F, FontStyle.Bold);
+                btnSalvar.Cursor = Cursors.Hand;
+                btnSalvar.Margin = new Padding(0, 15, 0, 10);
+
+                painel.Controls.Add(btnSalvar);
+
+                btnSalvar.Click += (s, ev) =>
+                {
+                    if (string.IsNullOrWhiteSpace(txtNome.Text))
+                    {
+                        MessageBox.Show(
+                            "Informe o nome do animal.",
+                            "Campo obrigatório",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    try
+                    {
+                        // Guarda os dados anteriores para recuperação
+                        object[] valoresOriginais =
+                            (object[])animal.ItemArray.Clone();
+
+                        // Atualiza os campos da linha
+                        animal["Nome"] = txtNome.Text.Trim();
+                        animal["Raca"] = txtRaca.Text.Trim();
+                        animal["Sexo"] = txtSexo.Text.Trim();
+                        animal["Especie"] = txtEspecie.Text.Trim();
+                        animal["Enfermidade"] = txtEnfermidade.Text.Trim();
+                        animal["Descricao"] = txtDescricao.Text.Trim();
+
+                        try
+                        {
+                            // Salva no banco de dados
+                            AnimaisTableAdapter adapter =
+                                new AnimaisTableAdapter();
+
+                            adapter.Update(
+                                (DSProjectVet.Dados.DataSet_ClinicaVet.AnimaisDataTable)
+                                animal.Table
+                            );
+                        }
+                        catch
+                        {
+                            // Desfaz alterações locais se falhar
+                            animal.ItemArray = valoresOriginais;
+                            animal.AcceptChanges();
+                            throw;
+                        }
+
+                        MessageBox.Show(
+                            "Animal atualizado com sucesso!",
+                            "Sucesso",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
+
+                        telaEdicao.DialogResult = DialogResult.OK;
+                        telaEdicao.Close();
+
+                        // Recarrega a tabela
+                        CarregarAnimais();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(
+                            "Erro ao atualizar o animal:\n\n" + ex.Message,
+                            "Erro",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                    }
+                };
+
+                telaEdicao.ShowDialog(this);
+            }
         }
     }
 }

@@ -31,10 +31,6 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAnimais));
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.dataSetClinicaVetBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.dataSet_ClinicaVet = new DSProjectVet.Dados.DataSet_ClinicaVet();
-            this.animaisBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.animaisTableAdapter = new DSProjectVet.Dados.DataSet_ClinicaVetTableAdapters.AnimaisTableAdapter();
             this.iDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nomeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.racaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -43,14 +39,19 @@
             this.descricaoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.especieDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fkClientesIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.animaisBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.dataSetClinicaVetBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.dataSet_ClinicaVet = new DSProjectVet.Dados.DataSet_ClinicaVet();
+            this.animaisTableAdapter = new DSProjectVet.Dados.DataSet_ClinicaVetTableAdapters.AnimaisTableAdapter();
             this.label1 = new System.Windows.Forms.Label();
             this.lblNome = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.lblCpf = new System.Windows.Forms.Label();
+            this.btnEditar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.animaisBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSetClinicaVetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet_ClinicaVet)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.animaisBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView1
@@ -74,25 +75,6 @@
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.Size = new System.Drawing.Size(654, 659);
             this.dataGridView1.TabIndex = 0;
-            // 
-            // dataSetClinicaVetBindingSource
-            // 
-            this.dataSetClinicaVetBindingSource.DataSource = this.dataSet_ClinicaVet;
-            this.dataSetClinicaVetBindingSource.Position = 0;
-            // 
-            // dataSet_ClinicaVet
-            // 
-            this.dataSet_ClinicaVet.DataSetName = "DataSet_ClinicaVet";
-            this.dataSet_ClinicaVet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // animaisBindingSource
-            // 
-            this.animaisBindingSource.DataMember = "Animais";
-            this.animaisBindingSource.DataSource = this.dataSetClinicaVetBindingSource;
-            // 
-            // animaisTableAdapter
-            // 
-            this.animaisTableAdapter.ClearBeforeFill = true;
             // 
             // iDDataGridViewTextBoxColumn
             // 
@@ -150,6 +132,25 @@
             this.fkClientesIDDataGridViewTextBoxColumn.Name = "fkClientesIDDataGridViewTextBoxColumn";
             this.fkClientesIDDataGridViewTextBoxColumn.ReadOnly = true;
             // 
+            // animaisBindingSource
+            // 
+            this.animaisBindingSource.DataMember = "Animais";
+            this.animaisBindingSource.DataSource = this.dataSetClinicaVetBindingSource;
+            // 
+            // dataSetClinicaVetBindingSource
+            // 
+            this.dataSetClinicaVetBindingSource.DataSource = this.dataSet_ClinicaVet;
+            this.dataSetClinicaVetBindingSource.Position = 0;
+            // 
+            // dataSet_ClinicaVet
+            // 
+            this.dataSet_ClinicaVet.DataSetName = "DataSet_ClinicaVet";
+            this.dataSet_ClinicaVet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // animaisTableAdapter
+            // 
+            this.animaisTableAdapter.ClearBeforeFill = true;
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -199,6 +200,16 @@
             this.lblCpf.Text = "label1";
             this.lblCpf.Click += new System.EventHandler(this.lblCpf_Click);
             // 
+            // btnEditar
+            // 
+            this.btnEditar.Location = new System.Drawing.Point(34, 182);
+            this.btnEditar.Name = "btnEditar";
+            this.btnEditar.Size = new System.Drawing.Size(170, 38);
+            this.btnEditar.TabIndex = 9;
+            this.btnEditar.Text = "Editar Animal";
+            this.btnEditar.UseVisualStyleBackColor = true;
+            this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
+            // 
             // frmAnimais
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -208,6 +219,7 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.CausesValidation = false;
             this.ClientSize = new System.Drawing.Size(1039, 697);
+            this.Controls.Add(this.btnEditar);
             this.Controls.Add(this.lblCpf);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -216,13 +228,13 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "frmAnimais";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Animais";
             this.Load += new System.EventHandler(this.frmAnimais_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.animaisBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSetClinicaVetBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet_ClinicaVet)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.animaisBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -247,5 +259,6 @@
         private System.Windows.Forms.Label lblNome;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lblCpf;
+        private System.Windows.Forms.Button btnEditar;
     }
 }
