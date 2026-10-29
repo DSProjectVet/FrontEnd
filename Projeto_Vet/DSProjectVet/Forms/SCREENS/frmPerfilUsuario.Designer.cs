@@ -51,6 +51,7 @@
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
+            this.btnGerenciarUsuario = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.roundedPanel1.SuspendLayout();
@@ -315,11 +316,25 @@
             this.label9.TabIndex = 10;
             this.label9.Text = "Aqui estão suas informações pessoais e de acesso";
             // 
+            // btnGerenciarUsuario
+            // 
+            this.btnGerenciarUsuario.BackColor = System.Drawing.Color.Transparent;
+            this.btnGerenciarUsuario.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGerenciarUsuario.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.btnGerenciarUsuario.Location = new System.Drawing.Point(613, 28);
+            this.btnGerenciarUsuario.Name = "btnGerenciarUsuario";
+            this.btnGerenciarUsuario.Size = new System.Drawing.Size(160, 34);
+            this.btnGerenciarUsuario.TabIndex = 4;
+            this.btnGerenciarUsuario.Text = "Gerenciar Usuarios";
+            this.btnGerenciarUsuario.UseVisualStyleBackColor = false;
+            this.btnGerenciarUsuario.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Perfil
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1035, 749);
+            this.Controls.Add(this.btnGerenciarUsuario);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.roundedPanel3);
@@ -380,5 +395,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn nivelDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn usuarioDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn senhaDataGridViewTextBoxColumn;
+        private System.Windows.Forms.Button btnGerenciarUsuario;
     }
 }

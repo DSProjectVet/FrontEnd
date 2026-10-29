@@ -93,6 +93,7 @@
             this.dataGridViewClientes.RowHeadersWidth = 62;
             this.dataGridViewClientes.Size = new System.Drawing.Size(593, 407);
             this.dataGridViewClientes.TabIndex = 11;
+            this.dataGridViewClientes.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewClientes_CellContentClick);
             this.dataGridViewClientes.CellEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellEnter);
             // 
             // Nome

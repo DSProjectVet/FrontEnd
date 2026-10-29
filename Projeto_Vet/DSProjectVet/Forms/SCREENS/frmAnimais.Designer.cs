@@ -31,14 +31,11 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmAnimais));
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.iDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nomeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.racaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.sexoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.enfermidadeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.descricaoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.especieDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fkClientesIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.animaisBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dataSetClinicaVetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dataSet_ClinicaVet = new DSProjectVet.Dados.DataSet_ClinicaVet();
@@ -48,10 +45,13 @@
             this.label2 = new System.Windows.Forms.Label();
             this.lblCpf = new System.Windows.Forms.Label();
             this.btnEditar = new System.Windows.Forms.Button();
+            this.btnNovoAnimal = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.animaisBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSetClinicaVetBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet_ClinicaVet)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGridView1
@@ -61,27 +61,17 @@
             this.dataGridView1.AutoGenerateColumns = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.iDDataGridViewTextBoxColumn,
             this.nomeDataGridViewTextBoxColumn,
             this.racaDataGridViewTextBoxColumn,
             this.sexoDataGridViewTextBoxColumn,
-            this.enfermidadeDataGridViewTextBoxColumn,
             this.descricaoDataGridViewTextBoxColumn,
-            this.especieDataGridViewTextBoxColumn,
-            this.fkClientesIDDataGridViewTextBoxColumn});
+            this.especieDataGridViewTextBoxColumn});
             this.dataGridView1.DataSource = this.animaisBindingSource;
             this.dataGridView1.Location = new System.Drawing.Point(373, 12);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.Size = new System.Drawing.Size(654, 659);
             this.dataGridView1.TabIndex = 0;
-            // 
-            // iDDataGridViewTextBoxColumn
-            // 
-            this.iDDataGridViewTextBoxColumn.DataPropertyName = "ID";
-            this.iDDataGridViewTextBoxColumn.HeaderText = "ID";
-            this.iDDataGridViewTextBoxColumn.Name = "iDDataGridViewTextBoxColumn";
-            this.iDDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // nomeDataGridViewTextBoxColumn
             // 
@@ -104,13 +94,6 @@
             this.sexoDataGridViewTextBoxColumn.Name = "sexoDataGridViewTextBoxColumn";
             this.sexoDataGridViewTextBoxColumn.ReadOnly = true;
             // 
-            // enfermidadeDataGridViewTextBoxColumn
-            // 
-            this.enfermidadeDataGridViewTextBoxColumn.DataPropertyName = "Enfermidade";
-            this.enfermidadeDataGridViewTextBoxColumn.HeaderText = "Enfermidade";
-            this.enfermidadeDataGridViewTextBoxColumn.Name = "enfermidadeDataGridViewTextBoxColumn";
-            this.enfermidadeDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
             // descricaoDataGridViewTextBoxColumn
             // 
             this.descricaoDataGridViewTextBoxColumn.DataPropertyName = "Descricao";
@@ -124,13 +107,6 @@
             this.especieDataGridViewTextBoxColumn.HeaderText = "Especie";
             this.especieDataGridViewTextBoxColumn.Name = "especieDataGridViewTextBoxColumn";
             this.especieDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // fkClientesIDDataGridViewTextBoxColumn
-            // 
-            this.fkClientesIDDataGridViewTextBoxColumn.DataPropertyName = "fk_Clientes_ID";
-            this.fkClientesIDDataGridViewTextBoxColumn.HeaderText = "fk_Clientes_ID";
-            this.fkClientesIDDataGridViewTextBoxColumn.Name = "fkClientesIDDataGridViewTextBoxColumn";
-            this.fkClientesIDDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // animaisBindingSource
             // 
@@ -156,7 +132,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.Black;
-            this.label1.Location = new System.Drawing.Point(30, 42);
+            this.label1.Location = new System.Drawing.Point(11, 22);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(140, 21);
             this.label1.TabIndex = 6;
@@ -169,7 +145,7 @@
             this.lblNome.BackColor = System.Drawing.Color.Transparent;
             this.lblNome.Font = new System.Drawing.Font("Microsoft Tai Le", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNome.ForeColor = System.Drawing.Color.Black;
-            this.lblNome.Location = new System.Drawing.Point(29, 68);
+            this.lblNome.Location = new System.Drawing.Point(10, 48);
             this.lblNome.Name = "lblNome";
             this.lblNome.Size = new System.Drawing.Size(71, 27);
             this.lblNome.TabIndex = 5;
@@ -181,7 +157,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.Black;
-            this.label2.Location = new System.Drawing.Point(30, 117);
+            this.label2.Location = new System.Drawing.Point(11, 97);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(111, 21);
             this.label2.TabIndex = 7;
@@ -193,7 +169,7 @@
             this.lblCpf.BackColor = System.Drawing.Color.Transparent;
             this.lblCpf.Font = new System.Drawing.Font("Microsoft Tai Le", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCpf.ForeColor = System.Drawing.Color.Black;
-            this.lblCpf.Location = new System.Drawing.Point(29, 138);
+            this.lblCpf.Location = new System.Drawing.Point(10, 118);
             this.lblCpf.Name = "lblCpf";
             this.lblCpf.Size = new System.Drawing.Size(71, 27);
             this.lblCpf.TabIndex = 8;
@@ -202,13 +178,48 @@
             // 
             // btnEditar
             // 
-            this.btnEditar.Location = new System.Drawing.Point(34, 182);
+            this.btnEditar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEditar.Image = ((System.Drawing.Image)(resources.GetObject("btnEditar.Image")));
+            this.btnEditar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnEditar.Location = new System.Drawing.Point(6, 171);
             this.btnEditar.Name = "btnEditar";
-            this.btnEditar.Size = new System.Drawing.Size(170, 38);
+            this.btnEditar.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.btnEditar.Size = new System.Drawing.Size(318, 56);
             this.btnEditar.TabIndex = 9;
             this.btnEditar.Text = "Editar Animal";
             this.btnEditar.UseVisualStyleBackColor = true;
             this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
+            // 
+            // btnNovoAnimal
+            // 
+            this.btnNovoAnimal.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnNovoAnimal.Image = ((System.Drawing.Image)(resources.GetObject("btnNovoAnimal.Image")));
+            this.btnNovoAnimal.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnNovoAnimal.Location = new System.Drawing.Point(6, 233);
+            this.btnNovoAnimal.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
+            this.btnNovoAnimal.Name = "btnNovoAnimal";
+            this.btnNovoAnimal.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.btnNovoAnimal.Size = new System.Drawing.Size(318, 64);
+            this.btnNovoAnimal.TabIndex = 10;
+            this.btnNovoAnimal.Text = "Novo Animal";
+            this.btnNovoAnimal.UseCompatibleTextRendering = true;
+            this.btnNovoAnimal.UseVisualStyleBackColor = true;
+            this.btnNovoAnimal.Click += new System.EventHandler(this.btnNovoAnimal_Click);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.groupBox1.Controls.Add(this.btnNovoAnimal);
+            this.groupBox1.Controls.Add(this.btnEditar);
+            this.groupBox1.Controls.Add(this.lblCpf);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.lblNome);
+            this.groupBox1.Location = new System.Drawing.Point(22, 24);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(336, 646);
+            this.groupBox1.TabIndex = 11;
+            this.groupBox1.TabStop = false;
             // 
             // frmAnimais
             // 
@@ -219,11 +230,7 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.CausesValidation = false;
             this.ClientSize = new System.Drawing.Size(1039, 697);
-            this.Controls.Add(this.btnEditar);
-            this.Controls.Add(this.lblCpf);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.lblNome);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.dataGridView1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -235,8 +242,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.animaisBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSetClinicaVetBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet_ClinicaVet)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -260,5 +268,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lblCpf;
         private System.Windows.Forms.Button btnEditar;
+        private System.Windows.Forms.Button btnNovoAnimal;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }
