@@ -47,6 +47,7 @@ namespace DSProjectVet.Forms.SCREENS
 
         private ComboBox cmbProduto;
         private ComboBox cmbServico;
+        private Button btnAdicionarProduto;
 
         private NumericUpDown numQtdProduto;
         private NumericUpDown numQtdServico;
@@ -62,6 +63,7 @@ namespace DSProjectVet.Forms.SCREENS
 
         private bool ocupado = false;
         private bool carregamentoInicial = false;
+        private bool carregandoDados = false;
 
         // ==========================================
         // CONSTRUTOR
@@ -80,6 +82,18 @@ namespace DSProjectVet.Forms.SCREENS
             idConsulta = id;
 
             ConstruirInterface();
+
+            // Evita acesso a controles descartados durante
+            // uma gravação ou um carregamento assíncrono.
+            FormClosing += (s, e) =>
+            {
+                if (ocupado || carregandoDados)
+                {
+                    e.Cancel = true;
+                    lblRodape.Text =
+                        "Conclua a operação antes de fechar a tela.";
+                }
+            };
 
             if (abrirAbaServicos)
             {
@@ -305,10 +319,23 @@ namespace DSProjectVet.Forms.SCREENS
 
             btnAbrirPrescricoes.Click += (s, e) =>
             {
-                using (frmPrescricaoConsulta tela =
-                    new frmPrescricaoConsulta(idConsulta))
+                try
                 {
-                    tela.ShowDialog(this);
+                    using (frmPrescricaoConsulta tela =
+                        new frmPrescricaoConsulta(idConsulta))
+                    {
+                        tela.ShowDialog(this);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(
+                        this,
+                        "Não foi possível abrir prescrições.\n\n" +
+                        ex.Message,
+                        "Med Vet",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
                 }
             };
 
@@ -413,15 +440,17 @@ namespace DSProjectVet.Forms.SCREENS
                 120);
 
             // ADICIONAR
-            Button btnAdicionar = CriarBotao(
+            btnAdicionarProduto = CriarBotao(
                 "+ Adicionar produto",
                 verde,
                 Color.White,
                 185);
 
-            campos.Controls.Add(btnAdicionar);
+            // Será habilitado apenas com estoque suficiente.
+            btnAdicionarProduto.Enabled = false;
+            campos.Controls.Add(btnAdicionarProduto);
 
-            btnAdicionar.Click += async (s, e) =>
+            btnAdicionarProduto.Click += async (s, e) =>
             {
                 DataRowView produto =
                     cmbProduto.SelectedItem
@@ -440,6 +469,27 @@ namespace DSProjectVet.Forms.SCREENS
                 int quantidade =
                     Decimal.ToInt32(
                         numQtdProduto.Value);
+
+                // Defesa de interface. O método RegistrarProduto
+                // também valida o estoque atualizado no SQL Server.
+                int disponivel = Convert.ToInt32(
+                    produto["Disponivel"]);
+
+                if (quantidade > disponivel)
+                {
+                    MessageBox.Show(
+                        this,
+                        "Estoque insuficiente.\n\n" +
+                        "Disponível: " + disponivel +
+                        " unidade(s).\n" +
+                        "Solicitado: " + quantidade +
+                        " unidade(s).",
+                        "Med Vet - Estoque",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+                    MostrarDisponibilidade();
+                    return;
+                }
 
                 await ExecutarOperacaoAsync(
                     () => RegistrarProduto(
@@ -469,6 +519,13 @@ namespace DSProjectVet.Forms.SCREENS
                 {
                     MostrarDisponibilidade();
                 };
+
+            // Atualiza a validação quando o funcionário muda
+            // a quantidade, e não apenas o produto.
+            numQtdProduto.ValueChanged += (s, e) =>
+            {
+                MostrarDisponibilidade();
+            };
 
             // TABELA DE PRODUTOS
             gridProdutos = CriarGrade();
@@ -927,6 +984,9 @@ namespace DSProjectVet.Forms.SCREENS
             grade.DefaultCellStyle.Font =
                 new Font("Segoe UI", 9F);
 
+            grade.DefaultCellStyle.ForeColor = texto;
+            grade.DefaultCellStyle.BackColor = Color.White;
+
             grade.DefaultCellStyle.SelectionBackColor =
                 Color.FromArgb(225, 248, 240);
 
@@ -935,6 +995,7 @@ namespace DSProjectVet.Forms.SCREENS
 
             grade.AlternatingRowsDefaultCellStyle.BackColor =
                 Color.FromArgb(248, 252, 250);
+            grade.AlternatingRowsDefaultCellStyle.ForeColor = texto;
 
             return grade;
         }
@@ -1184,8 +1245,9 @@ namespace DSProjectVet.Forms.SCREENS
         // ATUALIZAR INTERFACE COM DADOS DO BANCO
         // ==========================================
 
-        private async Task CarregarDadosAsync()
+        private async Task<bool> CarregarDadosAsync()
         {
+            carregandoDados = true;
             abas.Enabled = false;
 
             lblRodape.Text =
@@ -1275,6 +1337,8 @@ namespace DSProjectVet.Forms.SCREENS
                     totalServicos.ToString("C2", cultura)
                     + "  |  Total: " +
                     totalGeral.ToString("C2", cultura);
+
+                return true;
             }
             catch (Exception ex)
             {
@@ -1288,9 +1352,11 @@ namespace DSProjectVet.Forms.SCREENS
                     "Med Vet",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
+                return false;
             }
             finally
             {
+                carregandoDados = false;
                 if (!ocupado)
                     abas.Enabled = true;
             }
@@ -1364,35 +1430,62 @@ namespace DSProjectVet.Forms.SCREENS
 
         private void MostrarDisponibilidade()
         {
+            // Os eventos do ComboBox podem ocorrer durante a
+            // construção do formulário e o carregamento dos dados.
             if (cmbProduto == null ||
-                lblDisponibilidade == null)
+                numQtdProduto == null ||
+                lblDisponibilidade == null ||
+                btnAdicionarProduto == null)
                 return;
 
             DataRowView produto =
-                cmbProduto.SelectedItem
-                as DataRowView;
+                cmbProduto.SelectedItem as DataRowView;
 
             if (produto == null)
             {
                 lblDisponibilidade.Text =
-                    "Selecione um produto para consultar " +
-                    "o estoque disponível.";
-
+                    "Selecione um produto para consultar o estoque.";
+                lblDisponibilidade.ForeColor = cinza;
+                btnAdicionarProduto.Enabled = false;
                 return;
             }
 
-            int disponivel =
-                Convert.ToInt32(
-                    produto["Disponivel"]);
+            int disponivel = Convert.ToInt32(
+                produto["Disponivel"]);
+            int solicitado = Decimal.ToInt32(
+                numQtdProduto.Value);
+            decimal preco = Convert.ToDecimal(
+                produto["Preco"]);
 
-            decimal preco =
-                Convert.ToDecimal(
-                    produto["Preco"]);
+            if (disponivel <= 0)
+            {
+                lblDisponibilidade.Text =
+                    "SEM ESTOQUE — selecione outro produto.";
+                lblDisponibilidade.ForeColor = vermelho;
+                btnAdicionarProduto.Enabled = false;
+                return;
+            }
+
+            if (solicitado > disponivel)
+            {
+                lblDisponibilidade.Text =
+                    "ESTOQUE INSUFICIENTE — disponível: " +
+                    disponivel + ", solicitado: " + solicitado +
+                    ". Reduza a quantidade.";
+                lblDisponibilidade.ForeColor = vermelho;
+                btnAdicionarProduto.Enabled = false;
+                return;
+            }
 
             lblDisponibilidade.Text =
                 "Disponível: " + disponivel +
-                " unidade(s)  •  Preço: " +
-                preco.ToString("C2", cultura);
+                " unidade(s)  •  Preço unitário: " +
+                preco.ToString("C2", cultura) +
+                "  •  Total solicitado: " +
+                (preco * solicitado).ToString("C2", cultura);
+
+            lblDisponibilidade.ForeColor = verdeEscuro;
+            btnAdicionarProduto.Enabled = !ocupado;
         }
 
         private void MostrarPrecoServico()
@@ -1488,19 +1581,80 @@ namespace DSProjectVet.Forms.SCREENS
             if (ocupado)
                 return;
 
+            // Salva a seleção para facilitar a correção de
+            // quantidade após uma falha de estoque.
+            int? produtoSelecionado = null;
+            decimal quantidadeDigitada = numQtdProduto.Value;
+            DataRowView produto = cmbProduto.SelectedItem as DataRowView;
+            if (produto != null)
+                produtoSelecionado = Convert.ToInt32(
+                    produto["ID_Produto"]);
+
             ocupado = true;
             abas.Enabled = false;
+            btnAdicionarProduto.Enabled = false;
 
             try
             {
                 lblRodape.Text =
                     "Gravando alterações no SQL Server...";
 
+                // SQL exclusivamente na thread de trabalho.
+                // Nenhum MessageBox ou controle WinForms é
+                // acessado dentro do delegate da operação.
                 await Task.Run(operacao);
 
+                // A continuação do await executa na thread UI.
+                bool atualizado = await CarregarDadosAsync();
+                if (atualizado)
+                {
+                    Aviso(mensagemSucesso);
+                }
+                else
+                {
+                    MessageBox.Show(
+                        this,
+                        "A operação foi gravada no banco, mas " +
+                        "não foi possível atualizar a listagem.\n" +
+                        "Use Atualizar ou reabra esta tela.",
+                        "Registro salvo",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+                }
+            }
+            catch (EstoqueInsuficienteException ex)
+            {
+                // Aviso na thread da interface; não deixa o
+                // erro chegar ao manipulador não tratado.
+                MessageBox.Show(
+                    this,
+                    ex.Message,
+                    "Estoque insuficiente",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+
+                // Atualiza o saldo, pois outro funcionário
+                // pode ter consumido o estoque simultaneamente.
                 await CarregarDadosAsync();
 
-                Aviso(mensagemSucesso);
+                if (produtoSelecionado.HasValue)
+                {
+                    cmbProduto.SelectedValue =
+                        produtoSelecionado.Value;
+                    numQtdProduto.Value = quantidadeDigitada;
+                }
+            }
+            catch (SqlException ex) when (ex.Number == 1205)
+            {
+                MessageBox.Show(
+                    this,
+                    "O banco identificou um conflito entre " +
+                    "operações simultâneas.\n" +
+                    "Nenhuma alteração parcial foi mantida. " +
+                    "Atualize os dados e tente novamente.",
+                    "Operação não concluída",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
             }
             catch (Exception ex)
             {
@@ -1516,6 +1670,7 @@ namespace DSProjectVet.Forms.SCREENS
             {
                 ocupado = false;
                 abas.Enabled = true;
+                MostrarDisponibilidade();
             }
         }
 
@@ -1679,16 +1834,36 @@ namespace DSProjectVet.Forms.SCREENS
         // REGISTRAR PRODUTO COM BAIXA
         // ==========================================
 
+
+        // Exceção de negócio: sai do trabalho em segundo plano
+        // e é exibida como aviso na thread principal do WinForms.
+        private class EstoqueInsuficienteException : Exception
+        {
+            public EstoqueInsuficienteException(
+                int disponivel,
+                int solicitado)
+                : base(
+                    "Estoque insuficiente!\n\n" +
+                    "Disponível: " + disponivel + " unidade(s).\n" +
+                    "Solicitado: " + solicitado + " unidade(s).\n\n" +
+                    "Reduza a quantidade ou selecione outro produto.")
+            {
+            }
+        }
+
+
         private void RegistrarProduto(
             int idProduto,
             int quantidade)
         {
+
             if (idProduto <= 0 ||
                 quantidade <= 0)
             {
                 throw new Exception(
                     "Produto ou quantidade inválida.");
             }
+
 
             EmTransacao((conexao, transacao) =>
             {
@@ -1756,17 +1931,25 @@ namespace DSProjectVet.Forms.SCREENS
                     }
                 }
 
+
                 if (disponivel < quantidade)
                 {
-                    throw new Exception(
-                        "Estoque insuficiente.\n\n" +
-                        "Disponível: " + disponivel +
-                        "\nSolicitado: " + quantidade);
+                    throw new EstoqueInsuficienteException(
+                        disponivel,
+                        quantidade
+                    );
                 }
+
+
+
 
                 // ==================================
                 // CONFERIR LANÇAMENTO EXISTENTE
                 // ==================================
+
+                if (preco < 0m)
+                    throw new Exception(
+                        "O produto possui preço negativo no cadastro.");
 
                 string sqlContagem = @"
                     SELECT COUNT(*)
@@ -1904,6 +2087,12 @@ namespace DSProjectVet.Forms.SCREENS
                             "Falha ao registrar o consumo.");
                     }
                 }
+
+                // Atualiza o financeiro na mesma transação.
+                FinanceiroSync.Sincronizar(
+                    conexao,
+                    transacao,
+                    idConsulta);
             });
         }
 
@@ -2073,6 +2262,12 @@ namespace DSProjectVet.Forms.SCREENS
                             "Falha ao devolver quantidade.");
                     }
                 }
+
+                // Atualiza o financeiro na mesma transação.
+                FinanceiroSync.Sincronizar(
+                    conexao,
+                    transacao,
+                    idConsulta);
             });
         }
 
@@ -2243,6 +2438,12 @@ namespace DSProjectVet.Forms.SCREENS
                             "o serviço na consulta.");
                     }
                 }
+
+                // Atualiza o financeiro na mesma transação.
+                FinanceiroSync.Sincronizar(
+                    conexao,
+                    transacao,
+                    idConsulta);
             });
         }
 
@@ -2316,6 +2517,12 @@ namespace DSProjectVet.Forms.SCREENS
                             "o serviço da consulta.");
                     }
                 }
+
+                // Atualiza o financeiro na mesma transação.
+                FinanceiroSync.Sincronizar(
+                    conexao,
+                    transacao,
+                    idConsulta);
             });
         }
     }

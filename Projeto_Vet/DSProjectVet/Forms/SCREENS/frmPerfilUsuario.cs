@@ -76,6 +76,8 @@ namespace DSProjectVet.Forms
             EstilizarTela();
             ConfigurarPermissoes();
 
+            // Remove eventual inscrição do Designer e registra
+            // uma única vez o evento de logout.
             btnTrocaSenha.Click -= btnTrocaSenha_Click;
             btnTrocaSenha.Click += btnTrocaSenha_Click;
 
@@ -403,7 +405,7 @@ namespace DSProjectVet.Forms
                 ContentAlignment.MiddleLeft;
 
             // ======================================
-            // CARTÃO DE SEGURANÇA
+            // CARTÃO DE SESSÃO E SEGURANÇA
             // ======================================
 
             cartaoSeguranca = CriarCartao();
@@ -411,7 +413,7 @@ namespace DSProjectVet.Forms
             painelConteudo.Controls.Add(cartaoSeguranca);
 
             Label tituloSeguranca = CriarLabel(
-                "Segurança e permissões",
+                "Sessão e permissões",
                 13F,
                 FontStyle.Bold,
                 textoPrincipal);
@@ -421,7 +423,7 @@ namespace DSProjectVet.Forms
             cartaoSeguranca.Controls.Add(tituloSeguranca);
 
             Label descricaoSeguranca = CriarLabel(
-                "Gerencie as opções de segurança da sua conta.",
+                "Encerre a sessão ou gerencie usuários autorizados.",
                 9F,
                 FontStyle.Regular,
                 textoSecundario);
@@ -431,16 +433,18 @@ namespace DSProjectVet.Forms
             cartaoSeguranca.Controls.Add(
                 descricaoSeguranca);
 
-            // BOTÃO TROCAR SENHA
+            // BOTÃO SAIR DA CONTA
+            // Reaproveitamos o controle existente do Designer
+            // para manter compatibilidade com Perfil.Designer.cs.
             btnTrocaSenha.Parent = cartaoSeguranca;
             btnTrocaSenha.Visible = true;
-
-            btnTrocaSenha.Text = "Alterar senha";
+            btnTrocaSenha.Enabled = true;
+            btnTrocaSenha.Text = "Sair da conta";
 
             EstilizarBotao(
                 btnTrocaSenha,
-                verdePrincipal,
-                verdeEscuro,
+                Color.FromArgb(212, 66, 78),
+                Color.FromArgb(181, 46, 59),
                 Color.White);
 
             // BOTÃO GERENCIAR USUÁRIOS
@@ -794,7 +798,7 @@ namespace DSProjectVet.Forms
                 Math.Max(100, cartaoDispositivo.Width - 48),
                 40);
 
-            // CARTÃO DE SEGURANÇA
+            // CARTÃO DE SESSÃO E SEGURANÇA
             bool admin =
                 Properties.Settings.Default
                     .NivelUsuarioLogado == 1;
@@ -861,78 +865,88 @@ namespace DSProjectVet.Forms
         // BOTÃO GERENCIAR USUÁRIOS
         // ==========================================
 
-        private void button1_Click(
-            object sender, EventArgs e)
-        {
-            int nivel =
-                Properties.Settings.Default.NivelUsuarioLogado;
 
-            if (nivel != 1)
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (Properties.Settings.Default.NivelUsuarioLogado != 1)
             {
                 MessageBox.Show(
-                    "Apenas administradores podem " +
-                    "gerenciar usuários.",
-                    "Acesso negado",
+                    "Acesso permitido somente a administradores.");
+                return;
+            }
+
+            using (frmGerenciarUsuarios tela =
+                new frmGerenciarUsuarios())
+            {
+                tela.ShowDialog(this);
+            }
+        }
+
+
+        // ==========================================
+        // LOGOUT - ENCERRAR SESSÃO
+        // ==========================================
+
+        // Mantido com este nome para preservar
+        // o vínculo do evento em Perfil.Designer.cs.
+        private void btnTrocaSenha_Click(
+            object sender, EventArgs e)
+        {
+            ExecutarLogout();
+        }
+
+
+        private void ExecutarLogout()
+        {
+            DialogResult resposta = MessageBox.Show(
+                this,
+                "Deseja realmente sair da sua conta?\n\n" +
+                "Você precisará informar seu usuário " +
+                "e senha para entrar novamente.",
+                "Confirmar logout",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question,
+                MessageBoxDefaultButton.Button2
+            );
+
+            if (resposta != DialogResult.Yes)
+                return;
+
+            // Procura o MDI principal da aplicação.
+            Form menu = this.MdiParent;
+
+            if (menu == null)
+            {
+                foreach (Form formulario in
+                    Application.OpenForms)
+                {
+                    if (formulario is MDI_Menu)
+                    {
+                        menu = formulario;
+                        break;
+                    }
+                }
+            }
+
+            if (menu == null)
+            {
+                MessageBox.Show(
+                    this,
+                    "Não foi possível localizar " +
+                    "a janela principal do sistema.",
+                    "Med Vet",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Warning);
 
                 return;
             }
 
-            // Procura a tela de gerenciamento no projeto.
-            Type tipoTela =
-                typeof(Perfil).Assembly.GetType(
-                    "DSProjectVet.Forms.frmGerenciarUsuarios");
-
-            if (tipoTela == null ||
-                !typeof(Form).IsAssignableFrom(tipoTela))
-            {
-                MessageBox.Show(
-                    "A tela frmGerenciarUsuarios ainda " +
-                    "não foi encontrada no projeto.\n\n" +
-                    "Adicione a tela de gerenciamento " +
-                    "para habilitar esta função.",
-                    "Tela não encontrada",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
-
-                return;
-            }
-
-            try
-            {
-                using (Form tela =
-                    (Form)Activator.CreateInstance(tipoTela))
-                {
-                    tela.ShowDialog(this);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(
-                    "Não foi possível abrir o gerenciamento:\n\n" +
-                    ex.Message,
-                    "Erro",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-            }
+            // Ao fechar o MDI, Menu_FormClosed
+            // do frm_Login será executado e abrirá
+            // a tela de login novamente.
+            menu.Close();
         }
 
-        // ==========================================
-        // BOTÃO TROCAR SENHA
-        // ==========================================
-
-        private void btnTrocaSenha_Click(
-            object sender, EventArgs e)
-        {
-            MessageBox.Show(
-                "A alteração de senha será habilitada " +
-                "após a integração com o sistema de " +
-                "autenticação.",
-                "Alterar senha",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information);
-        }
 
         // ==========================================
         // EVENTOS DO DESIGNER
@@ -964,3 +978,4 @@ namespace DSProjectVet.Forms
         }
     }
 }
+    

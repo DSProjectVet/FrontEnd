@@ -1,144 +1,322 @@
-﻿using DSProjectVet.Dados.DataSet_ClinicaVetTableAdapters;
-using Projeto_Agenda.Formularios;
+﻿
+using DSProjectVet.Dados.DataSet_ClinicaVetTableAdapters;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Security.Policy;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DSProjectVet.Forms
 {
-    using BCrypt.Net;
-
     public partial class frm_Login : Form
     {
+        private int erros = 0;
+        private bool autenticando = false;
+
         public frm_Login()
         {
             InitializeComponent();
         }
 
-        int erros;
-        string hash;
+        // ==========================================
+        // CARREGAMENTO DO LOGIN
+        // ==========================================
 
-        private bool VerificarSenha(string senhaDigitada)
+        private void frm_Login_Load(
+            object sender, EventArgs e)
         {
-            return BCrypt.Verify(senhaDigitada, hash);
+            LimparSessao();
+
+            txtUser.Clear();
+            txtPass.Clear();
+
+            btn_ok.Enabled = true;
         }
 
-        private async void btn_ok_Click(object sender, EventArgs e)
+        // ==========================================
+        // BOTÃO ENTRAR
+        // ==========================================
+
+        private async void btn_ok_Click(
+            object sender, EventArgs e)
         {
-            //loadingForm loadingForm = new loadingForm();
-
-            // Credenciais para teste
-            //string usuarioCorreto = "admin";
-            //string senhaCorreta = "1234";
-
-            // Dados digitados
-            string usuarioDigitado = txtUser.Text;
-            string senhaDigitada = txtPass.Text;
-
-            if (txtUser.Text.Trim() == "")
-            {
-                errorProvider.SetError(txtUser, "Favor preencher corretamente!");
+            if (autenticando)
                 return;
-            } else
-            {
-                errorProvider.SetError(txtUser, "");
-            }
 
-            if(txtPass.Text.Trim() == "")
+            string usuarioDigitado =
+                txtUser.Text.Trim();
+
+            string senhaDigitada =
+                txtPass.Text;
+
+            errorProvider.SetError(txtUser, "");
+            errorProvider.SetError(txtPass, "");
+
+            // VALIDAR USUÁRIO
+            if (string.IsNullOrWhiteSpace(
+                usuarioDigitado))
             {
-                errorProvider.SetError(txtPass, "Favor preencher corretamente!");
+                errorProvider.SetError(
+                    txtUser,
+                    "Informe seu usuário.");
+
+                txtUser.Focus();
                 return;
             }
-            else
+
+            // VALIDAR SENHA
+            if (string.IsNullOrWhiteSpace(
+                senhaDigitada))
             {
-                errorProvider.SetError(txtPass, "");
+                errorProvider.SetError(
+                    txtPass,
+                    "Informe sua senha.");
+
+                txtPass.Focus();
+                return;
             }
+
+            autenticando = true;
+            btn_ok.Enabled = false;
+
             try
             {
-                //loadingForm.Show();
-                btn_ok.Enabled = false;
-                bool autenticado = await SingIn(usuarioDigitado, senhaDigitada);
+                UsuarioAutenticado usuario =
+                    await AutenticarAsync(
+                        usuarioDigitado,
+                        senhaDigitada);
 
-                if(autenticado)
+                if (usuario == null)
                 {
-                    MDI_Menu menu = new MDI_Menu();
-                    menu.Show();
-                    Hide();
+                    erros++;
 
-                    this.FormClosed += (s, args) => this.Close(); // Fecha o formulário de login quando o menu for fechado
-                }
-                else
-                {
-                    btn_ok.Enabled = true;
-                    MessageBox.Show("Usuário ou senha incorreto!", "Erro",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(
+                        this,
+                        "Usuário ou senha incorretos.",
+                        "Falha na autenticação",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
 
-                    if (erros == 3)
+                    if (erros >= 3)
                     {
-                        MessageBox.Show("Nº de tentativas esgotado", "Erro",
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        Application.OpenForms.OfType<frm_SplashScreen>().First().Close();
+                        MessageBox.Show(
+                            this,
+                            "Foram realizadas três " +
+                            "tentativas incorretas.\n\n" +
+                            "Confira suas credenciais " +
+                            "antes de tentar novamente.",
+                            "Med Vet",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Warning);
+
+                        erros = 0;
                     }
+
+                    return;
                 }
+
+                // LOGIN VALIDADO
+                erros = 0;
+
+                Properties.Settings.Default
+                    .NomeUsuarioLogado =
+                    usuario.Nome;
+
+                Properties.Settings.Default
+                    .NivelUsuarioLogado =
+                    usuario.Nivel;
+
+                Properties.Settings.Default.Save();
+
+                // CRIAR MENU PRINCIPAL
+                MDI_Menu menu = new MDI_Menu();
+
+                // IMPORTANTE:
+                // O evento pertence ao MENU,
+                // não ao formulário de LOGIN.
+                menu.FormClosed += Menu_FormClosed;
+
+                // Mostrar o menu e ocultar login
+                menu.Show();
+                this.Hide();
+
+                // Limpa credenciais digitadas
+                txtUser.Clear();
+                txtPass.Clear();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erro ao tentar se conectar com o banco de dados!\n {ex.Message}",
-                    "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(
+                    this,
+                    "Não foi possível realizar o login.\n\n" +
+                    ex.Message,
+                    "Erro de autenticação",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+
+                this.Show();
             }
             finally
             {
-                txtUser.Clear();
-                txtPass.Clear();
-                txtUser.Focus();
+                autenticando = false;
                 btn_ok.Enabled = true;
-                //loadingForm.Close();
+
+                if (this.Visible)
+                {
+                    txtPass.Clear();
+                    txtPass.Focus();
+                }
             }
-            
         }
 
-        private async Task<bool> SingIn(string user, string password)
+        // ==========================================
+        // MODELO DO USUÁRIO AUTENTICADO
+        // ==========================================
+
+        private class UsuarioAutenticado
         {
-            try
+            public string Nome { get; set; }
+            public int Nivel { get; set; }
+        }
+
+        // ==========================================
+        // AUTENTICAÇÃO SQL + BCRYPT
+        // ==========================================
+
+        private async Task<UsuarioAutenticado>
+            AutenticarAsync(
+                string usuario,
+                string senha)
+        {
+            // Consulta executada fora da UI.
+            DataTable tabela = await Task.Run(() =>
             {
-                await Task.Delay(1000); // simula um tempo de espera para a conexão com o banco de 
-                FuncionariosTableAdapter taFuncionarios = new FuncionariosTableAdapter();
-
-                DataTable dt = await Task.Run(() => taFuncionarios.LoginUser(user));
-                if (dt.Rows.Count > 0) // verifica se retornou alguma linha. Caso exista, user e pass estão corretos
+                using (FuncionariosTableAdapter adapter =
+                    new FuncionariosTableAdapter())
                 {
-                    hash = dt.Rows[0]["SenhaHash"].ToString();
+                    return adapter.LoginUser(usuario);
+                }
+            });
 
-                    if (VerificarSenha(password))
-                    {
-                        DSProjectVet.Properties.Settings.Default.NomeUsuarioLogado = dt.Rows[0]["Nome"].ToString(); // seta a var "NomeUsuarioLogado" com o nome do user caso esteja tudo correto
-                        DSProjectVet.Properties.Settings.Default.NivelUsuarioLogado = int.Parse(dt.Rows[0]["NivelAcesso"].ToString());
-                        MessageBox.Show(dt.Rows[0]["Nome"].ToString());
-                        return true;
-                        //dt.Rows[0]["NIVEL"] -> na linha zero, coluna NIVEL, pega o valor do nível do user
-                    }
+            using (tabela)
+            {
+                if (tabela == null ||
+                    tabela.Rows.Count == 0)
+                {
+                    return null;
                 }
 
-                erros++;
-                return false;
-            } catch (Exception ex)
-            {
-                MessageBox.Show($"Erro ao tentar se conectar com o banco de dados!\n {ex.Message}",
-                    "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
+                DataRow linha = tabela.Rows[0];
+
+                string hashArmazenado =
+                    Convert.ToString(
+                        linha["SenhaHash"]);
+
+                if (string.IsNullOrWhiteSpace(
+                    hashArmazenado))
+                {
+                    return null;
+                }
+
+                // BCrypt pode ser custoso.
+                // Executar fora da thread visual.
+                bool senhaCorreta =
+                    await Task.Run(() =>
+                    {
+                        return BCrypt.Net.BCrypt.Verify(
+                            senha,
+                            hashArmazenado);
+                    });
+
+                if (!senhaCorreta)
+                    return null;
+
+                string nome =
+                    Convert.ToString(
+                        linha["Nome"]);
+
+                string nivelTexto =
+                    Convert.ToString(
+                        linha["NivelAcesso"]).Trim();
+
+                int nivel;
+
+                if (!int.TryParse(
+                    nivelTexto, out nivel))
+                {
+                    throw new Exception(
+                        "Nível de acesso inválido " +
+                        "para este funcionário.");
+                }
+
+                if (nivel < 1 || nivel > 3)
+                {
+                    throw new Exception(
+                        "O funcionário não possui " +
+                        "um nível de acesso válido.");
+                }
+
+                return new UsuarioAutenticado
+                {
+                    Nome = nome,
+                    Nivel = nivel
+                };
             }
         }
 
-        private void txtUser_TextChanged(object sender, EventArgs e)
-        {
+        // ==========================================
+        // QUANDO O MDI É FECHADO
+        // ==========================================
 
+        private void Menu_FormClosed(
+            object sender,
+            FormClosedEventArgs e)
+        {
+            // Encerra a sessão anterior.
+            LimparSessao();
+
+            if (this.IsDisposed || this.Disposing)
+                return;
+
+            // Retorna ao mesmo formulário de login.
+            this.Show();
+
+            this.WindowState =
+                FormWindowState.Normal;
+
+            this.Activate();
+
+            txtUser.Clear();
+            txtPass.Clear();
+
+            errorProvider.SetError(txtUser, "");
+            errorProvider.SetError(txtPass, "");
+
+            txtUser.Focus();
+        }
+
+        // ==========================================
+        // LIMPAR DADOS DA SESSÃO
+        // ==========================================
+
+        private void LimparSessao()
+        {
+            Properties.Settings.Default
+                .NomeUsuarioLogado = "";
+
+            Properties.Settings.Default
+                .NivelUsuarioLogado = 0;
+
+            Properties.Settings.Default.Save();
+        }
+
+        // ==========================================
+        // EVENTOS DO DESIGNER
+        // ==========================================
+
+        private void txtUser_TextChanged(
+            object sender, EventArgs e)
+        {
+            errorProvider.SetError(txtUser, "");
         }
     }
 }

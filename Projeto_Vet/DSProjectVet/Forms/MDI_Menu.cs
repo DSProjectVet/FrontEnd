@@ -2,10 +2,15 @@
 using DSProjectVet.Forms.SCREENS;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Data;
+using System.Data.SqlClient;
+
 
 namespace DSProjectVet.Forms
 {
@@ -23,6 +28,7 @@ namespace DSProjectVet.Forms
             Consultas,
             Estoque,
             Financeiro,
+            Relatorios,
             Perfil
         }
 
@@ -223,7 +229,7 @@ namespace DSProjectVet.Forms
 
             Label sinal = new Label();
 
-            sinal.Text = "+";
+            sinal.Text = "🐾";
             sinal.ForeColor = Color.White;
 
             sinal.Font = new Font(
@@ -313,40 +319,54 @@ namespace DSProjectVet.Forms
             estruturaLateral.Controls.Add(
                 listaMenu, 0, 2);
 
+
             AdicionarBotaoMenu(
                 listaMenu,
                 Modulo.Inicio,
-                "Início");
+                "Início",
+                Properties.Resources.iconInicio);
 
             AdicionarBotaoMenu(
                 listaMenu,
                 Modulo.Clientes,
-                "Clientes");
+                "Clientes",
+                Properties.Resources.iconClientes);
 
             AdicionarBotaoMenu(
                 listaMenu,
                 Modulo.Animais,
-                "Animais");
+                "Animais",
+                Properties.Resources.iconAnimais);
 
             AdicionarBotaoMenu(
                 listaMenu,
                 Modulo.Consultas,
-                "Consultas");
+                "Consultas",
+                Properties.Resources.iconConsultas);
 
             AdicionarBotaoMenu(
                 listaMenu,
                 Modulo.Estoque,
-                "Estoque");
+                "Estoque",
+                Properties.Resources.iconEstoque);
 
             AdicionarBotaoMenu(
                 listaMenu,
                 Modulo.Financeiro,
-                "Fluxo financeiro");
+                "Fluxo financeiro",
+                Properties.Resources.iconFinanceiro);
+
+            AdicionarBotaoMenu(
+                listaMenu,
+                Modulo.Relatorios,
+                "Relatórios",
+                Properties.Resources.iconRelatorios);
 
             AdicionarBotaoMenu(
                 listaMenu,
                 Modulo.Perfil,
-                "Meu perfil");
+                "Meu perfil",
+                Properties.Resources.iconPerfil);
 
             // ==================================
             // USUÁRIO NO RODAPÉ
@@ -517,9 +537,24 @@ namespace DSProjectVet.Forms
         private void AdicionarBotaoMenu(
             FlowLayoutPanel painel,
             Modulo modulo,
-            string titulo)
+            string titulo,
+            Image icone)
         {
             Button botao = new Button();
+
+            botao.Image = new Bitmap(icone, new Size(24, 24));
+
+            botao.ImageAlign =
+                ContentAlignment.MiddleLeft;
+
+            botao.TextImageRelation =
+                TextImageRelation.ImageBeforeText;
+
+            botao.TextAlign =
+                ContentAlignment.MiddleCenter;
+
+            botao.Padding =
+                new Padding(16, 0, 12, 0);
 
             botao.Text = "   " + titulo;
 
@@ -687,6 +722,14 @@ namespace DSProjectVet.Forms
 
             string cargo =
                 NormalizarCargo(cargoSessao);
+
+            // A central pode ser aberta pelos três níveis.
+            // Cada relatório terá suas permissões próprias.
+            if (modulo == Modulo.Relatorios)
+            {
+                return NivelAtual() >= 1 &&
+                       NivelAtual() <= 3;
+            }
 
             // NÍVEL 1 - ADMINISTRADOR
             if (nivel == 1 &&
@@ -887,7 +930,10 @@ namespace DSProjectVet.Forms
                     return CriarTelaConsultas();
 
                 case Modulo.Financeiro:
-                    return new TelaFluxoFinanceiro();
+                    return new frmFluxoFinanceiro();
+
+                case Modulo.Relatorios:
+                    return new frmRelatorios();
 
                 default:
                     return null;
@@ -945,177 +991,1088 @@ namespace DSProjectVet.Forms
         // TELA INICIAL
         // ======================================
 
+
         private Form CriarTelaInicio()
         {
             Form inicio = new Form();
 
             inicio.Text = "Início";
             inicio.BackColor = fundo;
+            inicio.AutoScroll = true;
+            inicio.Font = new Font("Segoe UI", 10F);
+
+            // ==========================================
+            // INFORMAÇÕES DO USUÁRIO
+            // ==========================================
+
+            string nomeUsuario =
+                Properties.Settings.Default.NomeUsuarioLogado;
+
+            if (string.IsNullOrWhiteSpace(nomeUsuario))
+                nomeUsuario = "Colaborador";
+
+            int nivel =
+                Properties.Settings.Default.NivelUsuarioLogado;
+
+            string cargo = "Colaborador";
+
+            switch (nivel)
+            {
+                case 1:
+                    cargo = "Administrador";
+                    break;
+
+                case 2:
+                    cargo = "Atendente";
+                    break;
+
+                case 3:
+                    cargo = "Veterinário";
+                    break;
+            }
+
+            string saudacao;
+
+            if (DateTime.Now.Hour < 12)
+                saudacao = "Bom dia";
+            else if (DateTime.Now.Hour < 18)
+                saudacao = "Boa tarde";
+            else
+                saudacao = "Boa noite";
+
+            string primeiroNome = nomeUsuario.Split(' ')[0];
+
+            string dataHoje = DateTime.Now.ToString(
+                "dddd, dd 'de' MMMM 'de' yyyy",
+                new System.Globalization.CultureInfo("pt-BR"));
+
+            // ==========================================
+            // LAYOUT PRINCIPAL
+            // ==========================================
 
             TableLayoutPanel layout =
                 new TableLayoutPanel();
 
             layout.Dock = DockStyle.Fill;
-            layout.Padding =
-                new Padding(28, 25, 28, 25);
-
+            layout.Padding = new Padding(24, 22, 24, 15);
             layout.ColumnCount = 1;
-            layout.RowCount = 3;
+            layout.RowCount = 5;
 
             layout.ColumnStyles.Add(
                 new ColumnStyle(SizeType.Percent, 100F));
 
             layout.RowStyles.Add(
-                new RowStyle(SizeType.Absolute, 175F));
+                new RowStyle(SizeType.Absolute, 180F));
 
             layout.RowStyles.Add(
-                new RowStyle(SizeType.Absolute, 65F));
+                new RowStyle(SizeType.Absolute, 130F));
+
+            layout.RowStyles.Add(
+                new RowStyle(SizeType.Absolute, 60F));
 
             layout.RowStyles.Add(
                 new RowStyle(SizeType.Percent, 100F));
 
+            layout.RowStyles.Add(
+                new RowStyle(SizeType.Absolute, 42F));
+
             inicio.Controls.Add(layout);
 
-            Panel boasVindas = new Panel();
+            // ==========================================
+            // 1. BOAS-VINDAS
+            // ==========================================
 
-            boasVindas.BackColor = Color.White;
-            boasVindas.Dock = DockStyle.Fill;
+            TableLayoutPanel painelBoasVindas =
+                new TableLayoutPanel();
 
-            boasVindas.Margin =
-                new Padding(0, 0, 0, 12);
+            painelBoasVindas.Dock = DockStyle.Fill;
+            painelBoasVindas.ColumnCount = 2;
+            painelBoasVindas.RowCount = 1;
 
-            layout.Controls.Add(
-                boasVindas, 0, 0);
+            painelBoasVindas.ColumnStyles.Add(
+                new ColumnStyle(SizeType.Percent, 70F));
 
-            Label titulo = new Label();
+            painelBoasVindas.ColumnStyles.Add(
+                new ColumnStyle(SizeType.Percent, 30F));
 
-            titulo.Text = "Bem-vindo ao Med Vet";
+            painelBoasVindas.Margin =
+                new Padding(0, 0, 0, 15);
 
-            titulo.Font = new Font(
-                "Segoe UI", 26F, FontStyle.Bold);
+            layout.Controls.Add(painelBoasVindas, 0, 0);
 
-            titulo.ForeColor = texto;
+            // CARTÃO PRINCIPAL
+            Panel cardBoasVindas = new Panel();
 
-            titulo.SetBounds(
-                25, 23, 660, 55);
+            cardBoasVindas.Dock = DockStyle.Fill;
+            cardBoasVindas.BackColor = Color.White;
+            cardBoasVindas.Padding = new Padding(23);
 
-            boasVindas.Controls.Add(titulo);
+            cardBoasVindas.Margin =
+                new Padding(0, 0, 12, 0);
 
-            Label descricao = new Label();
+            painelBoasVindas.Controls.Add(
+                cardBoasVindas, 0, 0);
 
-            descricao.Text =
-                "Gerencie os principais módulos " +
-                "da clínica em um só lugar.";
+            TableLayoutPanel textosBoasVindas =
+                new TableLayoutPanel();
 
-            descricao.Font =
-                new Font("Segoe UI", 11F);
+            textosBoasVindas.Dock = DockStyle.Fill;
+            textosBoasVindas.RowCount = 4;
+            textosBoasVindas.ColumnCount = 1;
 
-            descricao.ForeColor = cinza;
+            textosBoasVindas.RowStyles.Add(
+                new RowStyle(SizeType.Absolute, 23));
 
-            descricao.SetBounds(
-                28, 87, 660, 32);
+            textosBoasVindas.RowStyles.Add(
+                new RowStyle(SizeType.Absolute, 52));
 
-            boasVindas.Controls.Add(descricao);
+            textosBoasVindas.RowStyles.Add(
+                new RowStyle(SizeType.Percent, 100));
 
-            Label sistema = new Label();
+            textosBoasVindas.RowStyles.Add(
+                new RowStyle(SizeType.Absolute, 26));
 
-            sistema.Text = "●  SISTEMA DISPONÍVEL";
+            cardBoasVindas.Controls.Add(textosBoasVindas);
 
-            sistema.ForeColor = verde;
+            Label lblEtiqueta = new Label();
 
-            sistema.Font = new Font(
+            lblEtiqueta.Text = "PAINEL INICIAL";
+            lblEtiqueta.Dock = DockStyle.Fill;
+
+            lblEtiqueta.ForeColor = verdeEscuro;
+
+            lblEtiqueta.Font = new Font(
+                "Segoe UI", 8.5F, FontStyle.Bold);
+
+            textosBoasVindas.Controls.Add(
+                lblEtiqueta, 0, 0);
+
+            Label lblBoasVindas = new Label();
+
+            lblBoasVindas.Text =
+                saudacao + ", " + primeiroNome + "!";
+
+            lblBoasVindas.Dock = DockStyle.Fill;
+
+            lblBoasVindas.AutoEllipsis = true;
+
+            lblBoasVindas.Font = new Font(
+                "Segoe UI", 23F, FontStyle.Bold);
+
+            lblBoasVindas.ForeColor = texto;
+
+            textosBoasVindas.Controls.Add(
+                lblBoasVindas, 0, 1);
+
+            Label lblDescricao = new Label();
+
+            lblDescricao.Text =
+                "Bem-vindo ao Med Vet. " +
+                "Acompanhe a clínica e acesse os " +
+                "módulos do sistema em um só lugar.";
+
+            lblDescricao.Dock = DockStyle.Fill;
+
+            lblDescricao.ForeColor = cinza;
+            lblDescricao.Font = new Font("Segoe UI", 10F);
+
+            textosBoasVindas.Controls.Add(
+                lblDescricao, 0, 2);
+
+            Label lblStatusSistema = new Label();
+
+            lblStatusSistema.Text =
+                "●  CARREGANDO INDICADORES";
+
+            lblStatusSistema.Dock = DockStyle.Fill;
+
+            lblStatusSistema.ForeColor = verdeEscuro;
+
+            lblStatusSistema.Font = new Font(
+                "Segoe UI", 8.5F, FontStyle.Bold);
+
+            textosBoasVindas.Controls.Add(
+                lblStatusSistema, 0, 3);
+
+            // CARTÃO DATA E PERFIL
+            Panel cardData = new Panel();
+
+            cardData.Dock = DockStyle.Fill;
+            cardData.BackColor = verdeEscuro;
+
+            painelBoasVindas.Controls.Add(
+                cardData, 1, 0);
+
+            TableLayoutPanel infoData =
+                new TableLayoutPanel();
+
+            infoData.Dock = DockStyle.Fill;
+            infoData.Padding = new Padding(16, 13, 12, 12);
+            infoData.RowCount = 4;
+            infoData.ColumnCount = 1;
+
+            infoData.RowStyles.Add(
+                new RowStyle(SizeType.Absolute, 29));
+
+            infoData.RowStyles.Add(
+                new RowStyle(SizeType.Absolute, 48));
+
+            infoData.RowStyles.Add(
+                new RowStyle(SizeType.Absolute, 25));
+
+            infoData.RowStyles.Add(
+                new RowStyle(SizeType.Percent, 100));
+
+            cardData.Controls.Add(infoData);
+
+            Label lblDataTitulo = new Label();
+
+            lblDataTitulo.Text = "HOJE";
+            lblDataTitulo.Dock = DockStyle.Fill;
+
+            lblDataTitulo.ForeColor =
+                Color.FromArgb(199, 240, 221);
+
+            lblDataTitulo.Font = new Font(
                 "Segoe UI", 9F, FontStyle.Bold);
 
-            sistema.SetBounds(
-                28, 132, 280, 23);
+            infoData.Controls.Add(lblDataTitulo, 0, 0);
 
-            boasVindas.Controls.Add(sistema);
+            Label lblDia = new Label();
 
-            Label atalhosTitulo = new Label();
+            lblDia.Text =
+                DateTime.Now.ToString("dd/MM/yyyy");
 
-            atalhosTitulo.Text = "Acesso rápido";
+            lblDia.Dock = DockStyle.Fill;
 
-            atalhosTitulo.Dock = DockStyle.Fill;
+            lblDia.ForeColor = Color.White;
 
-            atalhosTitulo.Font = new Font(
+            lblDia.Font = new Font(
+                "Segoe UI", 20F, FontStyle.Bold);
+
+            lblDia.AutoEllipsis = true;
+
+            infoData.Controls.Add(lblDia, 0, 1);
+
+            Label lblCargoTitulo = new Label();
+
+            lblCargoTitulo.Text = "SEU ACESSO";
+            lblCargoTitulo.Dock = DockStyle.Fill;
+
+            lblCargoTitulo.ForeColor =
+                Color.FromArgb(199, 240, 221);
+
+            lblCargoTitulo.Font = new Font(
+                "Segoe UI", 8.5F, FontStyle.Bold);
+
+            infoData.Controls.Add(lblCargoTitulo, 0, 2);
+
+            Label lblCargo = new Label();
+
+            lblCargo.Text = cargo;
+            lblCargo.Dock = DockStyle.Fill;
+
+            lblCargo.ForeColor = Color.White;
+
+            lblCargo.Font = new Font(
+                "Segoe UI", 13F, FontStyle.Bold);
+
+            lblCargo.AutoEllipsis = true;
+
+            infoData.Controls.Add(lblCargo, 0, 3);
+
+            // ==========================================
+            // 2. INDICADORES DO SISTEMA
+            // ==========================================
+
+            TableLayoutPanel indicadores =
+                new TableLayoutPanel();
+
+            indicadores.Dock = DockStyle.Fill;
+            indicadores.ColumnCount = 3;
+
+            indicadores.Margin = new Padding(0);
+
+            for (int i = 0; i < 3; i++)
+            {
+                indicadores.ColumnStyles.Add(
+                    new ColumnStyle(SizeType.Percent, 33.3333F));
+            }
+
+            layout.Controls.Add(indicadores, 0, 1);
+
+            Label lblConsultasHoje;
+            Label lblPacientes;
+            Label lblConsultasMes;
+
+            indicadores.Controls.Add(
+                CriarIndicadorInicio(
+                    "Consultas hoje",
+                    "Atendimentos agendados para hoje",
+                    out lblConsultasHoje),
+                0, 0);
+
+            indicadores.Controls.Add(
+                CriarIndicadorInicio(
+                    "Pacientes cadastrados",
+                    "Animais registrados na clínica",
+                    out lblPacientes),
+                1, 0);
+
+            indicadores.Controls.Add(
+                CriarIndicadorInicio(
+                    "Consultas neste mês",
+                    "Atendimentos do mês atual",
+                    out lblConsultasMes),
+                2, 0);
+
+            // ==========================================
+            // 3. TÍTULO DE ACESSO RÁPIDO
+            // ==========================================
+
+            Panel cabecalhoAtalhos = new Panel();
+
+            cabecalhoAtalhos.Dock = DockStyle.Fill;
+
+            layout.Controls.Add(cabecalhoAtalhos, 0, 2);
+
+            Label lblAtalhos = new Label();
+
+            lblAtalhos.Text = "Acesso rápido";
+            lblAtalhos.Font = new Font(
                 "Segoe UI", 17F, FontStyle.Bold);
 
-            atalhosTitulo.ForeColor = texto;
+            lblAtalhos.ForeColor = texto;
 
-            layout.Controls.Add(
-                atalhosTitulo, 0, 1);
+            lblAtalhos.SetBounds(0, 8, 320, 42);
+
+            cabecalhoAtalhos.Controls.Add(lblAtalhos);
+
+            // ==========================================
+            // 4. CONTEÚDO PRINCIPAL
+            // ==========================================
+
+            TableLayoutPanel areaPrincipal =
+                new TableLayoutPanel();
+
+            areaPrincipal.Dock = DockStyle.Fill;
+            areaPrincipal.ColumnCount = 2;
+            areaPrincipal.RowCount = 1;
+
+            areaPrincipal.ColumnStyles.Add(
+                new ColumnStyle(SizeType.Percent, 72F));
+
+            areaPrincipal.ColumnStyles.Add(
+                new ColumnStyle(SizeType.Percent, 28F));
+
+            areaPrincipal.Margin = new Padding(0);
+
+            layout.Controls.Add(areaPrincipal, 0, 3);
+
+            // ==========================================
+            // ATALHOS
+            // ==========================================
 
             FlowLayoutPanel atalhos =
                 new FlowLayoutPanel();
 
             atalhos.Dock = DockStyle.Fill;
-            atalhos.AutoScroll = true;
+
+            atalhos.FlowDirection =
+                FlowDirection.LeftToRight;
+
             atalhos.WrapContents = true;
+            atalhos.AutoScroll = true;
+
+            atalhos.Margin =
+                new Padding(0, 0, 12, 0);
 
             atalhos.Padding = new Padding(0);
-            atalhos.Margin = new Padding(0);
 
-            layout.Controls.Add(atalhos, 0, 2);
+            areaPrincipal.Controls.Add(
+                atalhos, 0, 0);
 
-            AdicionarAtalho(
-                atalhos, Modulo.Clientes, "Clientes");
+            AdicionarAtalhoInicio(
+                atalhos,
+                Modulo.Clientes,
+                "Clientes",
+                "Cadastros e responsáveis",
+                Properties.Resources.iconClientes);
 
-            AdicionarAtalho(
-                atalhos, Modulo.Animais, "Animais");
+            AdicionarAtalhoInicio(
+                atalhos,
+                Modulo.Animais,
+                "Animais",
+                "Pacientes cadastrados",
+                Properties.Resources.iconAnimais);
 
-            AdicionarAtalho(
-                atalhos, Modulo.Consultas, "Consultas");
+            AdicionarAtalhoInicio(
+                atalhos,
+                Modulo.Consultas,
+                "Consultas",
+                "Agenda e atendimentos",
+                Properties.Resources.iconConsultas);
 
-            AdicionarAtalho(
-                atalhos, Modulo.Estoque, "Estoque");
+            AdicionarAtalhoInicio(
+                atalhos,
+                Modulo.Estoque,
+                "Estoque",
+                "Produtos e medicamentos",
+                Properties.Resources.iconEstoque);
 
-            AdicionarAtalho(
-                atalhos, Modulo.Financeiro,
-                "Fluxo financeiro");
+            AdicionarAtalhoInicio(
+                atalhos,
+                Modulo.Financeiro,
+                "Fluxo financeiro",
+                "Entradas e saídas",
+                Properties.Resources.iconFinanceiro);
+
+            // Relatórios não exige criar outro recurso.
+            AdicionarAtalhoInicio(
+                atalhos,
+                Modulo.Relatorios,
+                "Relatórios",
+                "Indicadores e análises",
+                Properties.Resources.iconRelatorios);
+
+            // ==========================================
+            // PAINEL LATERAL
+            // ==========================================
+
+            TableLayoutPanel lateral =
+                new TableLayoutPanel();
+
+            lateral.Dock = DockStyle.Fill;
+            lateral.RowCount = 2;
+            lateral.ColumnCount = 1;
+
+            lateral.RowStyles.Add(
+                new RowStyle(SizeType.Absolute, 165F));
+
+            lateral.RowStyles.Add(
+                new RowStyle(SizeType.Percent, 100F));
+
+            areaPrincipal.Controls.Add(lateral, 1, 0);
+
+            // CARTÃO DE USUÁRIO
+            Panel cardPerfil = new Panel();
+
+            cardPerfil.Dock = DockStyle.Fill;
+            cardPerfil.BackColor = Color.White;
+
+            cardPerfil.Padding = new Padding(16);
+
+            cardPerfil.Margin =
+                new Padding(0, 0, 0, 12);
+
+            lateral.Controls.Add(cardPerfil, 0, 0);
+
+            Label tituloPerfil = new Label();
+
+            tituloPerfil.Text = "Sua sessão";
+
+            tituloPerfil.Font = new Font(
+                "Segoe UI", 12F, FontStyle.Bold);
+
+            tituloPerfil.ForeColor = texto;
+
+            tituloPerfil.SetBounds(14, 13, 210, 32);
+
+            cardPerfil.Controls.Add(tituloPerfil);
+
+            Label nomePerfil = new Label();
+
+            nomePerfil.Text = nomeUsuario;
+
+            nomePerfil.Font = new Font(
+                "Segoe UI", 11F, FontStyle.Bold);
+
+            nomePerfil.ForeColor = texto;
+
+            nomePerfil.AutoEllipsis = true;
+
+            nomePerfil.SetBounds(14, 54, 230, 32);
+
+            cardPerfil.Controls.Add(nomePerfil);
+
+            Label nivelPerfil = new Label();
+
+            nivelPerfil.Text = cargo;
+
+            nivelPerfil.Font = new Font(
+                "Segoe UI", 10F);
+
+            nivelPerfil.ForeColor = verdeEscuro;
+
+            nivelPerfil.SetBounds(14, 87, 225, 28);
+
+            cardPerfil.Controls.Add(nivelPerfil);
+
+            Label acessoPerfil = new Label();
+
+            acessoPerfil.Text =
+                "Os módulos são exibidos de acordo " +
+                "com as permissões da sua conta.";
+
+            acessoPerfil.Font = new Font(
+                "Segoe UI", 8.5F);
+
+            acessoPerfil.ForeColor = cinza;
+
+            acessoPerfil.SetBounds(
+                14, 118, 225, 37);
+
+            cardPerfil.Controls.Add(acessoPerfil);
+
+            // CARTÃO DE ORIENTAÇÕES
+            Panel cardAjuda = new Panel();
+
+            cardAjuda.Dock = DockStyle.Fill;
+            cardAjuda.BackColor = Color.White;
+
+            cardAjuda.Padding = new Padding(16);
+
+            lateral.Controls.Add(cardAjuda, 0, 1);
+
+            Label tituloAjuda = new Label();
+
+            tituloAjuda.Text = "Para começar";
+
+            tituloAjuda.Font = new Font(
+                "Segoe UI", 12F, FontStyle.Bold);
+
+            tituloAjuda.ForeColor = texto;
+
+            tituloAjuda.SetBounds(14, 13, 230, 33);
+
+            cardAjuda.Controls.Add(tituloAjuda);
+
+            Label textoAjuda = new Label();
+
+            textoAjuda.Text =
+                "01  Selecione um módulo.\n\n" +
+                "02  Consulte ou cadastre dados.\n\n" +
+                "03  Utilize relatórios para " +
+                "acompanhar os resultados.";
+
+            textoAjuda.Font = new Font(
+                "Segoe UI", 9F);
+
+            textoAjuda.ForeColor = cinza;
+
+            textoAjuda.SetBounds(
+                14, 55, 225, 145);
+
+            cardAjuda.Controls.Add(textoAjuda);
+
+            // ==========================================
+            // 5. RODAPÉ
+            // ==========================================
+
+            TableLayoutPanel rodape =
+                new TableLayoutPanel();
+
+            rodape.Dock = DockStyle.Fill;
+
+            rodape.ColumnCount = 2;
+
+            rodape.ColumnStyles.Add(
+                new ColumnStyle(SizeType.Percent, 100F));
+
+            rodape.ColumnStyles.Add(
+                new ColumnStyle(SizeType.AutoSize));
+
+            layout.Controls.Add(rodape, 0, 4);
+
+            Label lblRodape = new Label();
+
+            lblRodape.Text =
+                "Med Vet  |  Sistema de gestão veterinária";
+
+            lblRodape.ForeColor = cinza;
+
+            lblRodape.Font = new Font(
+                "Segoe UI", 8.5F);
+
+            lblRodape.Dock = DockStyle.Fill;
+
+            lblRodape.TextAlign =
+                ContentAlignment.MiddleLeft;
+
+            rodape.Controls.Add(lblRodape, 0, 0);
+
+            Label lblDataRodape = new Label();
+
+            lblDataRodape.Text = dataHoje;
+
+            lblDataRodape.ForeColor = cinza;
+
+            lblDataRodape.Font = new Font(
+                "Segoe UI", 8.5F);
+
+            lblDataRodape.AutoSize = true;
+
+            lblDataRodape.Margin =
+                new Padding(0, 10, 0, 0);
+
+            rodape.Controls.Add(lblDataRodape, 1, 0);
+
+            // ==========================================
+            // CONSULTAR INDICADORES REAIS
+            // ==========================================
+
+            inicio.Shown += async (s, e) =>
+            {
+                await AtualizarIndicadoresInicioAsync(
+                    inicio,
+                    lblConsultasHoje,
+                    lblPacientes,
+                    lblConsultasMes,
+                    lblStatusSistema);
+            };
 
             return inicio;
         }
 
-        private void AdicionarAtalho(
+
+        private async Task AtualizarIndicadoresInicioAsync(
+            Form tela,
+            Label lblConsultasHoje,
+            Label lblPacientes,
+            Label lblConsultasMes,
+            Label lblStatusSistema)
+        {
+            try
+            {
+                string connectionString =
+                    ObterConnectionStringInicio();
+
+                int[] indicadores = await Task.Run(() =>
+                {
+                    string sql = @"
+                SELECT
+                    (
+                        SELECT COUNT(*)
+                        FROM dbo.Consultas
+                        WHERE DataHora >=
+                            CAST(GETDATE() AS DATE)
+                          AND DataHora <
+                            DATEADD(
+                                DAY, 1,
+                                CAST(GETDATE() AS DATE))
+                    ) AS ConsultasHoje,
+
+                    (
+                        SELECT COUNT(*)
+                        FROM dbo.Animais
+                    ) AS Pacientes,
+
+                    (
+                        SELECT COUNT(*)
+                        FROM dbo.Consultas
+                        WHERE DataHora >=
+                            DATEADD(
+                                MONTH,
+                                DATEDIFF(
+                                    MONTH, 0, GETDATE()),
+                                0)
+                          AND DataHora <
+                            DATEADD(
+                                MONTH, 1,
+                                DATEADD(
+                                    MONTH,
+                                    DATEDIFF(
+                                        MONTH, 0, GETDATE()),
+                                    0))
+                    ) AS ConsultasMes;
+            ";
+
+                    using (SqlConnection conexao =
+                        new SqlConnection(connectionString))
+                    using (SqlCommand comando =
+                        new SqlCommand(sql, conexao))
+                    {
+                        conexao.Open();
+
+                        using (SqlDataReader leitor =
+                            comando.ExecuteReader())
+                        {
+                            if (!leitor.Read())
+                                throw new Exception(
+                                    "Sem dados retornados.");
+
+                            return new int[]
+                            {
+                        Convert.ToInt32(
+                            leitor["ConsultasHoje"]),
+
+                        Convert.ToInt32(
+                            leitor["Pacientes"]),
+
+                        Convert.ToInt32(
+                            leitor["ConsultasMes"])
+                            };
+                        }
+                    }
+                });
+
+                if (tela.IsDisposed)
+                    return;
+
+                lblConsultasHoje.Text =
+                    indicadores[0].ToString("N0");
+
+                lblPacientes.Text =
+                    indicadores[1].ToString("N0");
+
+                lblConsultasMes.Text =
+                    indicadores[2].ToString("N0");
+
+                lblStatusSistema.Text =
+                    "●  INDICADORES ATUALIZADOS";
+
+                lblStatusSistema.ForeColor = verdeEscuro;
+            }
+            catch (Exception)
+            {
+                if (tela.IsDisposed)
+                    return;
+
+                lblConsultasHoje.Text = "—";
+                lblPacientes.Text = "—";
+                lblConsultasMes.Text = "—";
+
+                lblStatusSistema.Text =
+                    "●  INDICADORES INDISPONÍVEIS";
+
+                lblStatusSistema.ForeColor =
+                    Color.FromArgb(190, 115, 40);
+
+                // A falha nos indicadores não impede
+                // o usuário de navegar pelo sistema.
+            }
+        }
+
+        private string ObterConnectionStringInicio()
+        {
+            foreach (SettingsProperty propriedade in
+                Properties.Settings.Default.Properties)
+            {
+                SpecialSettingAttribute atributo =
+                    propriedade.Attributes[
+                        typeof(SpecialSettingAttribute)]
+                    as SpecialSettingAttribute;
+
+                if (atributo == null ||
+                    atributo.SpecialSetting !=
+                        SpecialSetting.ConnectionString)
+                {
+                    continue;
+                }
+
+                string valor = Convert.ToString(
+                    Properties.Settings.Default[
+                        propriedade.Name]);
+
+                if (!string.IsNullOrWhiteSpace(valor))
+                    return valor;
+            }
+
+            throw new Exception(
+                "Connection string não encontrada.");
+        }
+
+
+
+        private Panel CriarIndicadorInicio(
+            string titulo,
+            string descricao,
+            out Label valor)
+        {
+            Panel card = new Panel();
+
+            card.Dock = DockStyle.Fill;
+            card.BackColor = Color.White;
+
+            card.Margin = new Padding(0, 0, 12, 15);
+            card.Padding = new Padding(17, 13, 12, 12);
+
+            TableLayoutPanel conteudo =
+                new TableLayoutPanel();
+
+            conteudo.Dock = DockStyle.Fill;
+            conteudo.ColumnCount = 1;
+            conteudo.RowCount = 3;
+
+            conteudo.RowStyles.Add(
+                new RowStyle(SizeType.Absolute, 26F));
+
+            conteudo.RowStyles.Add(
+                new RowStyle(SizeType.Percent, 100F));
+
+            conteudo.RowStyles.Add(
+                new RowStyle(SizeType.Absolute, 23F));
+
+            card.Controls.Add(conteudo);
+
+            Label labelTitulo = new Label();
+
+            labelTitulo.Text = titulo;
+            labelTitulo.Dock = DockStyle.Fill;
+
+            labelTitulo.ForeColor = cinza;
+            labelTitulo.Font = new Font(
+                "Segoe UI", 9F, FontStyle.Bold);
+
+            conteudo.Controls.Add(labelTitulo, 0, 0);
+
+            valor = new Label();
+
+            valor.Text = "—";
+            valor.Dock = DockStyle.Fill;
+
+            valor.ForeColor = verdeEscuro;
+            valor.Font = new Font(
+                "Segoe UI", 23F, FontStyle.Bold);
+
+            valor.AutoEllipsis = true;
+
+            conteudo.Controls.Add(valor, 0, 1);
+
+            Label labelDescricao = new Label();
+
+            labelDescricao.Text = descricao;
+            labelDescricao.Dock = DockStyle.Fill;
+
+            labelDescricao.ForeColor = cinza;
+            labelDescricao.Font = new Font(
+                "Segoe UI", 8F);
+
+            labelDescricao.AutoEllipsis = true;
+
+            conteudo.Controls.Add(labelDescricao, 0, 2);
+
+            return card;
+        }
+
+
+        private void AbrirAtalhoInicio(Modulo modulo)
+        {
+            if (!PodeAcessar(modulo))
+            {
+                MessageBox.Show(
+                    this,
+                    "Seu usuário não possui acesso a este módulo.",
+                    "Acesso restrito",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+
+                return;
+            }
+
+            Form destino = CriarFormulario(modulo);
+
+            if (destino == null)
+                return;
+
+            // Verifica se já existe uma janela desse tipo.
+            foreach (Form aberto in MdiChildren)
+            {
+                if (aberto.GetType() == destino.GetType())
+                {
+                    destino.Dispose();
+
+                    if (aberto.WindowState ==
+                        FormWindowState.Minimized)
+                    {
+                        aberto.WindowState =
+                            FormWindowState.Normal;
+                    }
+
+                    aberto.Activate();
+                    aberto.BringToFront();
+
+                    return;
+                }
+            }
+
+            // Abre dentro do MDI principal.
+            destino.MdiParent = this;
+
+            destino.WindowState =
+                FormWindowState.Maximized;
+
+            destino.Show();
+            destino.Activate();
+        }
+
+
+
+
+
+        private void AdicionarAtalhoInicio(
             FlowLayoutPanel painel,
             Modulo modulo,
-            string titulo)
+            string titulo,
+            string descricao,
+            Image icone)
         {
+            // Não mostra módulos não autorizados.
             if (!PodeAcessar(modulo))
                 return;
 
-            Button botao = new Button();
+            Panel card = new Panel();
 
-            botao.Text = titulo + "\n\nAbrir módulo";
+            card.Size = new Size(235, 125);
 
-            botao.Size = new Size(210, 125);
+            card.BackColor = Color.White;
 
-            botao.Margin =
-                new Padding(0, 0, 14, 14);
+            card.Margin =
+                new Padding(0, 0, 12, 12);
 
-            botao.BackColor = Color.White;
+            card.BorderStyle =
+                BorderStyle.FixedSingle;
 
-            botao.ForeColor = texto;
 
-            botao.Font = new Font(
-                "Segoe UI", 12F, FontStyle.Bold);
 
-            botao.FlatStyle = FlatStyle.Flat;
+            card.Cursor = Cursors.Hand;
 
-            botao.FlatAppearance.BorderColor =
-                Color.FromArgb(226, 234, 230);
+            // ======================================
+            // ÁREA DO ÍCONE
+            // ======================================
 
-            botao.FlatAppearance.BorderSize = 1;
+            Panel fundoIcone = new Panel();
 
-            botao.Cursor = Cursors.Hand;
+            fundoIcone.BackColor =
+                Color.FromArgb(225, 248, 240);
 
-            botao.Click += (s, e) =>
+            fundoIcone.Size = new Size(52, 52);
+
+            fundoIcone.Location =
+                new Point(15, 18);
+
+            fundoIcone.Cursor = Cursors.Hand;
+
+            card.Controls.Add(fundoIcone);
+
+            PictureBox imagem = new PictureBox();
+
+            imagem.Image = icone;
+
+            imagem.SizeMode =
+                PictureBoxSizeMode.Zoom;
+
+            imagem.Size = new Size(32, 32);
+
+            imagem.Location =
+                new Point(10, 10);
+
+            imagem.BackColor =
+                Color.ForestGreen;
+
+            imagem.Cursor = Cursors.Hand;
+
+            fundoIcone.Controls.Add(imagem);
+
+            // ======================================
+            // TÍTULO DO ATALHO
+            // ======================================
+
+            Label lblTitulo = new Label();
+
+            lblTitulo.Text = titulo;
+
+            lblTitulo.Font = new Font(
+                "Segoe UI", 11F, FontStyle.Bold);
+
+            lblTitulo.ForeColor = texto;
+
+            lblTitulo.SetBounds(
+                78, 19, 145, 34);
+
+            lblTitulo.AutoEllipsis = true;
+
+            lblTitulo.Cursor = Cursors.Hand;
+
+            card.Controls.Add(lblTitulo);
+
+            // ======================================
+            // DESCRIÇÃO
+            // ======================================
+
+            Label lblDescricao = new Label();
+
+            lblDescricao.Text = descricao;
+
+            lblDescricao.Font =
+                new Font("Segoe UI", 8.5F);
+
+            lblDescricao.ForeColor = cinza;
+
+            lblDescricao.SetBounds(
+                78, 53, 145, 39);
+
+            lblDescricao.AutoEllipsis = true;
+
+            lblDescricao.Cursor = Cursors.Hand;
+
+            card.Controls.Add(lblDescricao);
+
+            // ======================================
+            // TEXTO INFERIOR
+            // ======================================
+
+            Label lblAcessar = new Label();
+
+            lblAcessar.Text = "ACESSAR MÓDULO";
+
+            lblAcessar.Font = new Font(
+                "Segoe UI", 8F, FontStyle.Bold);
+
+            lblAcessar.ForeColor = verdeEscuro;
+
+            lblAcessar.SetBounds(
+                15, 96, 200, 20);
+
+            lblAcessar.Cursor = Cursors.Hand;
+
+            card.Controls.Add(lblAcessar);
+
+            // ======================================
+            // NAVEGAÇÃO
+            // ======================================
+
+            EventHandler abrir = (s, e) =>
             {
-                AbrirModulo(modulo);
+                AbrirAtalhoInicio(modulo);
             };
 
-            painel.Controls.Add(botao);
+            card.Click += abrir;
+            fundoIcone.Click += abrir;
+            imagem.Click += abrir;
+
+            lblTitulo.Click += abrir;
+            lblDescricao.Click += abrir;
+            lblAcessar.Click += abrir;
+
+            // ======================================
+            // EFEITO HOVER
+            // ======================================
+
+            card.MouseEnter += (s, e) =>
+            {
+                card.BackColor =
+                    Color.FromArgb(244, 253, 248);
+            };
+
+            card.MouseLeave += (s, e) =>
+            {
+                card.BackColor = Color.White;
+            };
+
+            painel.Controls.Add(card);
         }
+
 
         // ======================================
         // TELA PROVISÓRIA
@@ -1235,11 +2192,19 @@ namespace DSProjectVet.Forms
                         "Entradas, saídas e movimentações";
                     break;
 
+                case Modulo.Relatorios:
+                    lblTitulo.Text = "Relatórios";
+                    lblSubtitulo.Text =
+                        "Indicadores e análises da clínica";
+                    break;
+
                 case Modulo.Perfil:
                     lblTitulo.Text = "Meu perfil";
                     lblSubtitulo.Text =
                         "Informações do usuário";
                     break;
+
+
             }
         }
 

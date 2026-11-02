@@ -128,6 +128,13 @@
       <DependentUpon>DataSet_ClinicaVet.xsd</DependentUpon>
     </Compile>
     <Compile Include="DesignerUtils.cs" />
+    <Compile Include="Forms\CLASSES\frmGerenciarUsuarios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CLASSES\frmRelatorios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SCREENS\FinanceiroSync.cs" />
     <Compile Include="Forms\SCREENS\frmAnimais.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -217,8 +224,14 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\SCREENS\ReceitaPdfService.cs" />
+    <Compile Include="Forms\SCREENS\SECONDARY SCREENS\frmFluxoFinanceiro.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Forms\CLASSES\frmGerenciarUsuarios.resx">
+      <DependentUpon>frmGerenciarUsuarios.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\SCREENS\frmAnimais.resx">
       <DependentUpon>frmAnimais.cs</DependentUpon>
     </EmbeddedResource>
@@ -266,6 +279,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Dados\DataSet_ClinicaVet.xsc">
       <DependentUpon>DataSet_ClinicaVet.xsd</DependentUpon>
@@ -292,8 +306,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Forms\SCREENS\SECONDARY SCREENS\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

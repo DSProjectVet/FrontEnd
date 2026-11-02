@@ -4415,7 +4415,6 @@ namespace DSProjectVet.Dados {
                 this.columnNivelAcesso.MaxLength = 1;
                 this.columnTelefone.AllowDBNull = false;
                 this.columnTelefone.MaxLength = 11;
-                this.columnCRMV.AllowDBNull = false;
                 this.columnCRMV.MaxLength = 10;
                 this.columnFuncionarios_TIPO.AllowDBNull = false;
                 this.columnFuncionarios_TIPO.MaxLength = 1;
@@ -6451,6 +6450,8 @@ namespace DSProjectVet.Dados {
             
             private global::System.Data.DataColumn columnERROR;
             
+            private global::System.Data.DataColumn columnID_Funcionario;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             public CadastroFuncionarioResultadoDataTable() {
@@ -6494,6 +6495,14 @@ namespace DSProjectVet.Dados {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public global::System.Data.DataColumn ID_FuncionarioColumn {
+                get {
+                    return this.columnID_Funcionario;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -6529,10 +6538,11 @@ namespace DSProjectVet.Dados {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
-            public CadastroFuncionarioResultadoRow AddCadastroFuncionarioResultadoRow(string ERROR) {
+            public CadastroFuncionarioResultadoRow AddCadastroFuncionarioResultadoRow(string ERROR, int ID_Funcionario) {
                 CadastroFuncionarioResultadoRow rowCadastroFuncionarioResultadoRow = ((CadastroFuncionarioResultadoRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
-                        ERROR};
+                        ERROR,
+                        ID_Funcionario};
                 rowCadastroFuncionarioResultadoRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowCadastroFuncionarioResultadoRow);
                 return rowCadastroFuncionarioResultadoRow;
@@ -6556,6 +6566,7 @@ namespace DSProjectVet.Dados {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             internal void InitVars() {
                 this.columnERROR = base.Columns["ERROR"];
+                this.columnID_Funcionario = base.Columns["ID_Funcionario"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6563,8 +6574,11 @@ namespace DSProjectVet.Dados {
             private void InitClass() {
                 this.columnERROR = new global::System.Data.DataColumn("ERROR", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnERROR);
+                this.columnID_Funcionario = new global::System.Data.DataColumn("ID_Funcionario", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnID_Funcionario);
                 this.columnERROR.ReadOnly = true;
                 this.columnERROR.MaxLength = 22;
+                this.columnID_Funcionario.ReadOnly = true;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7668,7 +7682,12 @@ namespace DSProjectVet.Dados {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             public string CRMV {
                 get {
-                    return ((string)(this[this.tableFuncionarios.CRMVColumn]));
+                    try {
+                        return ((string)(this[this.tableFuncionarios.CRMVColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("O valor da coluna \'CRMV\' na tabela \'Funcionarios\' é DBNull.", e);
+                    }
                 }
                 set {
                     this[this.tableFuncionarios.CRMVColumn] = value;
@@ -7695,6 +7714,18 @@ namespace DSProjectVet.Dados {
                 set {
                     this[this.tableFuncionarios.NomeColumn] = value;
                 }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsCRMVNull() {
+                return this.IsNull(this.tableFuncionarios.CRMVColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetCRMVNull() {
+                this[this.tableFuncionarios.CRMVColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -8255,6 +8286,23 @@ namespace DSProjectVet.Dados {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public int ID_Funcionario {
+                get {
+                    try {
+                        return ((int)(this[this.tableCadastroFuncionarioResultado.ID_FuncionarioColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("O valor da coluna \'ID_Funcionario\' na tabela \'CadastroFuncionarioResultado\' é DBN" +
+                                "ull.", e);
+                    }
+                }
+                set {
+                    this[this.tableCadastroFuncionarioResultado.ID_FuncionarioColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             public bool IsERRORNull() {
                 return this.IsNull(this.tableCadastroFuncionarioResultado.ERRORColumn);
             }
@@ -8263,6 +8311,18 @@ namespace DSProjectVet.Dados {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
             public void SetERRORNull() {
                 this[this.tableCadastroFuncionarioResultado.ERRORColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public bool IsID_FuncionarioNull() {
+                return this.IsNull(this.tableCadastroFuncionarioResultado.ID_FuncionarioColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "18.0.0.0")]
+            public void SetID_FuncionarioNull() {
+                this[this.tableCadastroFuncionarioResultado.ID_FuncionarioColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -12762,7 +12822,7 @@ SELECT ID_Funcionario, Login, SenhaHash, NivelAcesso, Telefone, CRMV, Funcionari
                 this.Adapter.DeleteCommand.Parameters[4].Value = ((string)(Original_Telefone));
             }
             if ((Original_CRMV == null)) {
-                throw new global::System.ArgumentNullException("Original_CRMV");
+                this.Adapter.DeleteCommand.Parameters[5].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.DeleteCommand.Parameters[5].Value = ((string)(Original_CRMV));
@@ -12825,7 +12885,7 @@ SELECT ID_Funcionario, Login, SenhaHash, NivelAcesso, Telefone, CRMV, Funcionari
                 this.Adapter.InsertCommand.Parameters[3].Value = ((string)(Telefone));
             }
             if ((CRMV == null)) {
-                throw new global::System.ArgumentNullException("CRMV");
+                this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.InsertCommand.Parameters[4].Value = ((string)(CRMV));
@@ -12904,7 +12964,7 @@ SELECT ID_Funcionario, Login, SenhaHash, NivelAcesso, Telefone, CRMV, Funcionari
                 this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(Telefone));
             }
             if ((CRMV == null)) {
-                throw new global::System.ArgumentNullException("CRMV");
+                this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[4].Value = ((string)(CRMV));
@@ -12947,7 +13007,7 @@ SELECT ID_Funcionario, Login, SenhaHash, NivelAcesso, Telefone, CRMV, Funcionari
                 this.Adapter.UpdateCommand.Parameters[11].Value = ((string)(Original_Telefone));
             }
             if ((Original_CRMV == null)) {
-                throw new global::System.ArgumentNullException("Original_CRMV");
+                this.Adapter.UpdateCommand.Parameters[12].Value = global::System.DBNull.Value;
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[12].Value = ((string)(Original_CRMV));
@@ -15269,6 +15329,7 @@ SELECT ID_Servico, Tipo, Descricao, Preco FROM Servicos WHERE (ID_Servico = @ID_
             tableMapping.SourceTable = "Table";
             tableMapping.DataSetTable = "CadastroFuncionarioResultado";
             tableMapping.ColumnMappings.Add("ERROR", "ERROR");
+            tableMapping.ColumnMappings.Add("ID_Funcionario", "ID_Funcionario");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;

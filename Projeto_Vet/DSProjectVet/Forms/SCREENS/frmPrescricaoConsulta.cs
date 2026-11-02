@@ -17,6 +17,14 @@ namespace DSProjectVet.Forms.SCREENS
 
         private readonly int idConsulta;
 
+        private class EstoqueIndisponivelException : Exception
+        {
+            public EstoqueIndisponivelException(string mensagem)
+                : base(mensagem)
+            {
+            }
+        }
+
         // ======================================
         // CORES MED VET
         // ======================================
@@ -419,8 +427,10 @@ namespace DSProjectVet.Forms.SCREENS
             TableLayoutPanel campos = new TableLayoutPanel
             {
                 Dock = DockStyle.Top,
-                AutoSize = true,
-                AutoSizeMode = AutoSizeMode.GrowAndShrink,
+                // Altura explícita para a rolagem funcionar e
+                // impedir que os campos internos fiquem ocultos.
+                AutoSize = false,
+                Height = 475,
                 ColumnCount = 1,
                 RowCount = 5,
                 BackColor = Color.White,
@@ -506,12 +516,20 @@ namespace DSProjectVet.Forms.SCREENS
             linhaDosagem.ColumnStyles.Add(
                 new ColumnStyle(SizeType.Percent, 65F));
 
+
             numQuantidade = new NumericUpDown
             {
                 Minimum = 1,
                 Maximum = 1000000,
                 Value = 1,
                 ThousandsSeparator = true
+            };
+
+            // O evento deve ser adicionado
+            // DEPOIS que o controle for criado.
+            numQuantidade.ValueChanged += (s, e) =>
+            {
+                MostrarEstoque();
             };
 
             txtDosagem = new TextBox();
@@ -526,6 +544,8 @@ namespace DSProjectVet.Forms.SCREENS
                     "Dosagem *", txtDosagem),
                 1, 0);
 
+            // Adicionar UMA ÚNICA VEZ: duplicar este bloco
+            // substituía o controle de dosagem e ocultava a linha.
             campos.Controls.Add(linhaDosagem, 0, 2);
 
             // ==========================================
@@ -941,6 +961,13 @@ namespace DSProjectVet.Forms.SCREENS
             grade.DefaultCellStyle.Font =
                 new Font("Segoe UI", 9F);
 
+            // Texto normal visível, inclusive sem seleção.
+            grade.DefaultCellStyle.BackColor = Color.White;
+            grade.DefaultCellStyle.ForeColor = texto;
+            grade.AlternatingRowsDefaultCellStyle.BackColor =
+                Color.FromArgb(248, 252, 250);
+            grade.AlternatingRowsDefaultCellStyle.ForeColor = texto;
+
             grade.DefaultCellStyle.SelectionBackColor =
                 Color.FromArgb(225, 248, 240);
 
@@ -1302,36 +1329,155 @@ namespace DSProjectVet.Forms.SCREENS
             MostrarEstoque();
         }
 
+
         private void MostrarEstoque()
         {
+
             if (cmbMedicamento == null ||
-                lblEstoque == null)
+                numQuantidade == null ||
+                lblEstoque == null ||
+                btnSalvar == null)
+            {
                 return;
+            }
 
             DataRowView medicamento =
-                cmbMedicamento.SelectedItem
-                as DataRowView;
+                cmbMedicamento.SelectedItem as DataRowView;
 
+            // Nenhum medicamento selecionado
             if (medicamento == null)
             {
                 lblEstoque.Text =
                     "Selecione um medicamento.";
 
+                lblEstoque.ForeColor = Color.Gray;
+                lblEstoque.BackColor =
+                    Color.FromArgb(245, 245, 245);
+
+                btnSalvar.Enabled = false;
                 return;
             }
+
+            int idMedicamento =
+                Convert.ToInt32(
+                    medicamento["ID_Medicamento"]);
 
             int disponivel =
                 Convert.ToInt32(
                     medicamento["Disponivel"]);
 
+            int quantidadeSolicitada =
+                Decimal.ToInt32(numQuantidade.Value);
+
+            // Na edição, só precisamos de estoque
+            // para a quantidade ADICIONAL.
+            int quantidadeParaRetirar = quantidadeSolicitada;
+
+            if (idEditando.HasValue &&
+                medicamentoAnterior == idMedicamento)
+            {
+                quantidadeParaRetirar = Math.Max(
+                    0,
+                    quantidadeSolicitada - quantidadeAnterior
+                );
+            }
+
+            // ======================================
+            // MEDICAMENTO ESGOTADO
+            // ======================================
+
+            if (disponivel <= 0 && quantidadeParaRetirar > 0)
+            {
+                lblEstoque.Text =
+                    "SEM ESTOQUE! Escolha outro medicamento.";
+
+                lblEstoque.ForeColor =
+                    Color.FromArgb(190, 35, 45);
+
+                lblEstoque.BackColor =
+                    Color.FromArgb(255, 235, 238);
+
+                btnSalvar.Enabled = false;
+                return;
+            }
+
+            // ======================================
+            // QUANTIDADE INSUFICIENTE
+            // ======================================
+
+            if (quantidadeParaRetirar > disponivel)
+            {
+                lblEstoque.Text =
+                    "ESTOQUE INSUFICIENTE! Disponível: " +
+                    disponivel + " unidade(s). " +
+                    "Necessário retirar: " +
+                    quantidadeParaRetirar + ".";
+
+                lblEstoque.ForeColor =
+                    Color.FromArgb(190, 35, 45);
+
+                lblEstoque.BackColor =
+                    Color.FromArgb(255, 235, 238);
+
+                btnSalvar.Enabled = false;
+                return;
+            }
+
+            // ======================================
+            // ESTOQUE SUFICIENTE
+            // ======================================
+
             lblEstoque.Text =
                 "Estoque disponível: " +
                 disponivel + " unidade(s).";
+
+            lblEstoque.ForeColor =
+                Color.FromArgb(14, 145, 104);
+
+            lblEstoque.BackColor =
+                Color.FromArgb(225, 248, 240);
+
+            // Não habilitar salvar se a consulta aos limites
+            // das colunas SQL falhou.
+            btnSalvar.Enabled = !ocupado && limitesCarregados;
         }
+
 
         // ======================================
         // VALIDAÇÃO
         // ======================================
+
+        // Reconsulta somente o medicamento selecionado depois
+        // de uma concorrência de estoque, sem perder o formulário.
+        private async Task AtualizarEstoqueSelecionadoAsync()
+        {
+            DataRowView item = cmbMedicamento.SelectedItem as DataRowView;
+            if (item == null)
+                return;
+
+            int medicamentoId = Convert.ToInt32(item["ID_Medicamento"]);
+
+            int disponivel = await Task.Run(() =>
+            {
+                using (SqlConnection conexao =
+                    new SqlConnection(ObterConnectionString()))
+                using (SqlCommand comando = new SqlCommand(@"
+                    SELECT ISNULL(MIN(Quantidade), 0)
+                    FROM dbo.Estoque_Medicamento
+                    WHERE fk_Medicamentos_ID_Medicamento = @Id;",
+                    conexao))
+                {
+                    comando.Parameters.Add("@Id", SqlDbType.Int).Value = medicamentoId;
+                    conexao.Open();
+                    return Convert.ToInt32(comando.ExecuteScalar());
+                }
+            });
+
+            // A edição dos dados vinculados é feita na UI thread,
+            // após o await.
+            item["Disponivel"] = disponivel;
+            MostrarEstoque();
+        }
 
         private DadosPrescricao CapturarDados()
         {
@@ -1427,6 +1573,36 @@ namespace DSProjectVet.Forms.SCREENS
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
             }
+
+            catch (EstoqueIndisponivelException ex)
+            {
+                MessageBox.Show(
+                    this,
+                    ex.Message,
+                    "Estoque indisponível",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+
+                // Atualiza somente a disponibilidade.
+                // Preserva dosagem, frequência e duração digitadas.
+                try
+                {
+                    await AtualizarEstoqueSelecionadoAsync();
+                }
+                catch (Exception erroAtualizacao)
+                {
+                    MessageBox.Show(
+                        this,
+                        "Não foi possível atualizar o estoque: " +
+                        erroAtualizacao.Message,
+                        "Med Vet",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+                }
+            }
+
+
             catch (Exception ex)
             {
                 MessageBox.Show(
@@ -1440,10 +1616,12 @@ namespace DSProjectVet.Forms.SCREENS
             finally
             {
                 ocupado = false;
-                btnSalvar.Enabled = true;
+
                 btnNovo.Enabled = true;
-                btnExcluir.Enabled =
-                    idEditando.HasValue;
+                btnExcluir.Enabled = idEditando.HasValue;
+
+                // Reavalia o estoque antes de liberar o botão.
+                MostrarEstoque();
             }
         }
 
@@ -1509,11 +1687,12 @@ namespace DSProjectVet.Forms.SCREENS
             finally
             {
                 ocupado = false;
-                btnSalvar.Enabled = true;
                 btnNovo.Enabled = true;
 
                 btnExcluir.Enabled =
                     idEditando.HasValue;
+
+                MostrarEstoque();
             }
         }
 
@@ -1611,14 +1790,83 @@ namespace DSProjectVet.Forms.SCREENS
                 int linhas =
                     cmd.ExecuteNonQuery();
 
+
                 if (linhas != 1)
                 {
+                    if (delta > 0)
+                    {
+                        string sqlVerificar = @"
+
+                        SELECT
+                            COUNT(*) AS Registros,
+                            ISNULL(MAX(Quantidade), 0) AS Disponivel
+                        FROM dbo.Estoque_Medicamento
+                        WHERE fk_Medicamentos_ID_Medicamento =
+                              @Medicamento;";
+
+                        using (SqlCommand verificar =
+                            new SqlCommand(
+                                sqlVerificar, conexao, transacao))
+                        {
+                            verificar.Parameters.Add(
+                                "@Medicamento",
+                                SqlDbType.Int).Value = idMedicamento;
+
+                            using (SqlDataReader leitor =
+                                verificar.ExecuteReader())
+                            {
+                                leitor.Read();
+
+                                int registros =
+                                    Convert.ToInt32(leitor["Registros"]);
+
+                                int disponivel =
+                                    Convert.ToInt32(leitor["Disponivel"]);
+
+                                if (registros == 0)
+                                {
+                                    throw new EstoqueIndisponivelException(
+                                        "Este medicamento não possui " +
+                                        "registro de estoque.\n\n" +
+                                        "Selecione outro medicamento.");
+                                }
+
+                                if (registros > 1)
+                                {
+                                    throw new Exception(
+                                        "Existem registros duplicados " +
+                                        "de estoque para o medicamento #" +
+                                        idMedicamento + ".");
+                                }
+
+                                if (disponivel == 0)
+                                {
+                                    throw new EstoqueIndisponivelException(
+                                        "Este medicamento está ESGOTADO!\n\n" +
+                                        "Não existem unidades disponíveis.\n\n" +
+                                        "Selecione outro medicamento.");
+                                }
+
+                                if (disponivel < delta)
+                                {
+                                    throw new EstoqueIndisponivelException(
+                                        "Estoque insuficiente!\n\n" +
+                                        "Disponível: " + disponivel +
+                                        " unidade(s).\n" +
+                                        "Solicitado: " + delta +
+                                        " unidade(s).\n\n" +
+                                        "Selecione outro medicamento " +
+                                        "ou reduza a quantidade.");
+                                }
+                            }
+                        }
+                    }
+
                     throw new Exception(
-                        "Estoque insuficiente, " +
-                        "inexistente ou duplicado " +
-                        "para o medicamento #" +
-                        idMedicamento + ".");
+                        "Não foi possível atualizar o estoque " +
+                        "do medicamento #" + idMedicamento + ".");
                 }
+
             }
         }
 
@@ -1837,6 +2085,11 @@ namespace DSProjectVet.Forms.SCREENS
                             idRetorno = dados.Id.Value;
                         }
 
+                        FinanceiroSync.Sincronizar(
+                            conexao,
+                            transacao,
+                            idConsulta);
+
                         transacao.Commit();
 
                         return idRetorno;
@@ -1954,6 +2207,11 @@ namespace DSProjectVet.Forms.SCREENS
                             idMedicamento,
                             -quantidade);
 
+                        FinanceiroSync.Sincronizar(
+                            conexao,
+                            transacao,
+                            idConsulta);
+
                         transacao.Commit();
                     }
                     catch
@@ -2035,6 +2293,7 @@ namespace DSProjectVet.Forms.SCREENS
             AplicarLimite(txtObservacoes, "Observacoes", limites);
 
             limitesCarregados = true;
+            MostrarEstoque();
         }
 
         private void AplicarLimite(

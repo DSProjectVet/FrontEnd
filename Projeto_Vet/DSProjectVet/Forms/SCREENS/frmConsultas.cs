@@ -432,16 +432,12 @@ namespace DSProjectVet.Forms.SCREENS
                     return;
                 }
 
-                // Abre diretamente a aba Serviços.
                 using (frmReceitaConsulta tela =
-                    new frmReceitaConsulta(
-                        consulta.Id,
-                        true))
+                    new frmReceitaConsulta(consulta.Id, true))
                 {
                     tela.ShowDialog(this);
                 }
 
-                // Atualiza os serviços da consulta.
                 idSelecionado = null;
 
                 await SelecionarConsultaAsync();
@@ -479,35 +475,7 @@ namespace DSProjectVet.Forms.SCREENS
                 await SelecionarConsultaAsync();
             };
 
-            btnReceita.Click += async (s, e) =>
-            {
-                ConsultaDados consulta =
-                    ObterConsultaSelecionada();
 
-                if (consulta == null)
-                {
-                    MessageBox.Show(
-                        this,
-                        "Selecione uma consulta primeiro.",
-                        "Med Vet",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information);
-
-                    return;
-                }
-
-                using (frmReceitaConsulta receita =
-                    new frmReceitaConsulta(consulta.Id))
-                {
-                    receita.ShowDialog(this);
-                }
-
-                // Atualiza as informações de serviços
-                // depois que a janela for fechada.
-                idSelecionado = null;
-
-                await SelecionarConsultaAsync();
-            };
 
         }
 
@@ -1122,15 +1090,25 @@ namespace DSProjectVet.Forms.SCREENS
                     ORDER BY Exibicao;
                 ";
 
+
                 string sqlFuncionarios = @"
                     SELECT
                         ID_Funcionario,
+                        Nome,
+                        CRMV,
                         CAST(ID_Funcionario AS VARCHAR(15)) +
-                        ' - ' + ISNULL(Nome, '')
-                            AS Exibicao
+                        ' - ' + ISNULL(Nome, '') +
+                        CASE
+                            WHEN CRMV IS NOT NULL
+                                 AND LTRIM(RTRIM(CRMV)) <> ''
+                            THEN ' | CRMV: ' + CRMV
+                            ELSE ''
+                        END AS Exibicao
                     FROM dbo.Funcionarios
-                    ORDER BY Exibicao;
+                    WHERE NivelAcesso = '3'
+                    ORDER BY Nome;
                 ";
+                
 
                 DataTable animais = await Task.Run(
                     () => ExecutarTabela(sqlAnimais));
@@ -1288,28 +1266,35 @@ namespace DSProjectVet.Forms.SCREENS
         // EXCLUIR CONSULTA
         // ==========================================
 
+        // Vínculos são uma condição esperada, não um erro fatal.
+        private enum ResultadoExclusao
+        {
+            Excluida,
+            PossuiVinculos,
+            NaoEncontrada
+        }
+
         private async Task ExcluirConsultaAsync()
         {
-            ConsultaDados c = ObterConsultaSelecionada();
+            ConsultaDados consulta = ObterConsultaSelecionada();
 
-            if (c == null)
+            if (consulta == null)
             {
                 MessageBox.Show(
-                    this, "Selecione uma consulta.",
+                    this,
+                    "Selecione uma consulta para excluir.",
                     "Med Vet",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
-
                 return;
             }
 
             DialogResult confirmar = MessageBox.Show(
                 this,
-                "Excluir a consulta #" + c.Id + "?\n\n" +
-                "Animal: " + c.NomeAnimal + "\n" +
-                "Data: " +
-                c.DataHora.ToString("dd/MM/yyyy HH:mm") +
-                "\n\nEssa ação não poderá ser desfeita.",
+                "Deseja excluir a consulta #" + consulta.Id + "?\n\n" +
+                "Animal: " + consulta.NomeAnimal + "\n" +
+                "Data: " + consulta.DataHora.ToString("dd/MM/yyyy HH:mm") +
+                "\n\nA exclusão não poderá ser desfeita.",
                 "Confirmar exclusão",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Warning,
@@ -1320,8 +1305,42 @@ namespace DSProjectVet.Forms.SCREENS
 
             try
             {
-                await Task.Run(
-                    () => ExcluirConsultaNoBanco(c.Id));
+                lblRodape.Text = "Verificando vínculos da consulta...";
+
+                ResultadoExclusao resultado = await Task.Run(
+                    () => ExcluirConsultaNoBanco(consulta.Id));
+
+                if (resultado == ResultadoExclusao.PossuiVinculos)
+                {
+                    MessageBox.Show(
+                        this,
+                        "A consulta #" + consulta.Id +
+                        " possui registros vinculados, como serviços, " +
+                        "produtos, prescrições ou movimentações financeiras.\n\n" +
+                        "Por segurança, ela NÃO foi excluída. " +
+                        "Seus registros permanecem intactos.",
+                        "Exclusão não permitida",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+
+                    lblRodape.Text =
+                        "Exclusão bloqueada: consulta possui vínculos.";
+                    return;
+                }
+
+                if (resultado == ResultadoExclusao.NaoEncontrada)
+                {
+                    MessageBox.Show(
+                        this,
+                        "Esta consulta não foi encontrada no banco. " +
+                        "Ela pode ter sido removida por outro funcionário.",
+                        "Consulta não encontrada",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
+
+                    await CarregarConsultasAsync();
+                    return;
+                }
 
                 MessageBox.Show(
                     this,
@@ -1334,28 +1353,46 @@ namespace DSProjectVet.Forms.SCREENS
             }
             catch (SqlException ex)
             {
-                string mensagem = ex.Number == 547
-                    ? "A consulta possui registros vinculados " +
-                      "e não pode ser excluída."
-                    : ex.Message;
+                // Uma FK de outra tabela não prevista na verificação
+                // também pode impedir a exclusão. Tratar sem encerrar a tela.
+                if (ex.Number == 547)
+                {
+                    MessageBox.Show(
+                        this,
+                        "A consulta possui registros vinculados " +
+                        "e não pode ser excluída.\n\n" +
+                        "Nenhum registro foi apagado.",
+                        "Exclusão não permitida",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+                    lblRodape.Text =
+                        "Exclusão bloqueada por vínculo no banco.";
+                    return;
+                }
 
                 MessageBox.Show(
-                    this, mensagem,
-                    "Não foi possível excluir",
+                    this,
+                    "Não foi possível excluir a consulta.\n\n" +
+                    ex.Message,
+                    "Erro no SQL Server",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
+                lblRodape.Text = "Falha ao excluir consulta.";
             }
             catch (Exception ex)
             {
                 MessageBox.Show(
-                    this, ex.Message,
-                    "Não foi possível excluir",
+                    this,
+                    "Não foi possível excluir a consulta.\n\n" +
+                    ex.Message,
+                    "Med Vet",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error);
+                lblRodape.Text = "Falha ao excluir consulta.";
             }
         }
 
-        private void ExcluirConsultaNoBanco(int id)
+        private ResultadoExclusao ExcluirConsultaNoBanco(int id)
         {
             using (SqlConnection conexao =
                 new SqlConnection(ObterConnectionString()))
@@ -1363,86 +1400,114 @@ namespace DSProjectVet.Forms.SCREENS
                 conexao.Open();
 
                 using (SqlTransaction transacao =
-                    conexao.BeginTransaction(
-                        IsolationLevel.Serializable))
+                    conexao.BeginTransaction(IsolationLevel.Serializable))
                 {
                     try
                     {
-                        // Impede remover atendimentos
-                        // que já possuem serviços ou
-                        // produtos associados.
-                        string sqlVinculos = @"
-                            SELECT
-                                CASE WHEN
-                                    EXISTS
-                                    (
-                                        SELECT 1
-                                        FROM dbo.Consulta_Servico
-                                        WHERE
-                                          fk_Consultas_ID_Consulta = @ID
-                                    )
-                                    OR EXISTS
-                                    (
-                                        SELECT 1
-                                        FROM dbo.Consulta_Produto
-                                        WHERE
-                                          fk_Consultas_ID_Consulta = @ID
-                                    )
-                                THEN 1 ELSE 0 END;
-                        ";
-
-                        using (SqlCommand verificar =
-                            new SqlCommand(
-                                sqlVinculos,
-                                conexao,
-                                transacao))
+                        // Bloqueia a consulta durante a checagem e exclusão,
+                        // evitando alterações concorrentes entre as etapas.
+                        using (SqlCommand localizar = new SqlCommand(
+                            @"SELECT ID_Consulta
+                              FROM dbo.Consultas WITH (UPDLOCK, HOLDLOCK)
+                              WHERE ID_Consulta = @ID;",
+                            conexao, transacao))
                         {
-                            verificar.Parameters.Add(
-                                "@ID", SqlDbType.Int)
-                                .Value = id;
+                            localizar.Parameters.Add(
+                                "@ID", SqlDbType.Int).Value = id;
 
-                            int possuiVinculos =
-                                Convert.ToInt32(
-                                    verificar.ExecuteScalar());
-
-                            if (possuiVinculos != 0)
+                            if (localizar.ExecuteScalar() == null)
                             {
-                                throw new Exception(
-                                    "Esta consulta possui serviços " +
-                                    "ou produtos associados. " +
-                                    "Por segurança, a exclusão " +
-                                    "foi bloqueada.");
+                                transacao.Rollback();
+                                return ResultadoExclusao.NaoEncontrada;
                             }
                         }
 
-                        using (SqlCommand excluir =
-                            new SqlCommand(
-                                @"DELETE FROM dbo.Consultas
-                                  WHERE ID_Consulta = @ID;",
-                                conexao,
-                                transacao))
+                        // Identifica TODOS os registros vinculados por meio da
+                        // coluna fk_Consultas_ID_Consulta. Isso inclui serviços,
+                        // produtos, prescrições, movimentações financeiras e
+                        // futuras tabelas que utilizem esse mesmo vínculo.
+                        // Os nomes são obtidos do catálogo do SQL Server e
+                        // protegidos por QUOTENAME (não vêm de texto do usuário).
+                        const string sqlTabelasVinculadas = @"
+                            SELECT
+                                QUOTENAME(s.name) + '.' + QUOTENAME(t.name)
+                                    AS NomeTabela
+                            FROM sys.tables AS t
+                            INNER JOIN sys.schemas AS s
+                                ON s.schema_id = t.schema_id
+                            INNER JOIN sys.columns AS c
+                                ON c.object_id = t.object_id
+                            WHERE c.name = N'fk_Consultas_ID_Consulta'
+                              AND t.object_id <> OBJECT_ID(N'dbo.Consultas');";
+
+                        DataTable tabelasVinculadas = new DataTable();
+
+                        using (SqlCommand descobrir = new SqlCommand(
+                            sqlTabelasVinculadas, conexao, transacao))
+                        using (SqlDataAdapter adaptador =
+                            new SqlDataAdapter(descobrir))
+                        {
+                            adaptador.Fill(tabelasVinculadas);
+                        }
+
+                        foreach (DataRow tabela in tabelasVinculadas.Rows)
+                        {
+                            string nomeTabela = Convert.ToString(
+                                tabela["NomeTabela"]);
+
+                            string sqlVerificar =
+                                "SELECT TOP (1) 1 FROM " + nomeTabela +
+                                " WITH (HOLDLOCK) " +
+                                "WHERE [fk_Consultas_ID_Consulta] = @ID;";
+
+                            using (SqlCommand verificar = new SqlCommand(
+                                sqlVerificar, conexao, transacao))
+                            {
+                                verificar.Parameters.Add(
+                                    "@ID", SqlDbType.Int).Value = id;
+
+                                if (verificar.ExecuteScalar() != null)
+                                {
+                                    transacao.Rollback();
+                                    return ResultadoExclusao.PossuiVinculos;
+                                }
+                            }
+                        }
+
+                        using (SqlCommand excluir = new SqlCommand(
+                            @"DELETE FROM dbo.Consultas
+                              WHERE ID_Consulta = @ID;",
+                            conexao, transacao))
                         {
                             excluir.Parameters.Add(
-                                "@ID", SqlDbType.Int)
-                                .Value = id;
+                                "@ID", SqlDbType.Int).Value = id;
 
                             if (excluir.ExecuteNonQuery() != 1)
                             {
-                                throw new Exception(
-                                    "Consulta não encontrada.");
+                                transacao.Rollback();
+                                return ResultadoExclusao.NaoEncontrada;
                             }
                         }
 
                         transacao.Commit();
+                        return ResultadoExclusao.Excluida;
+                    }
+                    catch (SqlException ex)
+                    {
+                        try { transacao.Rollback(); }
+                        catch { }
+
+                        // Outros relacionamentos do banco, por exemplo
+                        // movimentações financeiras, também ficam protegidos.
+                        if (ex.Number == 547)
+                            return ResultadoExclusao.PossuiVinculos;
+
+                        throw;
                     }
                     catch
                     {
-                        try
-                        {
-                            transacao.Rollback();
-                        }
+                        try { transacao.Rollback(); }
                         catch { }
-
                         throw;
                     }
                 }
@@ -1814,18 +1879,36 @@ namespace DSProjectVet.Forms.SCREENS
                 cmbFuncionario.DropDownStyle =
                     ComboBoxStyle.DropDownList;
 
-                cmbFuncionario.DisplayMember = "Exibicao";
-                cmbFuncionario.ValueMember =
-                    "ID_Funcionario";
 
-                cmbFuncionario.DataSource =
-                    funcionariosTabela;
+                // ==========================================
+                // VETERINÁRIO RESPONSÁVEL
+                // ==========================================
+
+                cmbFuncionario = new ComboBox();
+
+                cmbFuncionario.DropDownStyle =
+                    ComboBoxStyle.DropDownList;
+
+                cmbFuncionario.Font =
+                    new Font("Segoe UI", 10F);
+
+                // Exibe nome e CRMV do veterinário
+                cmbFuncionario.DisplayMember = "Exibicao";
+
+                // Armazena o ID real do funcionário
+                cmbFuncionario.ValueMember = "ID_Funcionario";
+
+                // A tabela já foi filtrada no SQL
+                cmbFuncionario.DataSource = funcionariosTabela;
 
                 cmbFuncionario.SelectedIndex = -1;
 
                 AdicionarCampo(
-                    layout, "Funcionário responsável *",
-                    cmbFuncionario, 2);
+                    layout,
+                    "Veterinário responsável *",
+                    cmbFuncionario,
+                    2);
+
 
                 // DATA E HORA
                 dtData = new DateTimePicker();
